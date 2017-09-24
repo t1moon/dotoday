@@ -54,7 +54,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
 
         public TaskHolder(View v) {
             super(v);
-            title = (TextView) v.findViewById(R.id.secondLine);
+            title = (TextView) v.findViewById(R.id.firstLine);
             v.setOnClickListener(this);
         }
 
@@ -70,7 +70,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
             args.putLong("taskId", taskList.get(getAdapterPosition()).getId());
             TaskDetailFragment fragment = new TaskDetailFragment();
             fragment.setArguments(args);
-            ActivityUtils.addFragment(((AppCompatActivity)context).getSupportFragmentManager(), fragment);
+            Log.d("stack", ((TasksActivity)v.getContext()).getSupportFragmentManager().getFragments().toString());
+            ActivityUtils.addFragment(((TasksActivity)v.getContext()).getSupportFragmentManager(), fragment);
         }
     }
 

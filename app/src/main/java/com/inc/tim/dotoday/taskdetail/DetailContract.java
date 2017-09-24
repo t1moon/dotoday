@@ -14,13 +14,14 @@ public interface DetailContract {
     /* UI communication. It's what activity or fragment will implement */
     interface View {
         void showTask(Task task);
-
+        void notifyEdited();
     }
 
     /* User actions */
     interface Presenter {
         void loadTask(long id);
-        void saveTask(Task task);
+        void editTask(Task editedTask, long id);
+
     }
 
     /* Work with data */

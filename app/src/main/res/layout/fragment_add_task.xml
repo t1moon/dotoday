@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     tools:context="com.inc.tim.dotoday.tasks.TaskFragment">
 
-
  <EditText
      android:id="@+id/add_task_title_et"
      android:layout_width="match_parent"

@@ -3,9 +3,11 @@ package com.inc.tim.dotoday.tasks;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.inc.tim.dotoday.R;
+import com.inc.tim.dotoday.addtask.AddTaskFragment;
 import com.inc.tim.dotoday.data.Task;
+import com.inc.tim.dotoday.util.ActivityUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +64,16 @@ public class TaskFragment extends Fragment implements TasksContract.View {
         adapter = new RecyclerAdapter(taskList);
         recyclerView.setAdapter(adapter);
         recyclerView.setAdapter(adapter);
+
+
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActivityUtils.addFragment(getActivity().getSupportFragmentManager(), new AddTaskFragment());
+            }
+        });
+
         return view;
     }
 

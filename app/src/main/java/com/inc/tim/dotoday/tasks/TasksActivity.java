@@ -27,16 +27,7 @@ public class TasksActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.activity_base_content, new AddTaskFragment())
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -48,7 +39,6 @@ public class TasksActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         ActivityUtils.replaceFragment(getSupportFragmentManager(),new TaskFragment());
-
     }
 
     @Override

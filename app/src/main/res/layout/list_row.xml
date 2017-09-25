@@ -6,6 +6,7 @@
     android:layout_marginBottom="1dp"
     android:gravity="center"
     android:orientation="horizontal"
+    android:background="#fff"
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
@@ -14,7 +15,7 @@
         android:layout_marginLeft="16dp"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:src="@drawable/ic_menu_gallery"/>
+        android:src="@drawable/ic_av_timer_24dp"/>
 
 
     <RelativeLayout
@@ -48,4 +49,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </RelativeLayout>
+
 </LinearLayout>

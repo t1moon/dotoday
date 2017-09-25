@@ -22,6 +22,7 @@ import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.addtask.AddTaskFragment;
 import com.inc.tim.dotoday.data.Task;
 import com.inc.tim.dotoday.util.ActivityUtils;
+import com.inc.tim.dotoday.util.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +64,7 @@ public class TaskFragment extends Fragment implements TasksContract.View {
 
         adapter = new RecyclerAdapter(taskList);
         recyclerView.setAdapter(adapter);
-        recyclerView.setAdapter(adapter);
-
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
 
         FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

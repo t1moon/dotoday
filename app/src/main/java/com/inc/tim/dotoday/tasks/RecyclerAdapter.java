@@ -33,7 +33,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
     @Override
     public RecyclerAdapter.TaskHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_row, parent, false);
+                .inflate(R.layout.list_row_v2, parent, false);
         return new TaskHolder(inflatedView);
     }
 

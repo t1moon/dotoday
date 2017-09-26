@@ -64,8 +64,6 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
                 presenter.editTask(task, taskId);
             }
         });
-        setHasOptionsMenu(true);
-
         return view;
     }
 

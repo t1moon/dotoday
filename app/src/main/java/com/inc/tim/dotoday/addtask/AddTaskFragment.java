@@ -32,8 +32,6 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new AddTaskPresenter(this, getActivity().getApplicationContext());
-        ((TasksActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
-
     }
 
 
@@ -55,8 +53,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
                 presenter.saveTask(task);
             }
         });
-        displayHomeAsUpEnabled();
-        setHasOptionsMenu(true);
+        changeToolbar();
         return view;
     }
 
@@ -77,11 +74,11 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        displayHomeAsUpUnabled();
+        unchangeToolbar();
         // TODO: Hide keyboard
     }
 
-    private void displayHomeAsUpEnabled() {
+    private void changeToolbar() {
         ((TasksActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_24dp);
         ((TasksActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -89,7 +86,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
             appBarLayout.setElevation(0);
         }
     }
-    private void displayHomeAsUpUnabled() {
+    private void unchangeToolbar() {
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             appBarLayout.setElevation(8);
         }

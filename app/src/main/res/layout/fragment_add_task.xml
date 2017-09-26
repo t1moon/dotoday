@@ -4,30 +4,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.design.widget.CollapsingToolbarLayout
-        android:id="@+id/collapsing_tool_bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:elevation="0dp"
-        app:expandedTitleTextAppearance="@style/Widget.AppCompat.ActionBar.TabText"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:statusBarScrim="?attr/colorAccent">
-
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_1"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:layout_collapseMode="none"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.CollapsingToolbarLayout>
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_2"
         android:layout_width="match_parent"

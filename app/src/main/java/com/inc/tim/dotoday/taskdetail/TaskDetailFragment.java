@@ -64,6 +64,7 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
                 presenter.editTask(task, taskId);
             }
         });
+        setHasOptionsMenu(true);
 
         return view;
     }
@@ -86,6 +87,7 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
             Snackbar.make(getView(), "Task edited", Snackbar.LENGTH_SHORT).show();
         }
         ActivityUtils.popFragment(getActivity().getSupportFragmentManager());
-
     }
+
+
 }

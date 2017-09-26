@@ -2,32 +2,23 @@ package com.inc.tim.dotoday.addtask;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
-
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.data.Task;
-import com.inc.tim.dotoday.tasks.TaskFragment;
 import com.inc.tim.dotoday.tasks.TasksActivity;
-import com.inc.tim.dotoday.tasks.TasksContract;
-import com.inc.tim.dotoday.tasks.TasksPresenter;
 import com.inc.tim.dotoday.util.ActivityUtils;
 
-import java.util.List;
 
 public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     private AddTaskContract.Presenter presenter;
-    CoordinatorLayout.LayoutParams lp;
+    AppBarLayout appBarLayout;
     FloatingActionButton fab;
 
     public AddTaskFragment() {
@@ -41,6 +32,8 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new AddTaskPresenter(this, getActivity().getApplicationContext());
+        ((TasksActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+
     }
 
 
@@ -51,12 +44,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         final View view = inflater.inflate(R.layout.fragment_add_task, container, false);
 
         fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-
-        lp = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
-        lp.setAnchorId(R.id.toolbar_2);
-        lp.anchorGravity = Gravity.BOTTOM | Gravity.RIGHT | Gravity.END;
-        fab.setLayoutParams(lp);
-
+        appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appbar_layout);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,9 +55,8 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
                 presenter.saveTask(task);
             }
         });
-        /* Hide my action bar */
-        ((TasksActivity) getActivity()).getSupportActionBar().hide();
-
+        displayHomeAsUpEnabled();
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -85,20 +72,28 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
             Snackbar.make(getView(), "Task created", Snackbar.LENGTH_SHORT).show();
         }
         ActivityUtils.popFragment(getActivity().getSupportFragmentManager());
-
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-         /* Show again */
-        ((TasksActivity) getActivity()).getSupportActionBar().show();
-
-        lp.setAnchorId(R.id.activity_base_content);
-        lp.anchorGravity = Gravity.BOTTOM | Gravity.END;
-        fab.setLayoutParams(lp);
-
-
+        displayHomeAsUpUnabled();
         // TODO: Hide keyboard
     }
+
+    private void displayHomeAsUpEnabled() {
+        ((TasksActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_24dp);
+        ((TasksActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            appBarLayout.setElevation(0);
+        }
+    }
+    private void displayHomeAsUpUnabled() {
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            appBarLayout.setElevation(8);
+        }
+        ((TasksActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
+    }
+
 }

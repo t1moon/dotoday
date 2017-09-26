@@ -1,13 +1,35 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.inc.tim.dotoday.tasks.TaskFragment">
 
 
- <EditText
-     android:id="@+id/detail_title_et"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/detail_title_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.inc.tim.dotoday.util.CategoryView
+        android:id="@+id/categoryViewFocus"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:layout_marginTop="150dp"
+        custom:circleColor="@color/colorAccent"
+        custom:circleLabel="Focus"
+        custom:labelColor="@color/colorPrimary" />
+
+
+    <com.inc.tim.dotoday.util.CategoryView
+        android:id="@+id/categoryViewGoal"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="150dp"
+        custom:circleColor="@color/colorAccent"
+        custom:circleLabel="Goal"
+        custom:labelColor="@color/colorPrimary" />
+
 
 </FrameLayout>

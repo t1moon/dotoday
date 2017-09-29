@@ -79,6 +79,18 @@ public class TasksActivity extends AppCompatActivity
             }
         });
 
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    fab.hide();
+                } else {
+                    fab.show();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -91,12 +103,12 @@ public class TasksActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

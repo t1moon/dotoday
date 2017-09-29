@@ -18,7 +18,9 @@ public class AddTaskPresenter implements AddTaskContract.Presenter{
 
 
     @Override
-    public void saveTask(Task task) {
+    public void saveTask(String title) {
+        Task task = new Task();
+        task.setTitle(title);
         ((TasksApplication) context.getApplicationContext()).getDaoSession().getTaskDao().insert(task);
         view.notifyAdded();
     }

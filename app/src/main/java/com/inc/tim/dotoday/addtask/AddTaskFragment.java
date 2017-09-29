@@ -10,9 +10,14 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.data.Task;
 import com.inc.tim.dotoday.tasks.TasksActivity;
@@ -27,6 +32,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     public AddTaskFragment() {
         // Required empty public constructor
     }
+
     public static AddTaskFragment newInstance() {
         return new AddTaskFragment();
     }
@@ -44,23 +50,14 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_add_task, container, false);
 
-        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appbar_layout);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Task task = new Task();
-                EditText title = (EditText) view.findViewById(R.id.add_task_title_et);
-                task.setTitle(title.getText().toString());
-                presenter.saveTask(task);
-            }
-        });
         changeToolbar();
 
         DialogFragment pickDialog = new PickCategoryFragment();
         pickDialog.show(getActivity().getSupportFragmentManager(), "Dialog");
-//        getActivity().getSupportFragmentManager().executePendingTransactions();
+
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -93,6 +90,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
             appBarLayout.setElevation(0);
         }
     }
+
     private void unchangeToolbar() {
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             appBarLayout.setElevation(8);
@@ -101,7 +99,26 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         ((TasksActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.done, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case R.id.continue_btn:
+                //hide keyboard
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
 
+                EditText title_et = (EditText) getActivity().findViewById(R.id.add_task_title_et);
+                presenter.saveTask(title_et.getText().toString());
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

@@ -26,7 +26,6 @@ public class PickCategoryFragment extends DialogFragment {
                     // The 'which' argument contains the index position
                     // of the selected item
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), Integer.toString(which), Toast.LENGTH_SHORT).show();
                         ((TasksActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
                         List<String> categories = Arrays.asList(getResources().getStringArray(R.array.categories_array));
                         switch (which) {

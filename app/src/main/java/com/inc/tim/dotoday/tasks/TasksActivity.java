@@ -1,5 +1,6 @@
 package com.inc.tim.dotoday.tasks;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 
 import com.inc.tim.dotoday.addtask.AddTaskFragment;
 import com.inc.tim.dotoday.R;
@@ -82,6 +84,10 @@ public class TasksActivity extends AppCompatActivity
         getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
+                //hide keyboard
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
                 FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
                 if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                     fab.hide();

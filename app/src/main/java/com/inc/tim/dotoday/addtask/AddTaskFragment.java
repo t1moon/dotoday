@@ -110,13 +110,8 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case R.id.continue_btn:
-                //hide keyboard
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-
                 EditText title_et = (EditText) getActivity().findViewById(R.id.add_task_title_et);
                 presenter.saveTask(title_et.getText().toString());
-
         }
         return super.onOptionsItemSelected(item);
     }

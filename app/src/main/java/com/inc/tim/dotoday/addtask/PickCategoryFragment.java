@@ -3,11 +3,8 @@ package com.inc.tim.dotoday.addtask;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +13,8 @@ import android.widget.Toast;
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.tasks.TasksActivity;
 
-/**
- * Created by Timur on 29-Sep-17.
- */
+import java.util.Arrays;
+import java.util.List;
 
 public class PickCategoryFragment extends DialogFragment {
     @Override
@@ -32,12 +28,13 @@ public class PickCategoryFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getContext(), Integer.toString(which), Toast.LENGTH_SHORT).show();
                         ((TasksActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
+                        List<String> categories = Arrays.asList(getResources().getStringArray(R.array.categories_array));
                         switch (which) {
                             case 0:
-                                ((TasksActivity) getActivity()).getSupportActionBar().setTitle("Focus");
+                                ((TasksActivity) getActivity()).getSupportActionBar().setTitle(categories.get(0));
                                 break;
                             case 1:
-                                ((TasksActivity) getActivity()).getSupportActionBar().setTitle("Goal");
+                                ((TasksActivity) getActivity()).getSupportActionBar().setTitle(categories.get(0));
                                 break;
                         }
                     }
@@ -56,7 +53,9 @@ public class PickCategoryFragment extends DialogFragment {
     public void onStart() {
         super.onStart();
         Dialog dialog = getDialog();
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(false);                      // prevent from touch outside
+
+        // onBackpressed will be popFragment
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener()
         {
             @Override

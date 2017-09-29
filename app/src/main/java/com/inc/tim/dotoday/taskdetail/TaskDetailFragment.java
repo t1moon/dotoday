@@ -11,26 +11,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.inc.tim.dotoday.R;
-import com.inc.tim.dotoday.TasksApplication;
-import com.inc.tim.dotoday.addtask.AddTaskFragment;
 import com.inc.tim.dotoday.data.Task;
-import com.inc.tim.dotoday.tasks.TaskFragment;
-import com.inc.tim.dotoday.tasks.TasksContract;
-import com.inc.tim.dotoday.tasks.TasksPresenter;
 import com.inc.tim.dotoday.util.ActivityUtils;
-import com.inc.tim.dotoday.util.CategoryView;
-
-import java.util.List;
 
 public class TaskDetailFragment extends Fragment implements DetailContract.View{
     final static double RESIZE_PARAM = 1.2;
     private long taskId;
     private DetailContract.Presenter presenter;
     private EditText title_et;
-
-    private CategoryView categoryViewFocus;
-    private CategoryView categoryViewGoal;
-
 
     public TaskDetailFragment() {
         // Required empty public constructor
@@ -70,54 +58,6 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
             }
         });
 
-        categoryViewFocus = (CategoryView) view.findViewById(R.id.categoryViewFocus);
-
-
-        categoryViewFocus.setChosen(true);
-        ViewGroup.LayoutParams params = categoryViewFocus.getLayoutParams();
-        params.height *= RESIZE_PARAM;
-        params.width *= RESIZE_PARAM;
-        categoryViewFocus.setLayoutParams(params);
-
-
-        categoryViewGoal = (CategoryView) view.findViewById(R.id.categoryViewGoal);
-
-        categoryViewFocus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewGroup.LayoutParams params = v.getLayoutParams();
-                if (!((CategoryView) v).isChosen()) {
-                    params.height*=RESIZE_PARAM;
-                    params.width*=RESIZE_PARAM;
-                    ((CategoryView) v).setChosen(true);
-
-                    categoryViewGoal.getLayoutParams().height /=RESIZE_PARAM;
-                    categoryViewGoal.getLayoutParams().width /= RESIZE_PARAM;
-                    categoryViewGoal.setChosen(false);
-                }
-
-                v.setLayoutParams(params);
-            }
-        });
-
-        categoryViewGoal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewGroup.LayoutParams params = v.getLayoutParams();
-                if (!((CategoryView) v).isChosen())
-                {
-                    params.height *= RESIZE_PARAM;
-                    params.width *= RESIZE_PARAM;
-                    ((CategoryView) v).setChosen(true);
-
-                    categoryViewFocus.getLayoutParams().height /= RESIZE_PARAM;
-                    categoryViewFocus.getLayoutParams().width /= RESIZE_PARAM;
-                    categoryViewFocus.setChosen(false);
-                }
-
-                v.setLayoutParams(params);
-            }
-        });
 
         return view;
     }

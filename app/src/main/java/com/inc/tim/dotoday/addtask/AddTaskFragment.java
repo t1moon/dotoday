@@ -1,11 +1,14 @@
 package com.inc.tim.dotoday.addtask;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +57,10 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
             }
         });
         changeToolbar();
+
+        DialogFragment pickDialog = new PickCategoryFragment();
+        pickDialog.show(getActivity().getSupportFragmentManager(), "Dialog");
+//        getActivity().getSupportFragmentManager().executePendingTransactions();
         return view;
     }
 
@@ -91,6 +98,10 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
             appBarLayout.setElevation(8);
         }
         ((TasksActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
+        ((TasksActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
     }
+
+
+
 
 }

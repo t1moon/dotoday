@@ -78,6 +78,7 @@ public class TasksActivity extends AppCompatActivity
                 }
             }
         });
+
     }
 
     @Override

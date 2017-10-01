@@ -51,26 +51,26 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
     public static class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView title;
+        private TextView description;
 
         public TaskHolder(View v) {
             super(v);
-            title = (TextView) v.findViewById(R.id.firstLine);
+            title = (TextView) v.findViewById(R.id.row_title);
+            description = (TextView) v.findViewById(R.id.row_description);
             v.setOnClickListener(this);
         }
 
         public void bindTask(Task task) {
             title.setText(task.getTitle());
+            description.setText(task.getDescription());
 
         }
         @Override
         public void onClick(View v) {
-            Log.d("RecyclerView", "CLICK!");
-            Context context = v.getContext();
             Bundle args = new Bundle();
             args.putLong("taskId", taskList.get(getAdapterPosition()).getId());
             TaskDetailFragment fragment = new TaskDetailFragment();
             fragment.setArguments(args);
-            Log.d("stack", ((TasksActivity)v.getContext()).getSupportFragmentManager().getFragments().toString());
             ActivityUtils.addFragment(((TasksActivity)v.getContext()).getSupportFragmentManager(), fragment);
         }
     }

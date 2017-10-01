@@ -110,8 +110,12 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case R.id.continue_btn:
-                EditText title_et = (EditText) getActivity().findViewById(R.id.add_task_title_et);
-                presenter.saveTask(title_et.getText().toString());
+                EditText title  = (EditText) getActivity().findViewById(R.id.add_task_title_et);
+                EditText description = (EditText) getActivity().findViewById(R.id.add_task_description);
+                presenter.saveTask(
+                        title.getText().toString(),
+                        description.getText().toString()
+                );
         }
         return super.onOptionsItemSelected(item);
     }

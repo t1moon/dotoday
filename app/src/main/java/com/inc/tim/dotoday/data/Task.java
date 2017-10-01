@@ -18,10 +18,15 @@ public class Task {
     @Property(nameInDb = "title")
     private String title;
 
-    @Generated(hash = 80882395)
-    public Task(Long id, String title) {
+    @Property(nameInDb = "description")
+    private String description;
+
+
+    @Generated(hash = 610568802)
+    public Task(Long id, String title, String description) {
         this.id = id;
         this.title = title;
+        this.description = description;
     }
 
     @Generated(hash = 733837707)
@@ -44,4 +49,11 @@ public class Task {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

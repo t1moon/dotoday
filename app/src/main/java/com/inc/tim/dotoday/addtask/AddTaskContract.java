@@ -16,7 +16,7 @@ public interface AddTaskContract {
 
     /* User actions */
     interface Presenter {
-        void saveTask(String title);
+        void saveTask(String title, String description);
     }
 
     /* Work with data */

@@ -1,45 +1,72 @@
-<android.support.design.widget.AppBarLayout android:id="@+id/appbar"
+<LinearLayout
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_2"
+    <android.support.design.widget.AppBarLayout android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_collapseMode="none"
-        app:elevation="0dp"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <LinearLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="56dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="56dp"
-            android:paddingRight="32dp">
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_collapseMode="none"
+            app:elevation="0dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/lNameLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/fNameLayout">
+                android:orientation="vertical"
+                android:paddingLeft="0dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="56dp"
+                android:paddingRight="32dp">
 
-                <EditText
-                    android:id="@+id/add_task_title_et"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Title"/>
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_height="wrap_content">
 
-        </LinearLayout>
-    </android.support.v7.widget.Toolbar>
+                    <EditText
+                        android:id="@+id/add_task_title_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="30"
+                        android:hint="Название"/>
+                </android.support.design.widget.TextInputLayout>
 
-</android.support.design.widget.AppBarLayout>
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/add_task_description"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@null"
+            android:gravity="center_vertical|start"
+            android:minHeight="?listPreferredItemHeight"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="?listPreferredItemPaddingLeft"
+            android:paddingRight="?listPreferredItemPaddingRight"
+            android:hint="Описание"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+

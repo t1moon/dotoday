@@ -30,10 +30,10 @@ public class PickCategoryFragment extends DialogFragment {
                         List<String> categories = Arrays.asList(getResources().getStringArray(R.array.categories_array));
                         switch (which) {
                             case 0:
-                                ((TasksActivity) getActivity()).getSupportActionBar().setTitle(categories.get(0));
+                                ((TasksActivity) getActivity()).getSupportActionBar().setTitle(categories.get(which));
                                 break;
                             case 1:
-                                ((TasksActivity) getActivity()).getSupportActionBar().setTitle(categories.get(0));
+                                ((TasksActivity) getActivity()).getSupportActionBar().setTitle(categories.get(which));
                                 break;
                         }
                     }

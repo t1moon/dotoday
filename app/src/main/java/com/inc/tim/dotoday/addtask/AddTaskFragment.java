@@ -2,6 +2,8 @@ package com.inc.tim.dotoday.addtask;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.data.Task;
@@ -27,7 +31,7 @@ import com.inc.tim.dotoday.util.ActivityUtils;
 public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     private AddTaskContract.Presenter presenter;
     AppBarLayout appBarLayout;
-    FloatingActionButton fab;
+    SeekBar seekBar;
 
     public AddTaskFragment() {
         // Required empty public constructor
@@ -56,6 +60,8 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
 
         DialogFragment pickDialog = new PickCategoryFragment();
         pickDialog.show(getActivity().getSupportFragmentManager(), "Dialog");
+
+        seekBar = (SeekBar) view.findViewById(R.id.importance_sb);
 
         setHasOptionsMenu(true);
         return view;
@@ -112,9 +118,11 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
             case R.id.continue_btn:
                 EditText title  = (EditText) getActivity().findViewById(R.id.add_task_title_et);
                 EditText description = (EditText) getActivity().findViewById(R.id.add_task_description);
+                int importance = seekBar.getProgress();
                 presenter.saveTask(
                         title.getText().toString(),
-                        description.getText().toString()
+                        description.getText().toString(),
+                        importance
                 );
         }
         return super.onOptionsItemSelected(item);

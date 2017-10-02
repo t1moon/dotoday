@@ -35,9 +35,9 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="1"
+            android:text="Description"
             android:textColor="@color/secondary_text"
-            android:textSize="@dimen/msg_text_secondary"
-            android:text="Description"/>
+            android:textSize="@dimen/msg_text_secondary" />
 
     </LinearLayout>
 
@@ -48,16 +48,24 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/icon_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/task_icon"
                 android:layout_width="@dimen/icon_width_height"
                 android:layout_height="@dimen/icon_width_height"
-                android:src="@drawable/bg_circle" />
+                android:background="@drawable/bg_circle" />
 
+            <TextView
+                android:id="@+id/task_icon_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/icon_text" />
         </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/icon_front"

@@ -21,12 +21,15 @@ public class Task {
     @Property(nameInDb = "description")
     private String description;
 
+    @Property(nameInDb = "importance")
+    private int importance; // from 0 to 100
 
-    @Generated(hash = 610568802)
-    public Task(Long id, String title, String description) {
+    @Generated(hash = 925408834)
+    public Task(Long id, String title, String description, int importance) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.importance = importance;
     }
 
     @Generated(hash = 733837707)
@@ -55,5 +58,13 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getImportance() {
+        return importance;
+    }
+
+    public void setImportance(int importance) {
+        this.importance = importance;
     }
 }

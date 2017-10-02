@@ -27,7 +27,7 @@ public class TasksApplication extends Application {
 
         daoSession = new DaoMaster(new DbOpenHelper(this, "task.db").getWritableDb()).newSession();
         if(daoSession.getTaskDao().loadAll().size() == 0) {
-            daoSession.getTaskDao().insert(new Task(1L, "Test todo", "Just example"));}
+            daoSession.getTaskDao().insert(new Task(1L, "Test todo", "Just example", 0));}
         INSTANCE = this;
     }
 

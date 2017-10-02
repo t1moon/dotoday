@@ -1,6 +1,8 @@
 package com.inc.tim.dotoday.tasks;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -8,12 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.data.Task;
 import com.inc.tim.dotoday.taskdetail.TaskDetailFragment;
 import com.inc.tim.dotoday.util.ActivityUtils;
+import com.inc.tim.dotoday.util.CommonUtils;
 
 import java.util.ArrayList;
 
@@ -52,11 +56,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
 
         private TextView title;
         private TextView description;
+        private ImageView icon;
+        private TextView icon_text;
 
         public TaskHolder(View v) {
             super(v);
             title = (TextView) v.findViewById(R.id.row_title);
             description = (TextView) v.findViewById(R.id.row_description);
+            icon = (ImageView) v.findViewById(R.id.task_icon);
+            icon_text = (TextView) v.findViewById(R.id.task_icon_text);
             v.setOnClickListener(this);
         }
 
@@ -64,6 +72,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
             title.setText(task.getTitle());
             description.setText(task.getDescription());
 
+            final int colorStart = Color.parseColor("#4CAF50");
+            final int colorEnd = Color.parseColor("#f44336");
+            GradientDrawable bgShape = (GradientDrawable)icon.getBackground();
+
+            bgShape.setColor(CommonUtils.ColorUtil.getImportanceColor(task.getImportance()));
+
+            icon_text.setText(task.getTitle().substring(0, 1).toUpperCase());
         }
         @Override
         public void onClick(View v) {
@@ -73,6 +88,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
             fragment.setArguments(args);
             ActivityUtils.addFragment(((TasksActivity)v.getContext()).getSupportFragmentManager(), fragment);
         }
-    }
 
+    }
 }

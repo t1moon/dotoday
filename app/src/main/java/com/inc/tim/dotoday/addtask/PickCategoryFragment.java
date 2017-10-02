@@ -16,24 +16,25 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.tasks.TasksActivity;
 
-public class PickCategoryFragment extends DialogFragment {
+public class PickCategoryFragment extends DialogFragment{
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.category_gridview, null);
 
         GridView gridView = (GridView) view.findViewById(R.id.category_gridview);
-        gridView.setAdapter(new CategoryAdapter(getActivity()));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 String[] categories = getResources().getStringArray(R.array.categories_array);
                 ((TasksActivity) getActivity()).getSupportActionBar().setTitle(categories[position]);
+                ((CategoryAdapter) parent.getAdapter()).getDialog().dismiss();
             }
         });
 
@@ -41,7 +42,9 @@ public class PickCategoryFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         builder.setTitle("Выберите категорию");
-        return builder.create();
+        Dialog dialog = builder.create();
+        gridView.setAdapter(new CategoryAdapter(getActivity(), dialog));
+        return dialog;
     }
 
     @Override
@@ -66,8 +69,11 @@ public class PickCategoryFragment extends DialogFragment {
     }
 
 
+
+
     private class CategoryAdapter extends BaseAdapter {
         private Context context;
+        private Dialog dialog;
 
         // references to our images
         private Integer[] colors = {
@@ -77,8 +83,13 @@ public class PickCategoryFragment extends DialogFragment {
                 Color.parseColor("#9C27B0")     // Purple
         };
 
-        public CategoryAdapter(Context c) {
+        public CategoryAdapter(Context c, Dialog d) {
             context = c;
+            dialog = d;
+        }
+
+        public Dialog getDialog() {
+            return dialog;
         }
 
         @Override

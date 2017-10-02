@@ -18,6 +18,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.inc.tim.dotoday.R;
+import com.inc.tim.dotoday.tasks.TasksActivity;
 
 public class PickCategoryFragment extends DialogFragment {
     @Override
@@ -31,7 +32,8 @@ public class PickCategoryFragment extends DialogFragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-
+                String[] categories = getResources().getStringArray(R.array.categories_array);
+                ((TasksActivity) getActivity()).getSupportActionBar().setTitle(categories[position]);
             }
         });
 

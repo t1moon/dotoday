@@ -9,6 +9,22 @@ import android.graphics.Color;
 public class CommonUtils {
 
     public static class ColorUtil {
+
+        // references to our images
+        public static final Integer[] MATERIAL_COLORS = {
+                Color.parseColor("#f44336"),    // Red
+                Color.parseColor("#3F51B5"),    // Blue
+                Color.parseColor("#FFC107"),    // Orange
+                Color.parseColor("#9C27B0")     // Purple
+        };
+
+        public static final Integer[] STATUSBAR_MATERIAL_COLORS = {
+                Color.parseColor("#d32f2f"),
+                Color.parseColor("#303F9F"),
+                Color.parseColor("#FFA000"),
+                Color.parseColor("#7B1FA2"),
+        };
+
         final static int COLOR_START = Color.parseColor("#4CAF50");    // material green
         final static int COLOR_END = Color.parseColor("#f44336");      // material red
 
@@ -34,4 +50,5 @@ public class CommonUtils {
                     importance / 100f);
         }
     }
+
 }

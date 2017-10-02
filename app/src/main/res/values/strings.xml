@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">DoToDay</string>
+    <string name="app_name">Успей сделать сегодня</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Настройки</string>
 
-    <string name="pick_category">Pick category</string>
+    <string name="pick_category">Выберите категорию</string>
     <string name="importance">Важность</string>
 
     <string-array name="categories_array">

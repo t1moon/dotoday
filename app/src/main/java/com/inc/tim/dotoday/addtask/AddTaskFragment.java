@@ -4,12 +4,15 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +20,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -26,6 +31,9 @@ import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.data.Task;
 import com.inc.tim.dotoday.tasks.TasksActivity;
 import com.inc.tim.dotoday.util.ActivityUtils;
+
+import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.MATERIAL_COLORS;
+import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.STATUSBAR_MATERIAL_COLORS;
 
 
 public class AddTaskFragment extends Fragment implements AddTaskContract.View {
@@ -103,6 +111,17 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         }
         ((TasksActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         ((TasksActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
+
+         /* Change color of toolbars */
+        ColorDrawable toolbarColor = new ColorDrawable(MATERIAL_COLORS[1]); //indigo
+        ((TasksActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(toolbarColor);
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_2);
+        toolbar.setBackground(toolbarColor);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(STATUSBAR_MATERIAL_COLORS[1]);
+        }
     }
 
     @Override

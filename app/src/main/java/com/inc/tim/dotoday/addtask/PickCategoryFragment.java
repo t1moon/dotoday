@@ -4,14 +4,19 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -21,7 +26,10 @@ import android.widget.Toast;
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.tasks.TasksActivity;
 
-public class PickCategoryFragment extends DialogFragment{
+import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.MATERIAL_COLORS;
+import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.STATUSBAR_MATERIAL_COLORS;
+
+public class PickCategoryFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -33,7 +41,22 @@ public class PickCategoryFragment extends DialogFragment{
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 String[] categories = getResources().getStringArray(R.array.categories_array);
-                ((TasksActivity) getActivity()).getSupportActionBar().setTitle(categories[position]);
+                ActionBar actionBar = ((TasksActivity) getActivity()).getSupportActionBar();
+                actionBar.setTitle(categories[position]);
+                actionBar.setDisplayShowTitleEnabled(true);
+
+                /* Change color of toolbars */
+                ColorDrawable toolbarColor = new ColorDrawable(MATERIAL_COLORS[position]);
+
+                Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_2);
+                actionBar.setBackgroundDrawable(toolbarColor);
+                toolbar.setBackground(toolbarColor);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Window window = getActivity().getWindow();
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.setStatusBarColor(STATUSBAR_MATERIAL_COLORS[position]);
+                }
+
                 ((CategoryAdapter) parent.getAdapter()).getDialog().dismiss();
             }
         });
@@ -75,13 +98,7 @@ public class PickCategoryFragment extends DialogFragment{
         private Context context;
         private Dialog dialog;
 
-        // references to our images
-        private Integer[] colors = {
-                Color.parseColor("#f44336"),    // Red
-                Color.parseColor("#3F51B5"),    // Blue
-                Color.parseColor("#FFC107"),    // Orange
-                Color.parseColor("#9C27B0")     // Purple
-        };
+
 
         public CategoryAdapter(Context c, Dialog d) {
             context = c;
@@ -94,7 +111,7 @@ public class PickCategoryFragment extends DialogFragment{
 
         @Override
         public int getCount() {
-            return colors.length;
+            return MATERIAL_COLORS.length;
         }
 
         @Override
@@ -121,9 +138,10 @@ public class PickCategoryFragment extends DialogFragment{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 textView.setElevation(8);
 
-            textView.setBackgroundColor(colors[position]);
+            textView.setBackgroundColor(MATERIAL_COLORS[position]);
             return textView;
         }
+
     }
 }
 

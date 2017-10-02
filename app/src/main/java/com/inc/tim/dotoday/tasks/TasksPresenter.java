@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.inc.tim.dotoday.TasksApplication;
 import com.inc.tim.dotoday.data.Task;
+import com.inc.tim.dotoday.data.TaskDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,9 @@ public class TasksPresenter implements TasksContract.Presenter{
 
     @Override
     public void loadTasks() {
-        List<Task> tasks = ((TasksApplication) context.getApplicationContext()).getDaoSession().getTaskDao().loadAll();
+        List<Task> tasks = ((TasksApplication) context.getApplicationContext())
+                .getDaoSession().getTaskDao().queryBuilder()
+                .orderDesc(TaskDao.Properties.Importance).list();
         if (!tasks.isEmpty()) {
             view.showTasks(tasks);
         }

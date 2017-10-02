@@ -10,7 +10,9 @@
     <string name="importance">Важность</string>
 
     <string-array name="categories_array">
-        <item>Focus</item>
-        <item>Goal</item>
+        <item>Фокус</item>
+        <item>Цель</item>
+        <item>Делегация</item>
+        <item>Мусор</item>
     </string-array>
 </resources>

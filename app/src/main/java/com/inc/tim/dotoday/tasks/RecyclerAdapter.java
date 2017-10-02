@@ -71,11 +71,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
         public void bindTask(Task task) {
             title.setText(task.getTitle());
             description.setText(task.getDescription());
-
-            final int colorStart = Color.parseColor("#4CAF50");
-            final int colorEnd = Color.parseColor("#f44336");
+            // Set importance background
             GradientDrawable bgShape = (GradientDrawable)icon.getBackground();
-
             bgShape.setColor(CommonUtils.ColorUtil.getImportanceColor(task.getImportance()));
 
             icon_text.setText(task.getTitle().substring(0, 1).toUpperCase());

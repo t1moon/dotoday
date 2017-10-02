@@ -24,18 +24,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:lines="1"
+            android:maxLines="1"
+            android:maxEms="30"
             android:textColor="@color/from"
             android:textSize="@dimen/msg_text_primary"
-            android:textStyle="bold" />
+            android:textStyle="normal" />
 
         <TextView
             android:id="@+id/row_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:lines="1"
-            android:text="Description"
+            android:maxLines="1"
+            android:maxEms="30"
             android:textColor="@color/secondary_text"
             android:textSize="@dimen/msg_text_secondary" />
 
@@ -65,44 +66,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/icon_text" />
         </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/icon_front"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/icon_profile"
-                android:layout_width="@dimen/icon_width_height"
-                android:layout_height="@dimen/icon_width_height" />
-
-            <TextView
-                android:id="@+id/icon_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/icon_text" />
-        </RelativeLayout>
-
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/timestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/timestamp"
-        android:textSize="@dimen/timestamp"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/icon_star"
-        android:layout_width="@dimen/icon_star"
-        android:layout_height="@dimen/icon_star"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:tint="@color/icon_tint_normal" />
 
 </RelativeLayout>

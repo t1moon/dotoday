@@ -40,6 +40,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     private AddTaskContract.Presenter presenter;
     AppBarLayout appBarLayout;
     SeekBar seekBar;
+    private int category;
 
     public AddTaskFragment() {
         // Required empty public constructor
@@ -141,10 +142,18 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
                 presenter.saveTask(
                         title.getText().toString(),
                         description.getText().toString(),
-                        importance
+                        importance,
+                        category
                 );
         }
         return super.onOptionsItemSelected(item);
     }
 
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public int getCategory() {
+        return category;
+    }
 }

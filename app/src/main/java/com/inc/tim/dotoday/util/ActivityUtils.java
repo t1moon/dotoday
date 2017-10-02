@@ -14,18 +14,18 @@ import com.inc.tim.dotoday.tasks.TaskFragment;
 
 public class ActivityUtils {
 
-    public static void addFragment(FragmentManager fragmentManager, Fragment fragment) {
+    public static void addFragment(FragmentManager fragmentManager, Fragment fragment, String tag) {
         fragmentManager
                 .beginTransaction()
-                .replace(R.id.activity_base_content, fragment)
+                .replace(R.id.activity_base_content, fragment, tag)
                 .addToBackStack(null)
                 .commit();
     }
 
-    public static void replaceFragment(FragmentManager fragmentManager, Fragment fragment) {
+    public static void replaceFragment(FragmentManager fragmentManager, Fragment fragment, String tag) {
         fragmentManager
                 .beginTransaction()
-                .replace(R.id.activity_base_content, fragment)
+                .replace(R.id.activity_base_content, fragment, tag)
                 .commit();
     }
 

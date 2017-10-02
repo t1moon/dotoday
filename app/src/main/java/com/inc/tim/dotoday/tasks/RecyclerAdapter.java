@@ -73,8 +73,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
             description.setText(task.getDescription());
             // Set importance background
             GradientDrawable bgShape = (GradientDrawable)icon.getBackground();
-            bgShape.setColor(CommonUtils.ColorUtil.getImportanceColor(task.getImportance()));
-
+            //bgShape.setColor(CommonUtils.ColorUtil.getImportanceColor(task.getImportance()));
+            bgShape.setColor(CommonUtils.ColorUtil.MATERIAL_COLORS[task.getCategory()]);
             icon_text.setText(task.getTitle().substring(0, 1).toUpperCase());
         }
         @Override
@@ -83,7 +83,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
             args.putLong("taskId", taskList.get(getAdapterPosition()).getId());
             TaskDetailFragment fragment = new TaskDetailFragment();
             fragment.setArguments(args);
-            ActivityUtils.addFragment(((TasksActivity)v.getContext()).getSupportFragmentManager(), fragment);
+            ActivityUtils.addFragment(((TasksActivity)v.getContext()).getSupportFragmentManager(), fragment, "TaskDetailFragment");
         }
 
     }

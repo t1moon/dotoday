@@ -44,7 +44,7 @@ public class TasksActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ActivityUtils.replaceFragment(getSupportFragmentManager(),new TaskFragment());
+        ActivityUtils.replaceFragment(getSupportFragmentManager(),new TaskFragment(), "TaskFragment");
         getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {

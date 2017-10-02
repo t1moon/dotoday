@@ -58,6 +58,9 @@ public class PickCategoryFragment extends DialogFragment {
                 }
 
                 ((CategoryAdapter) parent.getAdapter()).getDialog().dismiss();
+                AddTaskFragment addTaskFragment =
+                        (AddTaskFragment) getActivity().getSupportFragmentManager().findFragmentByTag("AddTaskFragment");
+                addTaskFragment.setCategory(position);
             }
         });
 

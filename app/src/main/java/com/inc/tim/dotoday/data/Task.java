@@ -2,6 +2,7 @@ package com.inc.tim.dotoday.data;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Generated;
 
@@ -24,15 +25,19 @@ public class Task {
     @Property(nameInDb = "importance")
     private int importance; // from 0 to 100
 
-    @Generated(hash = 925408834)
-    public Task(Long id, String title, String description, int importance) {
+    /* CATEGORY: 0 - Фокус, 1 - Цель, 2 - Делегирование, 3 - Мусор */
+    @Property(nameInDb = "category")
+    private int category;
+
+    @Keep
+    public Task(Long id, String title, String description, int importance, int category) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.importance = importance;
+        this.category = category;
     }
 
-    @Generated(hash = 733837707)
     public Task() {
     }
 
@@ -66,5 +71,13 @@ public class Task {
 
     public void setImportance(int importance) {
         this.importance = importance;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
     }
 }

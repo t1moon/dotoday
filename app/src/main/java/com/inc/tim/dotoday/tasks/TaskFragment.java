@@ -70,7 +70,7 @@ public class TaskFragment extends Fragment implements TasksContract.View {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActivityUtils.addFragment(getActivity().getSupportFragmentManager(), new AddTaskFragment());
+                ActivityUtils.addFragment(getActivity().getSupportFragmentManager(), new AddTaskFragment(), "AddTaskFragment");
             }
         });
         fab.setImageResource(R.drawable.ic_add_24dp);

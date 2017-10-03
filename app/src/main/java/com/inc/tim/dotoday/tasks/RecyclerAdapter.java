@@ -65,7 +65,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
             description = (TextView) v.findViewById(R.id.row_description);
             icon = (ImageView) v.findViewById(R.id.task_icon);
             icon_text = (TextView) v.findViewById(R.id.task_icon_text);
-            v.setOnClickListener(this);
+
+            title.setOnClickListener(this);
+            description.setOnClickListener(this);
+            icon.setOnClickListener(this);
+            icon_text.setOnClickListener(this);
         }
 
         public void bindTask(Task task) {

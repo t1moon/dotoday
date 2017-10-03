@@ -1,16 +1,13 @@
 package com.inc.tim.dotoday.tasks;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.inc.tim.dotoday.R;
@@ -52,13 +49,28 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
         return taskList.size();
     }
 
+
+    public void removeItem(int position) {
+        taskList.remove(position);
+        // notify the item removed by position
+        // to perform recycler view delete animations
+        // NOTE: don't call notifyDataSetChanged()
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(Task task, int position) {
+        taskList.add(position, task);
+        // notify item added by position
+        notifyItemInserted(position);
+    }
+
     public static class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView title;
         private TextView description;
         private ImageView icon;
         private TextView icon_text;
-
+        public RelativeLayout viewBackgroundDelete, viewBackgroundComplete, viewForeground;
         public TaskHolder(View v) {
             super(v);
             title = (TextView) v.findViewById(R.id.row_title);
@@ -70,6 +82,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
             description.setOnClickListener(this);
             icon.setOnClickListener(this);
             icon_text.setOnClickListener(this);
+
+            viewBackgroundDelete = (RelativeLayout) v.findViewById(R.id.view_background_delete);
+            viewBackgroundComplete = (RelativeLayout) v.findViewById(R.id.view_background_complete);
+            viewForeground = (RelativeLayout) v.findViewById(R.id.view_foreground);
         }
 
         public void bindTask(Task task) {

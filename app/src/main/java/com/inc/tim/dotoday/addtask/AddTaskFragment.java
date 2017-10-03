@@ -31,6 +31,7 @@ import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.data.Task;
 import com.inc.tim.dotoday.tasks.TasksActivity;
 import com.inc.tim.dotoday.util.ActivityUtils;
+import com.sdsmdg.harjot.crollerTest.Croller;
 
 import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.MATERIAL_COLORS;
 import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.STATUSBAR_MATERIAL_COLORS;
@@ -41,7 +42,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     AppBarLayout appBarLayout;
     SeekBar seekBar;
     private int category;
-
+    private int importance;
     public AddTaskFragment() {
         // Required empty public constructor
     }
@@ -70,8 +71,27 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         DialogFragment pickDialog = new PickCategoryFragment();
         pickDialog.show(getActivity().getSupportFragmentManager(), "Dialog");
 
-        seekBar = (SeekBar) view.findViewById(R.id.importance_sb);
+        //seekBar = (SeekBar) view.findViewById(R.id.importance_sb);
+        //seekBar = (SeekBar) view.findViewById(R.id.mySeekBar);
+        Croller croller = (Croller) view.findViewById(R.id.croller);
+        croller.setIndicatorWidth(10);
+        croller.setBackCircleColor(Color.parseColor("#EDEDED"));
+        croller.setMainCircleColor(Color.WHITE);
+        croller.setMax(50);
+        croller.setStartOffset(45);
+        croller.setIsContinuous(false);
+        croller.setLabelColor(Color.BLACK);
+        croller.setProgressPrimaryColor(Color.parseColor("#0B3C49"));
+        croller.setIndicatorColor(Color.parseColor("#0B3C49"));
+        croller.setProgressSecondaryColor(Color.parseColor("#EEEEEE"));
 
+        croller.setOnProgressChangedListener(new Croller.onProgressChangedListener() {
+            @Override
+            public void onProgressChanged(int progress) {
+                // use the progress
+                importance = progress;
+            }
+        });
         setHasOptionsMenu(true);
         return view;
     }
@@ -138,7 +158,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
             case R.id.continue_btn:
                 EditText title  = (EditText) getActivity().findViewById(R.id.add_task_title_et);
                 EditText description = (EditText) getActivity().findViewById(R.id.add_task_description);
-                int importance = seekBar.getProgress();
+                //int importance = seekBar.getProgress();
                 presenter.saveTask(
                         title.getText().toString(),
                         description.getText().toString(),

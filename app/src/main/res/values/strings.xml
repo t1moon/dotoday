@@ -7,7 +7,7 @@
     <string name="action_settings">Настройки</string>
 
     <string name="pick_category">Выберите категорию</string>
-    <string name="importance">Важность</string>
+    <string name="importance">Важность задачи</string>
 
     <string-array name="categories_array">
         <item>Фокус</item>

@@ -21,7 +21,8 @@ public interface TasksContract {
     /* User actions */
     interface Presenter extends BasePresenter {
         void loadTasks();
-        void addTask(Task task);
+        void setIsCompleted(long taskId, boolean is_completed);
+        void setIsDeleted(long taskId, boolean is_deleted);
     }
 
     /* Work with data */

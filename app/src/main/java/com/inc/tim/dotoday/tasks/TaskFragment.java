@@ -92,7 +92,7 @@ public class TaskFragment extends Fragment implements TasksContract.View,
      * undo option will be provided in snackbar to restore the item
      */
     @Override
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, final int direction, int position) {
         if (viewHolder instanceof RecyclerAdapter.TaskHolder) {
             // backup of removed item for undo purpose
             final Task deletedItem = taskList.get(viewHolder.getAdapterPosition());
@@ -102,20 +102,30 @@ public class TaskFragment extends Fragment implements TasksContract.View,
             adapter.removeItem(viewHolder.getAdapterPosition());
 
             Snackbar snackbar;
+
+            final long taskId  = deletedItem.getId();
             if (direction == ItemTouchHelper.LEFT){
                 snackbar = Snackbar.make(getView(), getString(R.string.delete_undo), Snackbar.LENGTH_LONG);
+                presenter.setIsDeleted(taskId, true);
             }
             else {
                 snackbar = Snackbar.make(getView(), getString(R.string.complete_undo), Snackbar.LENGTH_LONG);
+                presenter.setIsCompleted(taskId, true);
             }
             snackbar.setAction(getString(R.string.undo), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // undo is selected, restore the deleted item
                     adapter.restoreItem(deletedItem, deletedIndex);
+                    if (direction == ItemTouchHelper.LEFT) {
+                        presenter.setIsDeleted(taskId, false);
+                    }
+                    else {
+                        presenter.setIsCompleted(taskId, false);
+                    }
                 }
             });
-            snackbar.setActionTextColor(Color.WHITE);
+            snackbar.setActionTextColor(Color.parseColor("#FFC107"));
             snackbar.show();
         }
     }

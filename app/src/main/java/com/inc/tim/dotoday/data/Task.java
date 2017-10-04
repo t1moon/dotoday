@@ -29,6 +29,13 @@ public class Task {
     @Property(nameInDb = "category")
     private int category;
 
+    @Property(nameInDb = "is_completed")
+    private boolean is_completed;
+
+    @Property(nameInDb = "is_deleted")
+    private boolean is_deleted;
+
+
     @Keep
     public Task(Long id, String title, String description, int importance, int category) {
         this.id = id;
@@ -36,9 +43,23 @@ public class Task {
         this.description = description;
         this.importance = importance;
         this.category = category;
+        this.is_completed = false;
+        this.is_deleted = false;
     }
 
     public Task() {
+    }
+
+    @Generated(hash = 1880803733)
+    public Task(Long id, String title, String description, int importance, int category,
+            boolean is_completed, boolean is_deleted) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.importance = importance;
+        this.category = category;
+        this.is_completed = is_completed;
+        this.is_deleted = is_deleted;
     }
 
     public Long getId() {
@@ -79,5 +100,29 @@ public class Task {
 
     public void setCategory(int category) {
         this.category = category;
+    }
+
+    public boolean is_completed() {
+        return is_completed;
+    }
+
+    public void setIs_completed(boolean is_completed) {
+        this.is_completed = is_completed;
+    }
+
+    public boolean is_deleted() {
+        return is_deleted;
+    }
+
+    public void setIs_deleted(boolean is_deleted) {
+        this.is_deleted = is_deleted;
+    }
+
+    public boolean getIs_completed() {
+        return this.is_completed;
+    }
+
+    public boolean getIs_deleted() {
+        return this.is_deleted;
     }
 }

@@ -22,6 +22,7 @@ public class TasksPresenter implements TasksContract.Presenter{
     public void loadTasks() {
         List<Task> tasks = ((TasksApplication) context.getApplicationContext())
                 .getDaoSession().getTaskDao().queryBuilder()
+                .where(TaskDao.Properties.Is_deleted.eq(false), TaskDao.Properties.Is_completed.eq(false))
                 .orderDesc(TaskDao.Properties.Importance).list();
         if (!tasks.isEmpty()) {
             view.showTasks(tasks);
@@ -29,8 +30,17 @@ public class TasksPresenter implements TasksContract.Presenter{
     }
 
     @Override
-    public void addTask(Task task) {
+    public void setIsCompleted(long taskId, boolean is_completed) {
+        Task dbTask = ((TasksApplication) context.getApplicationContext()).getDaoSession().getTaskDao().load(taskId);
+        dbTask.setIs_completed(is_completed);
+        ((TasksApplication) context.getApplicationContext()).getDaoSession().getTaskDao().update(dbTask);
+    }
 
+    @Override
+    public void setIsDeleted(long taskId, boolean is_deleted) {
+        Task dbTask = ((TasksApplication) context.getApplicationContext()).getDaoSession().getTaskDao().load(taskId);
+        dbTask.setIs_deleted(is_deleted);
+        ((TasksApplication) context.getApplicationContext()).getDaoSession().getTaskDao().update(dbTask);
     }
 
     @Override

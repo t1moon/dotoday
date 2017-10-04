@@ -11,6 +11,8 @@
     <string name="delete">Удалить</string>
     <string name="complete">Выполнить</string>
 
+    <string name="field_required">Это поле обязательно</string>
+
     <string name="undo">Отменить</string>
     <string name="delete_undo">Задача удалена</string>
     <string name="complete_undo">Задача выполнена</string>

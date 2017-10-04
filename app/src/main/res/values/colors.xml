@@ -26,5 +26,6 @@
     <color name="description">#a9a9a9</color>
 
     <color name="undo">#FFC107</color>
+    <color name="white">#fff</color>
 
 </resources>

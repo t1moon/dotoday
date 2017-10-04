@@ -1,19 +1,16 @@
 package com.inc.tim.dotoday.addtask;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,13 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.SeekBar;
-import android.widget.Toast;
 
 import com.inc.tim.dotoday.R;
-import com.inc.tim.dotoday.data.Task;
 import com.inc.tim.dotoday.tasks.TasksActivity;
 import com.inc.tim.dotoday.util.ActivityUtils;
 import com.sdsmdg.harjot.crollerTest.Croller;
@@ -40,9 +33,12 @@ import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.STATUSBAR_MATERIAL_
 public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     private AddTaskContract.Presenter presenter;
     AppBarLayout appBarLayout;
-    SeekBar seekBar;
     private int category;
     private int importance;
+    EditText title;
+    EditText description;
+    TextInputLayout til_title;
+
     public AddTaskFragment() {
         // Required empty public constructor
     }
@@ -65,14 +61,16 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         final View view = inflater.inflate(R.layout.fragment_add_task, container, false);
 
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appbar_layout);
+        til_title = (TextInputLayout) view.findViewById(R.id.til_title);
+
+        title  = (EditText) view.findViewById(R.id.add_task_title_et);
+        description = (EditText) view.findViewById(R.id.add_task_description);
 
         changeToolbar();
 
         DialogFragment pickDialog = new PickCategoryFragment();
         pickDialog.show(getActivity().getSupportFragmentManager(), "Dialog");
 
-        //seekBar = (SeekBar) view.findViewById(R.id.importance_sb);
-        //seekBar = (SeekBar) view.findViewById(R.id.mySeekBar);
         Croller croller = (Croller) view.findViewById(R.id.croller);
         croller.setIndicatorWidth(10);
         croller.setBackCircleColor(Color.parseColor("#EDEDED"));
@@ -153,12 +151,13 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        boolean isValid = isValid();
+        if (!isValid)
+            return false;
+
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case R.id.continue_btn:
-                EditText title  = (EditText) getActivity().findViewById(R.id.add_task_title_et);
-                EditText description = (EditText) getActivity().findViewById(R.id.add_task_description);
-                //int importance = seekBar.getProgress();
                 presenter.saveTask(
                         title.getText().toString(),
                         description.getText().toString(),
@@ -167,6 +166,14 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
                 );
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isValid() {
+        if( title.getText().toString().length() == 0 ) {
+            til_title.setError(getString(R.string.field_required));
+            return false;
+        }
+        return true;
     }
 
     public void setCategory(int category) {

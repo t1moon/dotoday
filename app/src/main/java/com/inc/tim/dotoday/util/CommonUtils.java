@@ -10,13 +10,20 @@ public class CommonUtils {
 
     public static class ColorUtil {
 
-        // references to our images
         public static final Integer[] MATERIAL_COLORS = {
                 Color.parseColor("#f44336"),    // Red
                 Color.parseColor("#3F51B5"),    // Blue
                 Color.parseColor("#FFC107"),    // Orange
                 Color.parseColor("#9C27B0")     // Purple
         };
+
+        public static final Integer[] MATERIAL_COLORS_LIGHT = {
+                Color.parseColor("#ffcdd2"),    // Red
+                Color.parseColor("#C5CAE9"),    // Blue
+                Color.parseColor("#FFECB3"),    // Orange
+                Color.parseColor("#D1C4E9")     // Purple
+        };
+
 
         public static final Integer[] STATUSBAR_MATERIAL_COLORS = {
                 Color.parseColor("#d32f2f"),

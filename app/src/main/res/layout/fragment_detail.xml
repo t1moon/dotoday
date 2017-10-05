@@ -82,25 +82,40 @@
                 android:layout_marginRight="32dp"
                 android:layout_marginTop="56dp"
                 android:background="@color/divider" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Важность задачи"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:layout_marginTop="8dp"/>
 
             <com.sdsmdg.harjot.crollerTest.Croller
                 android:id="@+id/detail_croller"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_gravity="center"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 app:back_circle_color="#EDEDED"
                 app:indicator_color="#0B3C49"
-                app:indicator_width="16"
-                app:is_continuous="true"
-                app:label="@string/importance"
+                app:indicator_width="5"
+                app:is_continuous="false"
+                app:label=""
+                app:label_size="48"
                 app:label_color="#000000"
                 app:main_circle_color="#FFFFFF"
-                app:max="1000"
+                app:max="10"
                 app:progress_primary_color="#0B3C49"
                 app:progress_secondary_color="#EEEEEE"
-                app:start_offset="45" />
+                app:start_offset="30"
+                app:sweep_angle="330"
+                app:main_circle_radius="0"
+                app:back_circle_radius="100"
+                app:progress_primary_circle_size="16"
+                app:progress_secondary_circle_size="8"/>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

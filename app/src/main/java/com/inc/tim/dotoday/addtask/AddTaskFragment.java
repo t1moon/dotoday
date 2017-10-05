@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import android.widget.EditText;
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.tasks.TasksActivity;
 import com.inc.tim.dotoday.util.ActivityUtils;
+import com.inc.tim.dotoday.util.CommonUtils;
 import com.inc.tim.dotoday.util.ToolbarUtils;
 import com.sdsmdg.harjot.crollerTest.Croller;
 
@@ -41,6 +43,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     EditText title;
     EditText description;
     TextInputLayout til_title;
+    Croller croller;
 
     public AddTaskFragment() {
         // Required empty public constructor
@@ -76,17 +79,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         DialogFragment pickDialog = new PickCategoryFragment();
         pickDialog.show(getActivity().getSupportFragmentManager(), "Dialog");
 
-        Croller croller = (Croller) view.findViewById(R.id.croller);
-        croller.setIndicatorWidth(10);
-        croller.setBackCircleColor(Color.parseColor("#EDEDED"));
-        croller.setMainCircleColor(Color.WHITE);
-        croller.setMax(50);
-        croller.setStartOffset(45);
-        croller.setIsContinuous(false);
-        croller.setLabelColor(Color.BLACK);
-        croller.setProgressPrimaryColor(Color.parseColor("#0B3C49"));
-        croller.setIndicatorColor(Color.parseColor("#0B3C49"));
-        croller.setProgressSecondaryColor(Color.parseColor("#EEEEEE"));
+        croller = (Croller) view.findViewById(R.id.croller);
 
         croller.setOnProgressChangedListener(new Croller.onProgressChangedListener() {
             @Override
@@ -157,7 +150,9 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         this.category = category;
     }
 
-    public int getCategory() {
-        return category;
+    public void setCroller(int position) {
+        croller.setIndicatorColor(CommonUtils.ColorUtil.MATERIAL_COLORS[position]);
+        croller.setProgressPrimaryColor(CommonUtils.ColorUtil.MATERIAL_COLORS[position]);
+        croller.setBackCircleColor(CommonUtils.ColorUtil.MATERIAL_COLORS_LIGHT[position]);
     }
 }

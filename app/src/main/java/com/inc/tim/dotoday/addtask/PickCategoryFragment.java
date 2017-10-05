@@ -65,6 +65,8 @@ public class PickCategoryFragment extends DialogFragment {
                 AddTaskFragment addTaskFragment =
                         (AddTaskFragment) getActivity().getSupportFragmentManager().findFragmentByTag("AddTaskFragment");
                 addTaskFragment.setCategory(position);
+                addTaskFragment.setCroller(position);
+
             }
         });
 

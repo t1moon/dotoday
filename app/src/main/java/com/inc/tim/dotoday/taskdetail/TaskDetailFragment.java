@@ -26,6 +26,7 @@ import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.data.Task;
 import com.inc.tim.dotoday.tasks.TasksActivity;
 import com.inc.tim.dotoday.util.ActivityUtils;
+import com.inc.tim.dotoday.util.CommonUtils;
 import com.inc.tim.dotoday.util.ToolbarUtils;
 import com.sdsmdg.harjot.crollerTest.Croller;
 
@@ -81,16 +82,6 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
         ToolbarUtils.changeToolbar(((TasksActivity) getActivity()).getSupportActionBar(), appBarLayout);
 
         croller = (Croller) view.findViewById(R.id.detail_croller);
-        croller.setIndicatorWidth(10);
-        croller.setBackCircleColor(Color.parseColor("#EDEDED"));
-        croller.setMainCircleColor(Color.WHITE);
-        croller.setMax(50);
-        croller.setStartOffset(45);
-        croller.setIsContinuous(false);
-        croller.setLabelColor(Color.BLACK);
-        croller.setProgressPrimaryColor(Color.parseColor("#0B3C49"));
-        croller.setIndicatorColor(Color.parseColor("#0B3C49"));
-        croller.setProgressSecondaryColor(Color.parseColor("#EEEEEE"));
 
         croller.setOnProgressChangedListener(new Croller.onProgressChangedListener() {
             @Override
@@ -164,6 +155,9 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
             window.setStatusBarColor(STATUSBAR_MATERIAL_COLORS[category]);
         }
         croller.setProgress(task.getImportance());
+        croller.setIndicatorColor(CommonUtils.ColorUtil.MATERIAL_COLORS[category]);
+        croller.setProgressPrimaryColor(CommonUtils.ColorUtil.MATERIAL_COLORS[category]);
+        croller.setBackCircleColor(CommonUtils.ColorUtil.MATERIAL_COLORS_LIGHT[category]);
     }
 
     @Override

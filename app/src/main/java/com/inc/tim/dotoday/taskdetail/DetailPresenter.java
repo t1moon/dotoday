@@ -28,10 +28,14 @@ public class DetailPresenter implements DetailContract.Presenter{
     }
 
     @Override
-    public void editTask(Task editedTask, long id) {
+    public void editTask(String title, String description, int importance, int category, long id) {
         Task dbTask = ((TasksApplication) context.getApplicationContext()).getDaoSession().getTaskDao().load(id);
-        dbTask.setTitle(editedTask.getTitle());
+        dbTask.setTitle(title);
+        dbTask.setDescription(description);
+        dbTask.setImportance(importance);
+        dbTask.setCategory(category);
         ((TasksApplication) context.getApplicationContext()).getDaoSession().getTaskDao().update(dbTask);
         view.notifyEdited();
     }
+
 }

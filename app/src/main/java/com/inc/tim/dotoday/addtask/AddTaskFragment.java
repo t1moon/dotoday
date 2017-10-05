@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import android.widget.EditText;
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.tasks.TasksActivity;
 import com.inc.tim.dotoday.util.ActivityUtils;
+import com.inc.tim.dotoday.util.ToolbarUtils;
 import com.sdsmdg.harjot.crollerTest.Croller;
 
 import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.MATERIAL_COLORS;
@@ -33,6 +35,7 @@ import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.STATUSBAR_MATERIAL_
 public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     private AddTaskContract.Presenter presenter;
     AppBarLayout appBarLayout;
+    Toolbar toolbar;
     private int category;
     private int importance;
     EditText title;
@@ -61,12 +64,14 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         final View view = inflater.inflate(R.layout.fragment_add_task, container, false);
 
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appbar_layout);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar_2);
         til_title = (TextInputLayout) view.findViewById(R.id.til_title);
 
         title  = (EditText) view.findViewById(R.id.add_task_title_et);
         description = (EditText) view.findViewById(R.id.add_task_description);
 
-        changeToolbar();
+
+        ToolbarUtils.changeToolbar(((TasksActivity) getActivity()).getSupportActionBar(), appBarLayout);
 
         DialogFragment pickDialog = new PickCategoryFragment();
         pickDialog.show(getActivity().getSupportFragmentManager(), "Dialog");
@@ -111,36 +116,9 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unchangeToolbar();
+        ToolbarUtils.unchangeToolbar((AppCompatActivity) getActivity(),
+                ((TasksActivity) getActivity()).getSupportActionBar(), toolbar, appBarLayout);
         // TODO: Hide keyboard
-    }
-
-    private void changeToolbar() {
-        ((TasksActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_24dp);
-        ((TasksActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            appBarLayout.setElevation(0);
-        }
-    }
-
-    private void unchangeToolbar() {
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            appBarLayout.setElevation(8);
-        }
-        ((TasksActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
-        ((TasksActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
-
-         /* Change color of toolbars */
-        ColorDrawable toolbarColor = new ColorDrawable(MATERIAL_COLORS[1]); //indigo
-        ((TasksActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(toolbarColor);
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_2);
-        toolbar.setBackground(toolbarColor);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getActivity().getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(STATUSBAR_MATERIAL_COLORS[1]);
-        }
     }
 
     @Override

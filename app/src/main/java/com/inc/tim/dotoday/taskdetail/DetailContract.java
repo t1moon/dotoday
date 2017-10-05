@@ -20,8 +20,7 @@ public interface DetailContract {
     /* User actions */
     interface Presenter {
         void loadTask(long id);
-        void editTask(Task editedTask, long id);
-
+        void editTask(String title, String description, int importance, int category, long id);
     }
 
     /* Work with data */

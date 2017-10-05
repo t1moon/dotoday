@@ -141,7 +141,6 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
         super.onDestroyView();
         ToolbarUtils.unchangeToolbar((AppCompatActivity) getActivity(),
                 ((TasksActivity) getActivity()).getSupportActionBar(), toolbar, appBarLayout);
-        // TODO: Hide keyboard
     }
 
     @Override

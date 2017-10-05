@@ -77,16 +77,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
             icon = (ImageView) v.findViewById(R.id.task_icon);
             icon_text = (TextView) v.findViewById(R.id.task_icon_text);
 
-            v.setOnClickListener(this);
             title.setOnClickListener(this);
             description.setOnClickListener(this);
             icon.setOnClickListener(this);
             icon_text.setOnClickListener(this);
 
-
             viewBackgroundDelete = (RelativeLayout) v.findViewById(R.id.view_background_delete);
             viewBackgroundComplete = (RelativeLayout) v.findViewById(R.id.view_background_complete);
             viewForeground = (RelativeLayout) v.findViewById(R.id.view_foreground);
+            viewForeground.setOnClickListener(this);
         }
 
         public void bindTask(Task task) {

@@ -12,9 +12,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.TypefaceSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +22,6 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.tasks.TasksActivity;
@@ -143,11 +139,22 @@ public class PickCategoryFragment extends DialogFragment {
             textView.setGravity(Gravity.CENTER);
             textView.setText(getResources().getStringArray(R.array.categories_array)[position]);
             textView.setTextSize(24);
+            textView.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+            textView.setTextColor(Color.WHITE);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 textView.setElevation(8);
 
-            textView.setBackgroundColor(MATERIAL_COLORS[position]);
+            switch (position) {
+                case 0: textView.setBackgroundResource(R.drawable.gridview_item_red);
+                    break;
+                case 1: textView.setBackgroundResource(R.drawable.gridview_item_indigo);
+                    break;
+                case 2: textView.setBackgroundResource(R.drawable.gridview_item_amber);
+                    break;
+                case 3: textView.setBackgroundResource(R.drawable.gridview_item_purple);
+                    break;
+            }
             return textView;
         }
 

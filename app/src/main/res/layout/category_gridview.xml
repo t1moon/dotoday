@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:numColumns="2"
     android:padding="16dp"
-    android:horizontalSpacing="16dp"
-    android:verticalSpacing="16dp"
+    android:horizontalSpacing="8dp"
+    android:verticalSpacing="8dp"
     android:gravity="center"
     />

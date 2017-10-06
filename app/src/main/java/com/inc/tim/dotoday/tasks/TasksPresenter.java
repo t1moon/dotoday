@@ -18,14 +18,19 @@ public class TasksPresenter implements TasksContract.Presenter{
         this.context = context;
     }
 
+
     @Override
-    public void loadTasks() {
+    public void loadCategoryTasks(int category) {
         List<Task> tasks = ((TasksApplication) context.getApplicationContext())
                 .getDaoSession().getTaskDao().queryBuilder()
-                .where(TaskDao.Properties.Is_deleted.eq(false), TaskDao.Properties.Is_completed.eq(false))
+                .where(TaskDao.Properties.Is_deleted.eq(false),
+                        TaskDao.Properties.Is_completed.eq(false),
+                        TaskDao.Properties.Category.eq(category))
                 .orderDesc(TaskDao.Properties.Importance).list();
         if (!tasks.isEmpty()) {
             view.showTasks(tasks);
+        } else {
+            view.showEmpty();
         }
     }
 
@@ -41,10 +46,5 @@ public class TasksPresenter implements TasksContract.Presenter{
         Task dbTask = ((TasksApplication) context.getApplicationContext()).getDaoSession().getTaskDao().load(taskId);
         dbTask.setIs_deleted(is_deleted);
         ((TasksApplication) context.getApplicationContext()).getDaoSession().getTaskDao().update(dbTask);
-    }
-
-    @Override
-    public void start() {
-        loadTasks();
     }
 }

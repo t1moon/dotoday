@@ -1,9 +1,6 @@
 package com.inc.tim.dotoday.taskdetail;
 
-import com.inc.tim.dotoday.commons.BasePresenter;
 import com.inc.tim.dotoday.data.Task;
-
-import java.util.List;
 
 /**
  * Created by Timur on 21-Sep-17.

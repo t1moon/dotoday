@@ -2,17 +2,29 @@ package com.inc.tim.dotoday.tasks;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.addtask.AddTaskFragment;
@@ -21,9 +33,14 @@ import com.inc.tim.dotoday.util.ActivityUtils;
 import com.inc.tim.dotoday.util.DividerItemDecoration;
 import com.inc.tim.dotoday.util.RecyclerItemTouchHelperLeft;
 import com.inc.tim.dotoday.util.RecyclerItemTouchHelperRight;
+import com.inc.tim.dotoday.util.ToolbarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.inc.tim.dotoday.R.id.spinner_nav;
+import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.MATERIAL_COLORS;
+import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.STATUSBAR_MATERIAL_COLORS;
 
 public class TaskFragment extends Fragment implements TasksContract.View,
         RecyclerItemTouchHelperLeft.RecyclerItemTouchHelperListener,
@@ -32,6 +49,9 @@ public class TaskFragment extends Fragment implements TasksContract.View,
     private TasksContract.Presenter presenter;
     private ArrayList<Task> taskList = new ArrayList<>();
     RecyclerView recyclerView;
+    Spinner spinner;
+    TextView no_task_tv;
+    int category = 0; // default 1st category
 
     public TaskFragment() {
         // Required empty public constructor
@@ -49,7 +69,15 @@ public class TaskFragment extends Fragment implements TasksContract.View,
     @Override
     public void onResume() {
         super.onResume();
-        presenter.start();
+        category = ((TasksActivity) getActivity()).getCreatedCategory();
+        spinner.setSelection(category);
+        presenter.loadCategoryTasks(category);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        spinner.setVisibility(Spinner.GONE);
     }
 
     @Override
@@ -58,9 +86,16 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_task, container, false);
 
+
+        no_task_tv = (TextView) view.findViewById(R.id.no_task_tv);
         recyclerView = (RecyclerView) view.findViewById(R.id.tasks_list);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        spinner = (Spinner) getActivity().findViewById(spinner_nav);
+        category = ((TasksActivity)getActivity()).getCreatedCategory();
+        spinner.setSelection(category);
+        spinner.setVisibility(Spinner.VISIBLE);
 
         adapter = new RecyclerAdapter(taskList);
         recyclerView.setAdapter(adapter);
@@ -84,6 +119,7 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         });
         fab.setImageResource(R.drawable.ic_add_24dp);
 
+        addItemsToSpinner();
         return view;
     }
     /**
@@ -140,9 +176,45 @@ public class TaskFragment extends Fragment implements TasksContract.View,
     @Override
     public void showTasks(List<Task> tasks) {
         taskList.clear();
+        no_task_tv.setVisibility(View.GONE);
         for (Task t: tasks) {
             taskList.add(t);
         }
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showEmpty() {
+        taskList.clear();
+        no_task_tv.setVisibility(View.VISIBLE);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void addItemsToSpinner() {
+
+        final String[] categories = getResources().getStringArray(R.array.categories_array);
+        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(getActivity(),
+                R.layout.spinner_dropdown, categories);
+        spinner.setAdapter(spinnerAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                AppBarLayout appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appbar_layout);
+
+                ((TasksActivity)getActivity()).setCreatedCategory(position);
+                ToolbarUtils.setToolbarColor((AppCompatActivity) getActivity(),
+                        ((TasksActivity) getActivity()).getSupportActionBar(), appBarLayout);
+
+                presenter.loadCategoryTasks(position);
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }

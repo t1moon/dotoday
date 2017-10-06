@@ -17,15 +17,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import com.inc.tim.dotoday.addtask.AddTaskFragment;
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.util.ActivityUtils;
 
+import static com.inc.tim.dotoday.R.id.spinner_nav;
+
 public class TasksActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     ActionBarDrawerToggle toggle;
     DrawerLayout drawer;
+    private int createdCategory = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,7 @@ public class TasksActivity extends AppCompatActivity
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_left_24dp);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -96,6 +104,12 @@ public class TasksActivity extends AppCompatActivity
                 }
             }
         });
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
     }
 
@@ -108,6 +122,7 @@ public class TasksActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
 
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
@@ -170,6 +185,15 @@ public class TasksActivity extends AppCompatActivity
             toggle.setDrawerIndicatorEnabled(false);
             toggle.syncState();
         }
+    }
+
+
+    public int getCreatedCategory() {
+        return createdCategory;
+    }
+
+    public void setCreatedCategory(int createdCategory) {
+        this.createdCategory = createdCategory;
     }
 
 }

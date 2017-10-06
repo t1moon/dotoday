@@ -79,7 +79,8 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
         title  = (EditText) view.findViewById(R.id.detail_task_title_et);
         description = (EditText) view.findViewById(R.id.detail_task_description);
 
-        ToolbarUtils.changeToolbar(((TasksActivity) getActivity()).getSupportActionBar(), appBarLayout);
+        ToolbarUtils.setToolbarColor((AppCompatActivity) getActivity(),
+                ((TasksActivity) getActivity()).getSupportActionBar(), appBarLayout);
 
         croller = (Croller) view.findViewById(R.id.detail_croller);
 
@@ -130,8 +131,7 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ToolbarUtils.unchangeToolbar((AppCompatActivity) getActivity(),
-                ((TasksActivity) getActivity()).getSupportActionBar(), toolbar, appBarLayout);
+        ToolbarUtils.setElevation(appBarLayout);
     }
 
     @Override
@@ -145,15 +145,10 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
         title.setText(task.getTitle());
         description.setText(task.getDescription());
         category = task.getCategory();
-         /* Change color of toolbars */
-        ColorDrawable toolbarColor = new ColorDrawable(MATERIAL_COLORS[category]);
-        ((TasksActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(toolbarColor);
-        toolbar.setBackground(toolbarColor);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getActivity().getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(STATUSBAR_MATERIAL_COLORS[category]);
-        }
+
+        ToolbarUtils.setToolbarColor((AppCompatActivity) getActivity(),
+                ((TasksActivity) getActivity()).getSupportActionBar(), appBarLayout);
+
         croller.setProgress(task.getImportance());
         croller.setIndicatorColor(CommonUtils.ColorUtil.MATERIAL_COLORS[category]);
         croller.setProgressPrimaryColor(CommonUtils.ColorUtil.MATERIAL_COLORS[category]);

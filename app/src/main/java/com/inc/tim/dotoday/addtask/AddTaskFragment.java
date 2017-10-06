@@ -74,7 +74,8 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         description = (EditText) view.findViewById(R.id.add_task_description);
 
 
-        ToolbarUtils.changeToolbar(((TasksActivity) getActivity()).getSupportActionBar(), appBarLayout);
+        ToolbarUtils.changeToolbar(((TasksActivity) getActivity()),
+                ((TasksActivity) getActivity()).getSupportActionBar(), toolbar, appBarLayout);
 
         DialogFragment pickDialog = new PickCategoryFragment();
         pickDialog.show(getActivity().getSupportFragmentManager(), "Dialog");
@@ -109,8 +110,8 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ToolbarUtils.unchangeToolbar((AppCompatActivity) getActivity(),
-                ((TasksActivity) getActivity()).getSupportActionBar(), toolbar, appBarLayout);
+        ToolbarUtils.setToolbarColor((AppCompatActivity) getActivity(),
+                ((TasksActivity) getActivity()).getSupportActionBar(), appBarLayout);
     }
 
     @Override
@@ -128,6 +129,8 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case R.id.continue_btn:
+                ((TasksActivity) getActivity()).setCreatedCategory(category);
+
                 presenter.saveTask(
                         title.getText().toString(),
                         description.getText().toString(),

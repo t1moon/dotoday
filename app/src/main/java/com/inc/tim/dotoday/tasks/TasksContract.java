@@ -1,7 +1,5 @@
 package com.inc.tim.dotoday.tasks;
 
-import com.inc.tim.dotoday.commons.BasePresenter;
-import com.inc.tim.dotoday.commons.BaseView;
 import com.inc.tim.dotoday.data.Task;
 
 import java.util.List;
@@ -15,12 +13,13 @@ public interface TasksContract {
     /* UI communication. It's what activity or fragment will implement */
     interface View {
         void showTasks(List<Task> tasks);
+        void showEmpty();
 
     }
 
     /* User actions */
-    interface Presenter extends BasePresenter {
-        void loadTasks();
+    interface Presenter{
+        void loadCategoryTasks(int category);
         void setIsCompleted(long taskId, boolean is_completed);
         void setIsDeleted(long taskId, boolean is_deleted);
     }

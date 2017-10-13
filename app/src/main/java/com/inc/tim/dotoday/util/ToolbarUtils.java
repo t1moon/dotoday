@@ -1,7 +1,10 @@
 package com.inc.tim.dotoday.util;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,11 +25,12 @@ import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.STATUSBAR_MATERIAL_
 
 public class ToolbarUtils {
 
-    public static void changeToolbar(AppCompatActivity activity, ActionBar actionBar, Toolbar toolbar, AppBarLayout appBarLayout) {
+
+    public static void changeAddToolbar(final AppCompatActivity activity, ActionBar actionBar, final Toolbar toolbar, AppBarLayout appBarLayout) {
         actionBar.setHomeAsUpIndicator(R.drawable.ic_close_24dp);
         actionBar.setDisplayShowTitleEnabled(false);
 
-        int category = ((TasksActivity) activity).getCreatedCategory();
+        int category = ((TasksActivity) activity).getCurrentCategory();
         ColorDrawable toolbarColor = new ColorDrawable(MATERIAL_COLORS[category]);
         toolbar.setBackgroundColor(toolbarColor.getColor());
 
@@ -34,31 +38,104 @@ public class ToolbarUtils {
             appBarLayout.setElevation(0);
         }
     }
+    public static void changeDetailToolbar(final AppCompatActivity activity,
+                                           ActionBar actionBar, Toolbar toolbar, Toolbar toolbar1,
+                                           AppBarLayout appBarLayout, int position) {
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_close_24dp);
 
-    public static void setToolbarColor(AppCompatActivity activity, ActionBar actionBar, AppBarLayout appBarLayout) {
+        String[] categories = activity.getResources().getStringArray(R.array.categories_array);
+        actionBar.setTitle(categories[position]);
+        actionBar.setDisplayShowTitleEnabled(true);
+
+        int category = ((TasksActivity) activity).getCurrentCategory();
+        ColorDrawable toolbarColor = new ColorDrawable(MATERIAL_COLORS[category]);
+        toolbar.setBackgroundColor(toolbarColor.getColor());
+        toolbar1.setBackgroundColor(toolbarColor.getColor());
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            appBarLayout.setElevation(0);
+        }
+    }
+
+    public static void returnToolbar(AppBarLayout appBarLayout, ActionBar actionBar) {
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             appBarLayout.setElevation(8);
         }
         actionBar.setDisplayShowTitleEnabled(false);
 
-         /* Change color of toolbars */
-        int category = ((TasksActivity) activity).getCreatedCategory();
-        Spinner spinner = (Spinner) appBarLayout.findViewById(R.id.spinner_nav);
-        ColorDrawable toolbarColor = new ColorDrawable(MATERIAL_COLORS[category]);
-        actionBar.setBackgroundDrawable(toolbarColor);
-        //spinner.setBackgroundColor(toolbarColor.getColor());
-        spinner.setPopupBackgroundDrawable(toolbarColor);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = activity.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(STATUSBAR_MATERIAL_COLORS[category]);
-        }
     }
 
-    public static void setElevation(AppBarLayout appBarLayout) {
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            appBarLayout.setElevation(8);
-        }
+    public static void changeToolbarColor(final AppCompatActivity activity, int position,
+                                          final Toolbar toolbar, Spinner spinner) {
+        int from= ((TasksActivity) activity).getCurrentCategory();
+        int to = position;
+        Integer colorFrom = MATERIAL_COLORS[from];
+        Integer colorTo = MATERIAL_COLORS[to];
+        Integer colorStatusFrom = STATUSBAR_MATERIAL_COLORS[from];
+        Integer colorStatusTo = STATUSBAR_MATERIAL_COLORS[to];
+        ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        ValueAnimator colorStatusAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorStatusFrom, colorStatusTo);
+
+        colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                toolbar.setBackgroundColor((Integer) animation.getAnimatedValue());
+            }
+        });
+        colorStatusAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    activity.getWindow().setStatusBarColor((Integer) animation.getAnimatedValue());
+                }
+            }
+        });
+
+        ((TasksActivity) activity).setCurrentCategory(position);
+        colorAnimator.setDuration(800);
+        colorAnimator.setStartDelay(0);
+        colorAnimator.start();
+        colorStatusAnimator.setDuration(800);
+        colorStatusAnimator.setStartDelay(0);
+        colorStatusAnimator.start();
+        ColorDrawable toolbarColor = new ColorDrawable(MATERIAL_COLORS[to]);
+        spinner.setPopupBackgroundDrawable(toolbarColor);
+    }
+
+
+    public static void changeAddToolbarColor(final AppCompatActivity activity, int position,
+                                          final Toolbar toolbar, final Toolbar toolbar1) {
+        int from= ((TasksActivity) activity).getCurrentCategory();
+        int to = position;
+        Integer colorFrom = MATERIAL_COLORS[from];
+        Integer colorTo = MATERIAL_COLORS[to];
+        Integer colorStatusFrom = STATUSBAR_MATERIAL_COLORS[from];
+        Integer colorStatusTo = STATUSBAR_MATERIAL_COLORS[to];
+        ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        ValueAnimator colorStatusAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorStatusFrom, colorStatusTo);
+
+        colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                toolbar.setBackgroundColor((Integer) animation.getAnimatedValue());
+                toolbar1.setBackgroundColor((Integer) animation.getAnimatedValue());
+            }
+        });
+        colorStatusAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    activity.getWindow().setStatusBarColor((Integer) animation.getAnimatedValue());
+                }
+            }
+        });
+
+        ((TasksActivity) activity).setCurrentCategory(position);
+        colorAnimator.setDuration(800);
+        colorAnimator.setStartDelay(0);
+        colorAnimator.start();
+        colorStatusAnimator.setDuration(800);
+        colorStatusAnimator.setStartDelay(0);
+        colorStatusAnimator.start();
     }
 }

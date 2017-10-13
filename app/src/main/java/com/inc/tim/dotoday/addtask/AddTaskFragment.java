@@ -1,16 +1,12 @@
 package com.inc.tim.dotoday.addtask;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.graphics.ColorUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -19,8 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.inc.tim.dotoday.R;
@@ -29,9 +23,6 @@ import com.inc.tim.dotoday.util.ActivityUtils;
 import com.inc.tim.dotoday.util.CommonUtils;
 import com.inc.tim.dotoday.util.ToolbarUtils;
 import com.sdsmdg.harjot.crollerTest.Croller;
-
-import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.MATERIAL_COLORS;
-import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.STATUSBAR_MATERIAL_COLORS;
 
 
 public class AddTaskFragment extends Fragment implements AddTaskContract.View {
@@ -74,8 +65,8 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         description = (EditText) view.findViewById(R.id.add_task_description);
 
 
-        ToolbarUtils.changeToolbar(((TasksActivity) getActivity()),
-                ((TasksActivity) getActivity()).getSupportActionBar(), toolbar, appBarLayout);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        ToolbarUtils.changeAddToolbar(activity, activity.getSupportActionBar(), toolbar, appBarLayout);
 
         DialogFragment pickDialog = new PickCategoryFragment();
         pickDialog.show(getActivity().getSupportFragmentManager(), "Dialog");
@@ -110,8 +101,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ToolbarUtils.setToolbarColor((AppCompatActivity) getActivity(),
-                ((TasksActivity) getActivity()).getSupportActionBar(), appBarLayout);
+        ToolbarUtils.returnToolbar(appBarLayout, ((TasksActivity) getActivity()).getSupportActionBar());
     }
 
     @Override
@@ -129,7 +119,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case R.id.continue_btn:
-                ((TasksActivity) getActivity()).setCreatedCategory(category);
+                ((TasksActivity) getActivity()).setCurrentCategory(category);
 
                 presenter.saveTask(
                         title.getText().toString(),

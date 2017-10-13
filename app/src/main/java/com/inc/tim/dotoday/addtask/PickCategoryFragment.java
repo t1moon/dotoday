@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.tasks.TasksActivity;
+import com.inc.tim.dotoday.util.ToolbarUtils;
 
 import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.MATERIAL_COLORS;
 import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.STATUSBAR_MATERIAL_COLORS;
@@ -44,24 +46,17 @@ public class PickCategoryFragment extends DialogFragment {
                 ActionBar actionBar = ((TasksActivity) getActivity()).getSupportActionBar();
                 actionBar.setTitle(categories[position]);
                 actionBar.setDisplayShowTitleEnabled(true);
-
-                /* Change color of toolbars */
-                ColorDrawable toolbarColor = new ColorDrawable(MATERIAL_COLORS[position]);
-
-                Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_2);
-                actionBar.setBackgroundDrawable(toolbarColor);
-                toolbar.setBackground(toolbarColor);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Window window = getActivity().getWindow();
-                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                    window.setStatusBarColor(STATUSBAR_MATERIAL_COLORS[position]);
-                }
+//                /* Change color of toolbars */
+                Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+                Toolbar toolbar2 = (Toolbar) getActivity().findViewById(R.id.toolbar_2);
+                ToolbarUtils.changeAddToolbarColor((AppCompatActivity) getActivity(), position, toolbar,toolbar2);
 
                 ((CategoryAdapter) parent.getAdapter()).getDialog().dismiss();
                 AddTaskFragment addTaskFragment =
                         (AddTaskFragment) getActivity().getSupportFragmentManager().findFragmentByTag("AddTaskFragment");
-                addTaskFragment.setCategory(position);
-                addTaskFragment.setCroller(position);
+
+                addTaskFragment.setCategory(position); // it's for saving into DB
+                addTaskFragment.setCroller(position);  // it's for changing color of croller
 
             }
         });

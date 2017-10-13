@@ -38,6 +38,7 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
     private DetailContract.Presenter presenter;
     AppBarLayout appBarLayout;
     Toolbar toolbar;
+    Toolbar toolbar1;
     Croller croller;
     private int importance;
     private int category;
@@ -73,14 +74,12 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
         taskId = getArguments().getLong("taskId");
 
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appbar_layout);
-        toolbar = (Toolbar) view. findViewById(R.id.detail_toolbar_2);
+        toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar1 = (Toolbar) view. findViewById(R.id.detail_toolbar_2);
         til_title = (TextInputLayout) view.findViewById(R.id.detail_til_title);
 
         title  = (EditText) view.findViewById(R.id.detail_task_title_et);
         description = (EditText) view.findViewById(R.id.detail_task_description);
-
-        ToolbarUtils.setToolbarColor((AppCompatActivity) getActivity(),
-                ((TasksActivity) getActivity()).getSupportActionBar(), appBarLayout);
 
         croller = (Croller) view.findViewById(R.id.detail_croller);
 
@@ -131,7 +130,7 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ToolbarUtils.setElevation(appBarLayout);
+        ToolbarUtils.returnToolbar(appBarLayout, ((TasksActivity) getActivity()).getSupportActionBar());
     }
 
     @Override
@@ -146,8 +145,9 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
         description.setText(task.getDescription());
         category = task.getCategory();
 
-        ToolbarUtils.setToolbarColor((AppCompatActivity) getActivity(),
-                ((TasksActivity) getActivity()).getSupportActionBar(), appBarLayout);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        ToolbarUtils.changeDetailToolbar(activity, activity.getSupportActionBar(), toolbar,
+                toolbar1, appBarLayout, category);
 
         croller.setProgress(task.getImportance());
         croller.setIndicatorColor(CommonUtils.ColorUtil.MATERIAL_COLORS[category]);

@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.animation.ValueAnimatorCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -21,8 +20,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -43,7 +40,6 @@ import java.util.List;
 
 import static com.inc.tim.dotoday.R.id.spinner_nav;
 import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.MATERIAL_COLORS;
-import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.MATERIAL_COLORS_LIGHT;
 import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.STATUSBAR_MATERIAL_COLORS;
 
 public class TaskFragment extends Fragment implements TasksContract.View,
@@ -73,8 +69,9 @@ public class TaskFragment extends Fragment implements TasksContract.View,
     @Override
     public void onResume() {
         super.onResume();
-        category = ((TasksActivity) getActivity()).getCreatedCategory();
+        category = ((TasksActivity) getActivity()).getCurrentCategory();
         spinner.setSelection(category);
+        spinner.setVisibility(Spinner.VISIBLE);
         presenter.loadCategoryTasks(category);
     }
 
@@ -97,10 +94,7 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         recyclerView.setLayoutManager(linearLayoutManager);
 
         spinner = (Spinner) getActivity().findViewById(spinner_nav);
-        category = ((TasksActivity)getActivity()).getCreatedCategory();
-        spinner.setSelection(category);
-        spinner.setVisibility(Spinner.VISIBLE);
-
+        category = ((TasksActivity)getActivity()).getCurrentCategory();
         adapter = new RecyclerAdapter(taskList);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
@@ -204,48 +198,13 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                AppBarLayout appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appbar_layout);
-                Integer colorFrom = MATERIAL_COLORS[0];
-                Integer colorTo = MATERIAL_COLORS[1];
-                Integer colorStatusFrom = STATUSBAR_MATERIAL_COLORS[2];
-                Integer colorStatusTo = STATUSBAR_MATERIAL_COLORS[3];
-                ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-                ValueAnimator colorStatusAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorStatusFrom, colorStatusTo);
-
-                final Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-
-                colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        toolbar.setBackgroundColor((Integer) animation.getAnimatedValue());
-                    }
-                });
-                colorStatusAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            getActivity().getWindow().setStatusBarColor((Integer) animation.getAnimatedValue());
-                        }
-//                        toolbar.setBackgroundColor((Integer) animation.getAnimatedValue());
-                    }
-                });
-
-                ((TasksActivity)getActivity()).setCreatedCategory(position);
-                colorAnimator.setDuration(800);
-                colorAnimator.setStartDelay(0);
-                colorAnimator.start();
-                colorStatusAnimator.setDuration(800);
-                colorStatusAnimator.setStartDelay(0);
-                colorStatusAnimator.start();
-                ColorDrawable toolbarColor = new ColorDrawable(MATERIAL_COLORS[category]);
-                spinner.setPopupBackgroundDrawable(toolbarColor);
-//                ToolbarUtils.setToolbarColor((AppCompatActivity) getActivity(),
-//                        ((TasksActivity) getActivity()).getSupportActionBar(), appBarLayout);
-
+                if (getActivity() != null) {
+                    AppCompatActivity activity = (AppCompatActivity) getActivity();
+                    Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+                    ToolbarUtils.changeToolbarColor(activity, position, toolbar, spinner);
+                }
 
                 presenter.loadCategoryTasks(position);
-
-
             }
 
             @Override

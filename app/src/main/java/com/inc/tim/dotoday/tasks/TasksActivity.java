@@ -3,7 +3,6 @@ package com.inc.tim.dotoday.tasks;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.Gravity;
 import android.view.View;
@@ -13,26 +12,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
-import com.inc.tim.dotoday.addtask.AddTaskFragment;
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.util.ActivityUtils;
-
-import static com.inc.tim.dotoday.R.id.spinner_nav;
 
 public class TasksActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     ActionBarDrawerToggle toggle;
     DrawerLayout drawer;
-    private int createdCategory = 0;
+    private int currentCategory = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,12 +178,12 @@ public class TasksActivity extends AppCompatActivity
     }
 
 
-    public int getCreatedCategory() {
-        return createdCategory;
+    public int getCurrentCategory() {
+        return currentCategory;
     }
 
-    public void setCreatedCategory(int createdCategory) {
-        this.createdCategory = createdCategory;
+    public void setCurrentCategory(int currentCategory) {
+        this.currentCategory = currentCategory;
     }
 
 }

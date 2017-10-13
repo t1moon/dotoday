@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -27,8 +28,6 @@
 
         </android.support.v7.widget.Toolbar>
 
-
-
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
@@ -38,12 +37,23 @@
         android:layout_height="match_parent">
     </FrameLayout>
 
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        app:layout_insetEdge="bottom"
+        android:layout_gravity="bottom"
+        app:bb_tabXmlResource="@xml/bottombar_tabs"
+        app:bb_behavior="shy"/>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        app:layout_anchorGravity="right|bottom|end"
         app:srcCompat="@android:drawable/ic_input_add" />
 
 </android.support.design.widget.CoordinatorLayout>

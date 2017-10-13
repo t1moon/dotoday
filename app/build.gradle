@@ -38,4 +38,7 @@ dependencies {
     compile 'com.sdsmdg.harjot:croller:1.0.5'
 
     compile 'org.greenrobot:greendao:3.2.2'
+
+    //Bottom bar
+    compile 'com.roughike:bottom-bar:2.3.1'
 }

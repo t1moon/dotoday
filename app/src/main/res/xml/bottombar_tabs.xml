@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        icon="@drawable/ic_focus_24dp"
+        id="@+id/tab_focus"
+        title="Фокус" />
+    <tab
+        icon="@drawable/ic_goal_24dp"
+        id="@+id/tab_goal"
+        title="Цель" />
+    <tab
+        icon="@drawable/ic_delegate_24dp"
+        id="@+id/tab_delegate"
+        title="Делегация" />
+    <tab
+        icon="@drawable/ic_throw_24dp"
+        id="@+id/tab_throw"
+        title="Мусор" />
+</tabs>

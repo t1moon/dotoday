@@ -2,6 +2,7 @@ package com.inc.tim.dotoday.tasks;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.view.Gravity;
@@ -17,11 +18,14 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.util.ActivityUtils;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 
 public class TasksActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     ActionBarDrawerToggle toggle;
     DrawerLayout drawer;
+    BottomBar bottomBar;
     private int currentCategory = 0;
 
     @Override
@@ -79,6 +83,16 @@ public class TasksActivity extends AppCompatActivity
             }
         });
 
+        bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                if (tabId == R.id.tab_focus) {
+                    // The tab with id R.id.tab_favorites was selected,
+                    // change your content accordingly.
+                }
+            }
+        });
         getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
@@ -89,11 +103,14 @@ public class TasksActivity extends AppCompatActivity
                 FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
                 if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                     fab.hide();
+                    bottomBar.setVisibility(View.GONE);
                 } else {
                     fab.show();
+                    bottomBar.setVisibility(View.VISIBLE);
                 }
             }
         });
+
     }
 
 

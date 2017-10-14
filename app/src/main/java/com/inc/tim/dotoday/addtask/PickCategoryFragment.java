@@ -43,24 +43,12 @@ public class PickCategoryFragment extends DialogFragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                String[] categories = getResources().getStringArray(R.array.categories_array);
-                ActionBar actionBar = ((TasksActivity) getActivity()).getSupportActionBar();
-                actionBar.setTitle(categories[position]);
-                actionBar.setDisplayShowTitleEnabled(true);
-//                /* Change color of toolbars */
-                Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-                Toolbar toolbar2 = (Toolbar) getActivity().findViewById(R.id.toolbar_2);
-                Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner_nav);
-                ToolbarUtils.changeAddToolbarColor((AppCompatActivity) getActivity(), position, toolbar,toolbar2, spinner);
-
+                ((TasksActivity)getActivity()).setCurrentCategory(position);
                 ((CategoryAdapter) parent.getAdapter()).getDialog().dismiss();
                 AddTaskFragment addTaskFragment =
                         (AddTaskFragment) getActivity().getSupportFragmentManager().findFragmentByTag("AddTaskFragment");
-
                 addTaskFragment.setSpinner(position);
-                addTaskFragment.setCategory(position); // it's for saving into DB
                 addTaskFragment.setCroller(position);  // it's for changing color of croller
-
             }
         });
 

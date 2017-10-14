@@ -166,7 +166,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     }
 
     public void setSpinner(int position) {
-        spinner.setSelection(category);
+        spinner.setSelection(position);
         spinner.setVisibility(Spinner.VISIBLE);
     }
 
@@ -184,7 +184,6 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
                     AppCompatActivity activity = (AppCompatActivity) getActivity();
                     Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
                     Toolbar toolbar2 = (Toolbar) activity.findViewById(R.id.toolbar_2);
-
                     ToolbarUtils.changeAddToolbarColor(activity, position, toolbar, toolbar2, spinner);
                 }
             }

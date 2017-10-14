@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -34,6 +35,8 @@ import com.inc.tim.dotoday.util.DividerItemDecoration;
 import com.inc.tim.dotoday.util.RecyclerItemTouchHelperLeft;
 import com.inc.tim.dotoday.util.RecyclerItemTouchHelperRight;
 import com.inc.tim.dotoday.util.ToolbarUtils;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +53,7 @@ public class TaskFragment extends Fragment implements TasksContract.View,
     private ArrayList<Task> taskList = new ArrayList<>();
     RecyclerView recyclerView;
     Spinner spinner;
+    BottomBar bottomBar;
     TextView no_task_tv;
     int category = 0; // default 1st category
 
@@ -70,8 +74,8 @@ public class TaskFragment extends Fragment implements TasksContract.View,
     public void onResume() {
         super.onResume();
         category = ((TasksActivity) getActivity()).getCurrentCategory();
-        spinner.setSelection(category);
-        spinner.setVisibility(Spinner.VISIBLE);
+//        spinner.setSelection(category);
+//        spinner.setVisibility(Spinner.VISIBLE);
         presenter.loadCategoryTasks(category);
     }
 
@@ -117,7 +121,36 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         });
         fab.setImageResource(R.drawable.ic_add_24dp);
 
-        addItemsToSpinner();
+        bottomBar = (BottomBar) getActivity().findViewById(R.id.bottomBar);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                if (getActivity() != null) {
+                    AppCompatActivity activity = (AppCompatActivity) getActivity();
+                    Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+                    int position = 0;
+                    switch (tabId) {
+                        case R.id.tab_focus:
+                            position = 0;
+                            break;
+                        case R.id.tab_goal:
+                            position = 1;
+                            break;
+                        case R.id.tab_delegate:
+                            position = 2;
+                            break;
+                        case R.id.tab_throw:
+                            position = 3;
+                            break;
+
+                    }
+
+                    ToolbarUtils.changeToolbarColor(activity, position, toolbar, spinner);
+                    presenter.loadCategoryTasks(position);
+                }
+            }
+        });
+        //addItemsToSpinner();
         return view;
     }
     /**

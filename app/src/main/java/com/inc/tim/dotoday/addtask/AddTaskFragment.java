@@ -35,7 +35,6 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     private AddTaskContract.Presenter presenter;
     AppBarLayout appBarLayout;
     Toolbar toolbar;
-    private int category;
     private int importance;
     EditText title;
     EditText description;
@@ -135,8 +134,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case R.id.continue_btn:
-                ((TasksActivity) getActivity()).setCurrentCategory(category);
-
+                int category =((TasksActivity) getActivity()).getCurrentCategory();
                 presenter.saveTask(
                         title.getText().toString(),
                         description.getText().toString(),
@@ -153,10 +151,6 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
             return false;
         }
         return true;
-    }
-
-    public void setCategory(int category) {
-        this.category = category;
     }
 
     public void setSpinner(int position) {

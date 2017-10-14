@@ -159,12 +159,6 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         this.category = category;
     }
 
-    public void setCroller(int position) {
-        croller.setIndicatorColor(CommonUtils.ColorUtil.MATERIAL_COLORS[position]);
-        croller.setProgressPrimaryColor(CommonUtils.ColorUtil.MATERIAL_COLORS[position]);
-        croller.setBackCircleColor(CommonUtils.ColorUtil.MATERIAL_COLORS_LIGHT[position]);
-    }
-
     public void setSpinner(int position) {
         spinner.setSelection(position);
         spinner.setVisibility(Spinner.VISIBLE);
@@ -184,7 +178,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
                     AppCompatActivity activity = (AppCompatActivity) getActivity();
                     Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
                     Toolbar toolbar2 = (Toolbar) activity.findViewById(R.id.toolbar_2);
-                    ToolbarUtils.changeAddToolbarColor(activity, position, toolbar, toolbar2, spinner);
+                    ToolbarUtils.changeAddToolbarColor(activity, position, toolbar, toolbar2, spinner, croller);
                 }
             }
 

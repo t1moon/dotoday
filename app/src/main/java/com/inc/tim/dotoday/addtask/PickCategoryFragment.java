@@ -48,7 +48,7 @@ public class PickCategoryFragment extends DialogFragment {
                 AddTaskFragment addTaskFragment =
                         (AddTaskFragment) getActivity().getSupportFragmentManager().findFragmentByTag("AddTaskFragment");
                 addTaskFragment.setSpinner(position);
-                addTaskFragment.setCroller(position);  // it's for changing color of croller
+
             }
         });
 

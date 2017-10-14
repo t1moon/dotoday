@@ -15,7 +15,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.tasks.TasksActivity;
@@ -23,6 +27,8 @@ import com.inc.tim.dotoday.util.ActivityUtils;
 import com.inc.tim.dotoday.util.CommonUtils;
 import com.inc.tim.dotoday.util.ToolbarUtils;
 import com.sdsmdg.harjot.crollerTest.Croller;
+
+import static com.inc.tim.dotoday.R.id.spinner_nav;
 
 
 public class AddTaskFragment extends Fragment implements AddTaskContract.View {
@@ -35,6 +41,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     EditText description;
     TextInputLayout til_title;
     Croller croller;
+    Spinner spinner;
 
     public AddTaskFragment() {
         // Required empty public constructor
@@ -59,6 +66,14 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
 
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appbar_layout);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar_2);
+
+        spinner = (Spinner) getActivity().findViewById(spinner_nav);
+        final String[] categories = getResources().getStringArray(R.array.categories_array);
+        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(getActivity(),
+                R.layout.spinner_dropdown, categories);
+        spinner.setAdapter(spinnerAdapter);
+
+        addItemsToSpinner();
         til_title = (TextInputLayout) view.findViewById(R.id.til_title);
 
         title  = (EditText) view.findViewById(R.id.add_task_title_et);
@@ -101,6 +116,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        spinner.setVisibility(Spinner.GONE);
         ToolbarUtils.returnToolbar(appBarLayout, ((TasksActivity) getActivity()).getSupportActionBar());
     }
 
@@ -147,5 +163,36 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         croller.setIndicatorColor(CommonUtils.ColorUtil.MATERIAL_COLORS[position]);
         croller.setProgressPrimaryColor(CommonUtils.ColorUtil.MATERIAL_COLORS[position]);
         croller.setBackCircleColor(CommonUtils.ColorUtil.MATERIAL_COLORS_LIGHT[position]);
+    }
+
+    public void setSpinner(int position) {
+        spinner.setSelection(category);
+        spinner.setVisibility(Spinner.VISIBLE);
+    }
+
+    private void addItemsToSpinner() {
+
+        final String[] categories = getResources().getStringArray(R.array.categories_array);
+        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(getActivity(),
+                R.layout.spinner_dropdown, categories);
+        spinner.setAdapter(spinnerAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (getActivity() != null) {
+                    AppCompatActivity activity = (AppCompatActivity) getActivity();
+                    Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+                    Toolbar toolbar2 = (Toolbar) activity.findViewById(R.id.toolbar_2);
+
+                    ToolbarUtils.changeAddToolbarColor(activity, position, toolbar, toolbar2, spinner);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }

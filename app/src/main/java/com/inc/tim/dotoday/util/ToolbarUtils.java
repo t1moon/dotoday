@@ -104,7 +104,7 @@ public class ToolbarUtils {
 
 
     public static void changeAddToolbarColor(final AppCompatActivity activity, int position,
-                                          final Toolbar toolbar, final Toolbar toolbar1) {
+                                          final Toolbar toolbar, final Toolbar toolbar1, Spinner spinner) {
         int from= ((TasksActivity) activity).getCurrentCategory();
         int to = position;
         Integer colorFrom = MATERIAL_COLORS[from];
@@ -137,5 +137,7 @@ public class ToolbarUtils {
         colorStatusAnimator.setDuration(800);
         colorStatusAnimator.setStartDelay(0);
         colorStatusAnimator.start();
+        ColorDrawable toolbarColor = new ColorDrawable(MATERIAL_COLORS[to]);
+        spinner.setPopupBackgroundDrawable(toolbarColor);
     }
 }

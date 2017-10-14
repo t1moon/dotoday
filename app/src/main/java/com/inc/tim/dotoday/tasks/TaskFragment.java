@@ -74,15 +74,12 @@ public class TaskFragment extends Fragment implements TasksContract.View,
     public void onResume() {
         super.onResume();
         category = ((TasksActivity) getActivity()).getCurrentCategory();
-//        spinner.setSelection(category);
-//        spinner.setVisibility(Spinner.VISIBLE);
         presenter.loadCategoryTasks(category);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        spinner.setVisibility(Spinner.GONE);
     }
 
     @Override
@@ -221,29 +218,5 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         adapter.notifyDataSetChanged();
     }
 
-    private void addItemsToSpinner() {
 
-        final String[] categories = getResources().getStringArray(R.array.categories_array);
-        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(getActivity(),
-                R.layout.spinner_dropdown, categories);
-        spinner.setAdapter(spinnerAdapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (getActivity() != null) {
-                    AppCompatActivity activity = (AppCompatActivity) getActivity();
-                    Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
-                    ToolbarUtils.changeToolbarColor(activity, position, toolbar, spinner);
-                }
-
-                presenter.loadCategoryTasks(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
 }

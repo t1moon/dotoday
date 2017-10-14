@@ -22,6 +22,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.inc.tim.dotoday.R;
@@ -49,12 +50,14 @@ public class PickCategoryFragment extends DialogFragment {
 //                /* Change color of toolbars */
                 Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
                 Toolbar toolbar2 = (Toolbar) getActivity().findViewById(R.id.toolbar_2);
-                ToolbarUtils.changeAddToolbarColor((AppCompatActivity) getActivity(), position, toolbar,toolbar2);
+                Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner_nav);
+                ToolbarUtils.changeAddToolbarColor((AppCompatActivity) getActivity(), position, toolbar,toolbar2, spinner);
 
                 ((CategoryAdapter) parent.getAdapter()).getDialog().dismiss();
                 AddTaskFragment addTaskFragment =
                         (AddTaskFragment) getActivity().getSupportFragmentManager().findFragmentByTag("AddTaskFragment");
 
+                addTaskFragment.setSpinner(position);
                 addTaskFragment.setCategory(position); // it's for saving into DB
                 addTaskFragment.setCroller(position);  // it's for changing color of croller
 

@@ -91,12 +91,8 @@ public class ToolbarUtils {
             }
         });
 
-        colorAnimator.setDuration(800);
-        colorAnimator.setStartDelay(0);
-        colorAnimator.start();
-        colorStatusAnimator.setDuration(800);
-        colorStatusAnimator.setStartDelay(0);
-        colorStatusAnimator.start();
+        startAnimation(colorAnimator);
+        startAnimation(colorStatusAnimator);
     }
 
 
@@ -163,7 +159,7 @@ public class ToolbarUtils {
     }
 
     private static void startAnimation(ValueAnimator animator) {
-        long duration = 800;
+        long duration = 600;
         long delay = 0;
         animator.setDuration(duration);
         animator.setStartDelay(delay);

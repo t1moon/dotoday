@@ -57,16 +57,11 @@ public class TaskFragment extends Fragment implements TasksContract.View,
     }
 
     @Override
-    public void onResume() {
+    public void onResume(){
         super.onResume();
-        category = ((TasksActivity) getActivity()).getCurrentCategory();
-        bottomBar.selectTabAtPosition(category);
-        //presenter.loadCategoryTasks(category);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
+        ((TasksActivity) getActivity()).setBottomBarSelected(true); // access for further selection
+        int category = ((TasksActivity) getActivity()).getCurrentCategory();
+        bottomBar.selectTabAtPosition(category);                    // select
     }
 
     @Override
@@ -108,8 +103,9 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
-                if (getActivity() != null) {
-                    AppCompatActivity activity = (AppCompatActivity) getActivity();
+                TasksActivity activity = (TasksActivity) getActivity();
+
+                if (activity != null && activity.isBottomBarSelected()) {
                     Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
                     int position = 0;
                     switch (tabId) {
@@ -134,6 +130,7 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         });
         return view;
     }
+
     /**
      * callback when recycler view is swiped
      * item will be removed on swiped

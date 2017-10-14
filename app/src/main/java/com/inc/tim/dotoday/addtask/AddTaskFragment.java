@@ -135,6 +135,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
             // Respond to the action bar's Up/Home button
             case R.id.continue_btn:
                 int category =((TasksActivity) getActivity()).getCurrentCategory();
+                ((TasksActivity) getActivity()).setBottomBarSelected(false);
                 presenter.saveTask(
                         title.getText().toString(),
                         description.getText().toString(),

@@ -27,6 +27,7 @@ public class TasksActivity extends AppCompatActivity
     DrawerLayout drawer;
     BottomBar bottomBar;
     private int currentCategory = 0;
+    private boolean bottomBarSelected = true; // when you back from add, we know that bottom bar is not selected manually
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,4 +204,12 @@ public class TasksActivity extends AppCompatActivity
         this.currentCategory = currentCategory;
     }
 
+
+    public boolean isBottomBarSelected() {
+        return bottomBarSelected;
+    }
+
+    public void setBottomBarSelected(boolean bottomBarSelected) {
+        this.bottomBarSelected = bottomBarSelected;
+    }
 }

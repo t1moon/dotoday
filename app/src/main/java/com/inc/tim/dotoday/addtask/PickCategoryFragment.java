@@ -43,7 +43,6 @@ public class PickCategoryFragment extends DialogFragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                ((TasksActivity)getActivity()).setCurrentCategory(position);
                 ((CategoryAdapter) parent.getAdapter()).getDialog().dismiss();
                 AddTaskFragment addTaskFragment =
                         (AddTaskFragment) getActivity().getSupportFragmentManager().findFragmentByTag("AddTaskFragment");

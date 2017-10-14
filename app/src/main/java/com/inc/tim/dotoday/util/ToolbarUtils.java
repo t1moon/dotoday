@@ -67,7 +67,7 @@ public class ToolbarUtils {
     }
 
     public static void changeToolbarColor(final AppCompatActivity activity, int position,
-                                          final Toolbar toolbar, Spinner spinner) {
+                                          final Toolbar toolbar) {
         int from= ((TasksActivity) activity).getCurrentCategory();
         int to = position;
         Integer colorFrom = MATERIAL_COLORS[from];
@@ -92,15 +92,12 @@ public class ToolbarUtils {
             }
         });
 
-        ((TasksActivity) activity).setCurrentCategory(position);
         colorAnimator.setDuration(800);
         colorAnimator.setStartDelay(0);
         colorAnimator.start();
         colorStatusAnimator.setDuration(800);
         colorStatusAnimator.setStartDelay(0);
         colorStatusAnimator.start();
-        ColorDrawable toolbarColor = new ColorDrawable(MATERIAL_COLORS[to]);
-        spinner.setPopupBackgroundDrawable(toolbarColor);
     }
 
 
@@ -156,8 +153,6 @@ public class ToolbarUtils {
                 croller.setBackCircleColor((Integer) animation.getAnimatedValue());
             }
         });
-        ((TasksActivity) activity).setCurrentCategory(position);
-
         startAnimation(colorAnimator);
         startAnimation(colorStatusAnimator);
         startAnimation(colorIndicatorAnimator);

@@ -1,14 +1,9 @@
 package com.inc.tim.dotoday.tasks;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -21,10 +16,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.inc.tim.dotoday.R;
@@ -41,10 +32,6 @@ import com.roughike.bottombar.OnTabSelectListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.inc.tim.dotoday.R.id.spinner_nav;
-import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.MATERIAL_COLORS;
-import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.STATUSBAR_MATERIAL_COLORS;
-
 public class TaskFragment extends Fragment implements TasksContract.View,
         RecyclerItemTouchHelperLeft.RecyclerItemTouchHelperListener,
         RecyclerItemTouchHelperRight.RecyclerItemTouchHelperListener {
@@ -52,7 +39,6 @@ public class TaskFragment extends Fragment implements TasksContract.View,
     private TasksContract.Presenter presenter;
     private ArrayList<Task> taskList = new ArrayList<>();
     RecyclerView recyclerView;
-    Spinner spinner;
     BottomBar bottomBar;
     TextView no_task_tv;
     int category = 0; // default 1st category
@@ -74,7 +60,8 @@ public class TaskFragment extends Fragment implements TasksContract.View,
     public void onResume() {
         super.onResume();
         category = ((TasksActivity) getActivity()).getCurrentCategory();
-        presenter.loadCategoryTasks(category);
+        bottomBar.selectTabAtPosition(category);
+        //presenter.loadCategoryTasks(category);
     }
 
     @Override
@@ -94,7 +81,6 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        spinner = (Spinner) getActivity().findViewById(spinner_nav);
         category = ((TasksActivity)getActivity()).getCurrentCategory();
         adapter = new RecyclerAdapter(taskList);
         recyclerView.setAdapter(adapter);
@@ -141,13 +127,11 @@ public class TaskFragment extends Fragment implements TasksContract.View,
                             break;
 
                     }
-
-                    ToolbarUtils.changeToolbarColor(activity, position, toolbar, spinner);
+                    ToolbarUtils.changeToolbarColor(activity, position, toolbar);
                     presenter.loadCategoryTasks(position);
                 }
             }
         });
-        //addItemsToSpinner();
         return view;
     }
     /**

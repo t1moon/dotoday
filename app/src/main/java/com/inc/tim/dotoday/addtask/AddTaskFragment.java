@@ -169,6 +169,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (getActivity() != null) {
+                    ((TasksActivity) getActivity()).setCurrentCategory(position);
                     AppCompatActivity activity = (AppCompatActivity) getActivity();
                     Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
                     Toolbar toolbar2 = (Toolbar) activity.findViewById(R.id.toolbar_2);

@@ -125,9 +125,9 @@ public class TaskFragment extends Fragment implements TasksContract.View,
                         case R.id.tab_throw:
                             position = 3;
                             break;
-
                     }
                     ToolbarUtils.changeToolbarColor(activity, position, toolbar);
+                    ((TasksActivity) getActivity()).setCurrentCategory(position);
                     presenter.loadCategoryTasks(position);
                 }
             }

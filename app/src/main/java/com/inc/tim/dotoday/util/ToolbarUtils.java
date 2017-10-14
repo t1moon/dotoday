@@ -29,7 +29,6 @@ public class ToolbarUtils {
 
     public static void changeAddToolbar(final AppCompatActivity activity, ActionBar actionBar, final Toolbar toolbar, AppBarLayout appBarLayout) {
         actionBar.setHomeAsUpIndicator(R.drawable.ic_close_24dp);
-        actionBar.setDisplayShowTitleEnabled(false);
 
         int category = ((TasksActivity) activity).getCurrentCategory();
         ColorDrawable toolbarColor = new ColorDrawable(MATERIAL_COLORS[category]);

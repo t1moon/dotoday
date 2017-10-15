@@ -98,6 +98,7 @@ public class ToolbarUtils {
 
     public static void changeAddToolbarColor(final AppCompatActivity activity, int position,
                                              final Toolbar toolbar, final Toolbar toolbar1, Spinner spinner, final Croller croller) {
+        //СУКА ОН НЕ ДЕЛАЕТ АНИМАЦИЮ ЕСЛИ С FROM и POSITION ОДИНАКОВЫЕ БЛЯТЬ!
         int from = ((TasksActivity) activity).getCurrentCategory();
         Integer colorFrom = MATERIAL_COLORS[from];
         Integer colorTo = MATERIAL_COLORS[position];
@@ -159,7 +160,7 @@ public class ToolbarUtils {
     }
 
     private static void startAnimation(ValueAnimator animator) {
-        long duration = 600;
+        long duration = 800;
         long delay = 0;
         animator.setDuration(duration);
         animator.setStartDelay(delay);

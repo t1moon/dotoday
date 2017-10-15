@@ -62,6 +62,7 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         ((TasksActivity) getActivity()).setBottomBarSelected(true); // access for further selection
         int category = ((TasksActivity) getActivity()).getCurrentCategory();
         bottomBar.selectTabAtPosition(category);                    // select
+        presenter.loadCategoryTasks(category);
     }
 
     @Override

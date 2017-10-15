@@ -32,29 +32,22 @@ public class CommonUtils {
                 Color.parseColor("#7B1FA2"),
         };
 
-        final static int COLOR_START = Color.parseColor("#4CAF50");    // material green
-        final static int COLOR_END = Color.parseColor("#f44336");      // material red
-
-        public static float interpolate(final float a, final float b,
-                                  final float proportion) {
-            return (a + ((b - a) * proportion));
-        }
-
-        public static int interpolateColor(final int a, final int b,
-                                     final float proportion) {
-            final float[] hsva = new float[3];
-            final float[] hsvb = new float[3];
-            Color.colorToHSV(a, hsva);
-            Color.colorToHSV(b, hsvb);
-            for (int i = 0; i < 3; i++) {
-                hsvb[i] = interpolate(hsva[i], hsvb[i], proportion);
-            }
-            return Color.HSVToColor(hsvb);
-        }
+        public static final Integer[] MATERIAL_FOCUS = {
+                Color.parseColor("#C5CAE9"),
+                Color.parseColor("#7986CB"),
+                Color.parseColor("#3F51B5"),
+                Color.parseColor("#303F9F"),
+                Color.parseColor("#1A237E"),
+        };
 
         public static int getImportanceColor(int importance) {
-            return interpolateColor(COLOR_START, COLOR_END,
-                    importance / 100f);
+            int result = 0;
+            if (importance % 2 == 0) {
+                result = MATERIAL_FOCUS[importance/2 - 1];
+            } else {
+                result = MATERIAL_FOCUS[importance / 2];
+            }
+            return result;
         }
     }
 

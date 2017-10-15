@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.data.Task;
@@ -93,8 +94,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
             description.setText(task.getDescription());
             // Set importance background
             GradientDrawable bgShape = (GradientDrawable)icon.getBackground();
-            //bgShape.setColor(CommonUtils.ColorUtil.getImportanceColor(task.getImportance()));
-            bgShape.setColor(CommonUtils.ColorUtil.MATERIAL_COLORS[task.getCategory()]);
+            bgShape.setColor(CommonUtils.ColorUtil.getImportanceColor(task.getImportance()));
             icon_text.setText(task.getTitle().substring(0, 1).toUpperCase());
         }
         @Override

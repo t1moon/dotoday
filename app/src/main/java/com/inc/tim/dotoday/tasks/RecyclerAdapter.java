@@ -94,7 +94,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
             description.setText(task.getDescription());
             // Set importance background
             GradientDrawable bgShape = (GradientDrawable)icon.getBackground();
-            bgShape.setColor(CommonUtils.ColorUtil.getImportanceColor(task.getImportance()));
+            bgShape.setColor(CommonUtils.ColorUtil.getImportanceColor(task.getImportance(),task.getCategory()));
             icon_text.setText(task.getTitle().substring(0, 1).toUpperCase());
         }
         @Override

@@ -160,7 +160,7 @@ public class ToolbarUtils {
     }
 
     private static void startAnimation(ValueAnimator animator) {
-        long duration = 800;
+        long duration = 600;
         long delay = 0;
         animator.setDuration(duration);
         animator.setStartDelay(delay);

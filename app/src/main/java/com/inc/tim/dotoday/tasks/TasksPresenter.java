@@ -26,7 +26,7 @@ public class TasksPresenter implements TasksContract.Presenter{
                 .where(TaskDao.Properties.Is_deleted.eq(false),
                         TaskDao.Properties.Is_completed.eq(false),
                         TaskDao.Properties.Category.eq(category))
-                .orderDesc(TaskDao.Properties.Importance).list();
+                .orderDesc(TaskDao.Properties.Created).list();
         if (!tasks.isEmpty()) {
             view.showTasks(tasks);
         } else {

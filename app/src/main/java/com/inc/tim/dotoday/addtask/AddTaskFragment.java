@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.tasks.TasksActivity;
@@ -27,6 +28,8 @@ import com.inc.tim.dotoday.util.ActivityUtils;
 import com.inc.tim.dotoday.util.CommonUtils;
 import com.inc.tim.dotoday.util.ToolbarUtils;
 import com.sdsmdg.harjot.crollerTest.Croller;
+
+import java.util.Calendar;
 
 import static com.inc.tim.dotoday.R.id.spinner_nav;
 
@@ -140,7 +143,8 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
                         title.getText().toString(),
                         description.getText().toString(),
                         importance,
-                        category
+                        category,
+                        Calendar.getInstance().getTime()
                 );
         }
         return super.onOptionsItemSelected(item);

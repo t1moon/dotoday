@@ -2,15 +2,12 @@ package com.inc.tim.dotoday.data;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Generated;
 
-/**
- * Created by Timur on 22-Sep-17.
- */
+import java.util.Date;
 
-@Entity(nameInDb = "task")
+@Entity(nameInDb = "task_db")
 public class Task {
 
     @Id(autoincrement = true)
@@ -35,24 +32,11 @@ public class Task {
     @Property(nameInDb = "is_deleted")
     private boolean is_deleted;
 
-
-    @Keep
-    public Task(Long id, String title, String description, int importance, int category) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.importance = importance;
-        this.category = category;
-        this.is_completed = false;
-        this.is_deleted = false;
-    }
-
-    public Task() {
-    }
-
-    @Generated(hash = 1880803733)
-    public Task(Long id, String title, String description, int importance, int category,
-            boolean is_completed, boolean is_deleted) {
+    @Property(nameInDb = "created")
+    private Date created;
+    @Generated(hash = 2072274838)
+    public Task(Long id, String title, String description, int importance,
+            int category, boolean is_completed, boolean is_deleted, Date created) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -60,8 +44,12 @@ public class Task {
         this.category = category;
         this.is_completed = is_completed;
         this.is_deleted = is_deleted;
+        this.created = created;
     }
 
+    @Generated(hash = 733837707)
+    public Task() {
+    }
     public Long getId() {
         return this.id;
     }
@@ -124,5 +112,13 @@ public class Task {
 
     public boolean getIs_deleted() {
         return this.is_deleted;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }

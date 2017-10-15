@@ -6,6 +6,9 @@ import com.inc.tim.dotoday.data.DaoMaster;
 import com.inc.tim.dotoday.data.DaoSession;
 import com.inc.tim.dotoday.data.DbOpenHelper;
 import com.inc.tim.dotoday.data.Task;
+import com.inc.tim.dotoday.data.TaskDao;
+
+import java.util.Calendar;
 
 /**
  * Created by Timur on 22-Sep-17.
@@ -25,9 +28,7 @@ public class TasksApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        daoSession = new DaoMaster(new DbOpenHelper(this, "task.db").getWritableDb()).newSession();
-        if(daoSession.getTaskDao().loadAll().size() == 0) {
-            daoSession.getTaskDao().insert(new Task(1L, "Test todo", "Just example", 0, 0));}
+        daoSession = new DaoMaster(new DbOpenHelper(this, "task_db.db").getWritableDb()).newSession();
         INSTANCE = this;
     }
 

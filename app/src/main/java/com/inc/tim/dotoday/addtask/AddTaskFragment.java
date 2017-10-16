@@ -70,11 +70,6 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         toolbar = (Toolbar) view.findViewById(R.id.toolbar_2);
 
         spinner = (Spinner) getActivity().findViewById(spinner_nav);
-        final String[] categories = getResources().getStringArray(R.array.categories_array);
-        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(getActivity(),
-                R.layout.spinner_dropdown, categories);
-        spinner.setAdapter(spinnerAdapter);
-
         addItemsToSpinner();
         til_title = (TextInputLayout) view.findViewById(R.id.til_title);
 

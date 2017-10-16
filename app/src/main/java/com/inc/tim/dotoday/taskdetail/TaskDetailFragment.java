@@ -20,7 +20,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.data.Task;
@@ -30,6 +34,7 @@ import com.inc.tim.dotoday.util.CommonUtils;
 import com.inc.tim.dotoday.util.ToolbarUtils;
 import com.sdsmdg.harjot.crollerTest.Croller;
 
+import static com.inc.tim.dotoday.R.id.spinner_nav;
 import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.MATERIAL_COLORS;
 import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.STATUSBAR_MATERIAL_COLORS;
 
@@ -40,6 +45,7 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
     Toolbar toolbar;
     Toolbar toolbar1;
     Croller croller;
+    Spinner spinner;
     private int importance;
     private int category;
     EditText title;
@@ -77,9 +83,11 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbar1 = (Toolbar) view. findViewById(R.id.detail_toolbar_2);
         til_title = (TextInputLayout) view.findViewById(R.id.detail_til_title);
-
         title  = (EditText) view.findViewById(R.id.detail_task_title_et);
         description = (EditText) view.findViewById(R.id.detail_task_description);
+
+        spinner = (Spinner) getActivity().findViewById(spinner_nav);
+        addItemsToSpinner();
 
         croller = (Croller) view.findViewById(R.id.detail_croller);
 
@@ -109,8 +117,8 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case R.id.continue_btn:
-                Task task = new Task();
-                task.setTitle(title.getText().toString());
+                int category =((TasksActivity) getActivity()).getCurrentCategory();
+                ((TasksActivity) getActivity()).setBottomBarSelected(false);
                 presenter.editTask(title.getText().toString(),
                         description.getText().toString(),
                         importance,
@@ -130,6 +138,7 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        spinner.setVisibility(Spinner.GONE);
         ToolbarUtils.returnToolbar(appBarLayout, ((TasksActivity) getActivity()).getSupportActionBar());
     }
 
@@ -147,7 +156,10 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ToolbarUtils.changeDetailToolbar(activity, activity.getSupportActionBar(), toolbar,
-                toolbar1, appBarLayout, category);
+                toolbar1, appBarLayout);
+
+        spinner.setSelection(category);
+        spinner.setVisibility(Spinner.VISIBLE);
 
         croller.setProgress(task.getImportance());
         croller.setIndicatorColor(CommonUtils.ColorUtil.MATERIAL_COLORS[category]);
@@ -161,6 +173,31 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
             Snackbar.make(getView(), getString(R.string.task_edited), Snackbar.LENGTH_SHORT).show();
         }
         ActivityUtils.popFragment(getActivity().getSupportFragmentManager());
+    }
+
+    private void addItemsToSpinner() {
+        final String[] categories = getResources().getStringArray(R.array.categories_array);
+        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(getActivity(),
+                R.layout.spinner_dropdown, categories);
+        spinner.setAdapter(spinnerAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (getActivity() != null) {
+                    AppCompatActivity activity = (AppCompatActivity) getActivity();
+                    Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+                    Toolbar toolbar2 = (Toolbar) activity.findViewById(R.id.detail_toolbar_2);
+                    ToolbarUtils.changeAddToolbarColor(activity, position, toolbar, toolbar2, spinner, croller);
+                    ((TasksActivity) getActivity()).setCurrentCategory(position);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
 

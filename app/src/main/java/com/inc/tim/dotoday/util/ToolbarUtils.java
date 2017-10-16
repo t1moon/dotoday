@@ -42,13 +42,9 @@ public class ToolbarUtils {
     }
     public static void changeDetailToolbar(final AppCompatActivity activity,
                                            ActionBar actionBar, Toolbar toolbar, Toolbar toolbar1,
-                                           AppBarLayout appBarLayout, int position) {
+                                           AppBarLayout appBarLayout) {
         actionBar.setHomeAsUpIndicator(R.drawable.ic_close_24dp);
         appBarLayout.findViewById(R.id.toolbar_title).setVisibility(View.GONE);
-
-        String[] categories = activity.getResources().getStringArray(R.array.categories_array);
-        actionBar.setTitle(categories[position]);
-        actionBar.setDisplayShowTitleEnabled(true);
 
         int category = ((TasksActivity) activity).getCurrentCategory();
         ColorDrawable toolbarColor = new ColorDrawable(MATERIAL_COLORS[category]);
@@ -100,7 +96,6 @@ public class ToolbarUtils {
 
     public static void changeAddToolbarColor(final AppCompatActivity activity, int position,
                                              final Toolbar toolbar, final Toolbar toolbar1, Spinner spinner, final Croller croller) {
-        //СУКА ОН НЕ ДЕЛАЕТ АНИМАЦИЮ ЕСЛИ С FROM и POSITION ОДИНАКОВЫЕ БЛЯТЬ!
         int from = ((TasksActivity) activity).getCurrentCategory();
         Integer colorFrom = MATERIAL_COLORS[from];
         Integer colorTo = MATERIAL_COLORS[position];

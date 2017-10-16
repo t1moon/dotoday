@@ -37,9 +37,10 @@ public class RecyclerItemTouchHelperLeft extends ItemTouchHelper.SimpleCallback 
             ArrayList<Task> taskList = ((TaskFragment)listener).getTaskList();
             long taskId = taskList.get(viewHolder.getAdapterPosition()).getId();
             boolean hasAlreadyArchived = ((TaskFragment)listener).getPresenter().getIsDeleted(taskId);
+            boolean hasAlreadyCompleted = ((TaskFragment)listener).getPresenter().getIsCompleted(taskId);
             /* change background depend on action */
 
-            if (hasAlreadyArchived) {
+            if (hasAlreadyArchived || hasAlreadyCompleted) {
                 ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundDelete.setVisibility(View.VISIBLE);
                 ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundDelete.invalidate();
 

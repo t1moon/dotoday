@@ -103,7 +103,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/padd_10"
             android:layout_toRightOf="@id/restore_icon"
-            android:text="@string/complete"
+            android:text="@string/restore"
             android:textColor="#fff"
             android:textSize="13dp" />
     </RelativeLayout>

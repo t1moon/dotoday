@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -170,18 +171,18 @@ public class TaskFragment extends Fragment implements TasksContract.View,
                     presenter.deleteCompletely(taskId);
                 } else {
                     // DELETE
-                    snackbar = Snackbar.make(getView(), getString(R.string.delete_undo), Snackbar.LENGTH_LONG);
+                    snackbar = Snackbar.make(getView(), getString(R.string.delete_undo), Snackbar.LENGTH_SHORT);
                     presenter.setIsDeleted(taskId, true);
                 }
             }
             else {
                 // RESTORE
                 if (hasAlreadyCompleted) {
-                    snackbar = Snackbar.make(getView(), getString(R.string.restore_undo), Snackbar.LENGTH_LONG);
+                    snackbar = Snackbar.make(getView(), getString(R.string.restore_undo), Snackbar.LENGTH_SHORT);
                     presenter.setIsCompleted(taskId, false);
                 } else {
                     // COMPLETE
-                    snackbar = Snackbar.make(getView(), getString(R.string.complete_undo), Snackbar.LENGTH_LONG);
+                    snackbar = Snackbar.make(getView(), getString(R.string.complete_undo), Snackbar.LENGTH_SHORT);
                     presenter.setIsCompleted(taskId, true);
                 }
             }

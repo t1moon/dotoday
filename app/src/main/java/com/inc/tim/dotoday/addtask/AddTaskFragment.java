@@ -170,6 +170,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
                 R.layout.spinner_dropdown, categories);
         spinner.setAdapter(spinnerAdapter);
 
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

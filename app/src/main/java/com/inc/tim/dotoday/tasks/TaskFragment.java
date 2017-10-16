@@ -69,7 +69,9 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         super.onResume();
         // SET FILTERING TITLE
         presenter.setFiltering(TasksUtils.Filtering.ACTIVE);
-        ((TasksActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.filter_active));
+
+        ((TextView) (getActivity().findViewById(R.id.toolbar_title))).setText(R.string.filter_active);
+        getActivity().findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
 
         ((TasksActivity) getActivity()).setBottomBarSelected(true); // access for further selection
         int category = ((TasksActivity) getActivity()).getCurrentCategory();
@@ -252,15 +254,15 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         switch (id) {
             case R.id.filter_active:
                 presenter.setFiltering(TasksUtils.Filtering.ACTIVE);
-                ((TasksActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.filter_active));
+                ((TextView) (getActivity().findViewById(R.id.toolbar_title))).setText(R.string.filter_active);
                 break;
             case R.id.filter_completed:
                 presenter.setFiltering(TasksUtils.Filtering.COMPLETED);
-                ((TasksActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.filter_completed));
+                ((TextView) (getActivity().findViewById(R.id.toolbar_title))).setText(R.string.filter_completed);
                 break;
             case R.id.filter_deleted:
                 presenter.setFiltering(TasksUtils.Filtering.DELETED);
-                ((TasksActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.filter_deleted));
+                ((TextView) (getActivity().findViewById(R.id.toolbar_title))).setText(R.string.filter_deleted);
                 break;
             case R.id.sort_date:
                 presenter.setSorting(TasksUtils.Sorting.DATE);

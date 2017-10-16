@@ -101,6 +101,11 @@ public class TasksPresenter implements TasksContract.Presenter {
     }
 
     @Override
+    public TasksUtils.Filtering getFiltering() {
+        return currentFiltering;
+    }
+
+    @Override
     public void setCategory(int category) {
         currentCategory = category;
     }

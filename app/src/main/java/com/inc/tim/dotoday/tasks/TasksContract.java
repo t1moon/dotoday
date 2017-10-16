@@ -28,6 +28,7 @@ public interface TasksContract {
         boolean getIsDeleted(long taskId);
         void setSorting(TasksUtils.Sorting sorting);
         void setFiltering(TasksUtils.Filtering filtering);
+        TasksUtils.Filtering getFiltering();
         void setCategory(int category);
         int getCategory();
     }

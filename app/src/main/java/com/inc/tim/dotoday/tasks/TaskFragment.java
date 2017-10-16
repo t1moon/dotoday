@@ -46,7 +46,6 @@ public class TaskFragment extends Fragment implements TasksContract.View,
     RecyclerView recyclerView;
     BottomBar bottomBar;
     TextView no_task_tv;
-    int category = 0; // default 1st category
 
     public TaskFragment() {
         // Required empty public constructor
@@ -64,9 +63,13 @@ public class TaskFragment extends Fragment implements TasksContract.View,
     @Override
     public void onResume(){
         super.onResume();
+        // SET FILTERING TITLE
+        presenter.setFiltering(TasksUtils.Filtering.ACTIVE);
+        ((TasksActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.filter_active));
+
         ((TasksActivity) getActivity()).setBottomBarSelected(true); // access for further selection
         int category = ((TasksActivity) getActivity()).getCurrentCategory();
-        bottomBar.selectTabAtPosition(category);                    // select
+        bottomBar.selectTabAtPosition(category);// select in right category
         presenter.loadCategoryTasks(category);
     }
 
@@ -82,7 +85,6 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        category = ((TasksActivity)getActivity()).getCurrentCategory();
         adapter = new RecyclerAdapter(taskList);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
@@ -246,12 +248,15 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         switch (id) {
             case R.id.filter_active:
                 presenter.setFiltering(TasksUtils.Filtering.ACTIVE);
+                ((TasksActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.filter_active));
                 break;
             case R.id.filter_completed:
                 presenter.setFiltering(TasksUtils.Filtering.COMPLETED);
+                ((TasksActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.filter_completed));
                 break;
             case R.id.filter_deleted:
                 presenter.setFiltering(TasksUtils.Filtering.DELETED);
+                ((TasksActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.filter_deleted));
                 break;
             case R.id.sort_date:
                 presenter.setSorting(TasksUtils.Sorting.DATE);
@@ -263,6 +268,7 @@ public class TaskFragment extends Fragment implements TasksContract.View,
                 presenter.setSorting(TasksUtils.Sorting.IMPORTANCE);
                 break;
         }
+        int category = ((TasksActivity) getActivity()).getCurrentCategory();
         presenter.loadCategoryTasks(category);
         return super.onOptionsItemSelected(item);
     }

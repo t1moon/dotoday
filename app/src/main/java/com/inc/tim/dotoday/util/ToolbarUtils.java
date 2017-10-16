@@ -29,7 +29,7 @@ public class ToolbarUtils {
 
     public static void changeAddToolbar(final AppCompatActivity activity, ActionBar actionBar, final Toolbar toolbar, AppBarLayout appBarLayout) {
         actionBar.setHomeAsUpIndicator(R.drawable.ic_close_24dp);
-
+        actionBar.setDisplayShowTitleEnabled(false);
         int category = ((TasksActivity) activity).getCurrentCategory();
         ColorDrawable toolbarColor = new ColorDrawable(MATERIAL_COLORS[category]);
         toolbar.setBackgroundColor(toolbarColor.getColor());
@@ -42,6 +42,7 @@ public class ToolbarUtils {
                                            ActionBar actionBar, Toolbar toolbar, Toolbar toolbar1,
                                            AppBarLayout appBarLayout, int position) {
         actionBar.setHomeAsUpIndicator(R.drawable.ic_close_24dp);
+        actionBar.setDisplayShowTitleEnabled(false);
 
         String[] categories = activity.getResources().getStringArray(R.array.categories_array);
         actionBar.setTitle(categories[position]);
@@ -61,8 +62,7 @@ public class ToolbarUtils {
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             appBarLayout.setElevation(8);
         }
-        actionBar.setDisplayShowTitleEnabled(false);
-
+        actionBar.setDisplayShowTitleEnabled(true);
     }
 
     public static void changeToolbarColor(final AppCompatActivity activity, int position,

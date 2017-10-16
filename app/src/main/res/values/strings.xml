@@ -17,7 +17,7 @@
 
     <string name="pick_category">Выберите категорию</string>
     <string name="importance">Важность задачи</string>
-    <string name="delete">Удалить</string>
+    <string name="archive">В архив</string>
     <string name="delete_completely">Удалить полностью</string>
     <string name="complete">Выполнить</string>
     <string name="restore">Восстановить</string>

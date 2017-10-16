@@ -29,6 +29,16 @@ public class RecyclerItemTouchHelperRight extends ItemTouchHelper.SimpleCallback
     }
 
     @Override
+    public int getSwipeDirs(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+        ArrayList<Task> taskList = ((TaskFragment)listener).getTaskList();
+        long taskId = taskList.get(viewHolder.getAdapterPosition()).getId();
+        boolean hasAlreadyArchived = ((TaskFragment)listener).getPresenter().getIsDeleted(taskId);
+        if (hasAlreadyArchived) return 0;
+        return super.getSwipeDirs(recyclerView, viewHolder);
+    }
+
+
+    @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         if (viewHolder != null) {
             ArrayList<Task> taskList = ((TaskFragment)listener).getTaskList();
@@ -45,6 +55,8 @@ public class RecyclerItemTouchHelperRight extends ItemTouchHelper.SimpleCallback
                 ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundComplete.invalidate();
                 ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundDelete.setVisibility(View.GONE);
                 ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundDelete.invalidate();
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundArchive.setVisibility(View.GONE);
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundArchive.invalidate();
             } else {
                 ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundComplete.setVisibility(View.VISIBLE);
                 ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundComplete.invalidate();
@@ -54,6 +66,8 @@ public class RecyclerItemTouchHelperRight extends ItemTouchHelper.SimpleCallback
                 ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundDelete.invalidate();
                 ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundRestore.setVisibility(View.GONE);
                 ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundRestore.invalidate();
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundArchive.setVisibility(View.GONE);
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundArchive.invalidate();
             }
         }
     }

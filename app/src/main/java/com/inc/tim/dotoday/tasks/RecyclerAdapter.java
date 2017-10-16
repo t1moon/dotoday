@@ -70,7 +70,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
         private TextView description;
         private ImageView icon;
         private TextView icon_text;
-        public RelativeLayout viewBackgroundDelete, viewBackgroundComplete, viewBackgroundRestore, viewForeground;
+        public RelativeLayout viewBackgroundDelete, viewBackgroundComplete, viewBackgroundRestore,
+                viewBackgroundArchive, viewForeground;
         public TaskHolder(View v) {
             super(v);
             title = (TextView) v.findViewById(R.id.row_title);
@@ -84,6 +85,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
             icon_text.setOnClickListener(this);
 
             viewBackgroundDelete = (RelativeLayout) v.findViewById(R.id.view_background_delete);
+            viewBackgroundArchive = (RelativeLayout) v.findViewById(R.id.view_background_archive);
             viewBackgroundComplete = (RelativeLayout) v.findViewById(R.id.view_background_complete);
             viewBackgroundRestore= (RelativeLayout) v.findViewById(R.id.view_background_restore);
             viewForeground = (RelativeLayout) v.findViewById(R.id.view_foreground);

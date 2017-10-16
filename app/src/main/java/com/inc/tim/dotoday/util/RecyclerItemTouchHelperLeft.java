@@ -5,7 +5,11 @@ import android.graphics.Canvas;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.inc.tim.dotoday.data.Task;
 import com.inc.tim.dotoday.tasks.RecyclerAdapter;
+import com.inc.tim.dotoday.tasks.TaskFragment;
+
+import java.util.ArrayList;
 
 /**
  * Created by Timur on 04-Oct-17.
@@ -30,14 +34,32 @@ public class RecyclerItemTouchHelperLeft extends ItemTouchHelper.SimpleCallback 
             final View foregroundView = ((RecyclerAdapter.TaskHolder) viewHolder).viewForeground;
             getDefaultUIUtil().onSelected(foregroundView);
 
+            ArrayList<Task> taskList = ((TaskFragment)listener).getTaskList();
+            long taskId = taskList.get(viewHolder.getAdapterPosition()).getId();
+            boolean hasAlreadyArchived = ((TaskFragment)listener).getPresenter().getIsDeleted(taskId);
             /* change background depend on action */
-            ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundDelete.setVisibility(View.VISIBLE);
-            ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundDelete.invalidate();
 
-            ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundComplete.setVisibility(View.GONE);
-            ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundComplete.invalidate();
-            ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundRestore.setVisibility(View.GONE);
-            ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundRestore.invalidate();
+            if (hasAlreadyArchived) {
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundDelete.setVisibility(View.VISIBLE);
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundDelete.invalidate();
+
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundComplete.setVisibility(View.GONE);
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundComplete.invalidate();
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundRestore.setVisibility(View.GONE);
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundRestore.invalidate();
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundArchive.setVisibility(View.GONE);
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundArchive.invalidate();
+            } else {
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundArchive.setVisibility(View.VISIBLE);
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundArchive.invalidate();
+
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundDelete.setVisibility(View.GONE);
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundDelete.invalidate();
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundComplete.setVisibility(View.GONE);
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundComplete.invalidate();
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundRestore.setVisibility(View.GONE);
+                ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundRestore.invalidate();
+            }
 
         }
     }

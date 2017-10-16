@@ -20,6 +20,7 @@
     <color name="bg_action_mode">#757575</color>
     <color name="bg_circle_default">#666666</color>
 
+    <color name="bg_row_background_archive">#795548</color>
     <color name="bg_row_background_delete">#f44336</color>
     <color name="bg_row_background_complete">#4CAF50</color>
     <color name="bg_row_background_restore">#FFC107</color>

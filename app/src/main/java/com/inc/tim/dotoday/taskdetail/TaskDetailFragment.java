@@ -158,7 +158,7 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
     @Override
     public void notifyEdited() {
         if (getView() != null) {
-            Snackbar.make(getView(), "Task edited", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getView(), getString(R.string.task_edited), Snackbar.LENGTH_SHORT).show();
         }
         ActivityUtils.popFragment(getActivity().getSupportFragmentManager());
     }

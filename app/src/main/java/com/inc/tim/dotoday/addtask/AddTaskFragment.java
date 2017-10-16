@@ -110,7 +110,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     @Override
     public void notifyAdded() {
         if (getView() != null) {
-            Snackbar.make(getView(), "Task created", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getView(), getString(R.string.task_created), Snackbar.LENGTH_SHORT).show();
         }
         ActivityUtils.popFragment(getActivity().getSupportFragmentManager());
     }

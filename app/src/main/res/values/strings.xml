@@ -4,17 +4,19 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="task_edited">Задача отредактирована</string>
+    <string name="task_created">Задача создана</string>
+
     <string name="sort">Сортировка</string>
     <string name="sort_date">По дате</string>
     <string name="sort_importance">По важности</string>
 
     <string name="filter">Фильтр</string>
     <string name="filter_active">Активные</string>
-    <string name="filter_completed">Завершённые</string>
-    <string name="filter_deleted">Удалённый</string>
+    <string name="filter_completed">Выполненные</string>
+    <string name="filter_deleted">Архив</string>
 
     <string name="action_settings">Настройки</string>
-
     <string name="pick_category">Выберите категорию</string>
     <string name="importance">Важность задачи</string>
     <string name="archive">В архив</string>
@@ -29,6 +31,8 @@
     <string name="delete_completely_undo">Задача удалена полностью</string>
     <string name="complete_undo">Задача выполнена</string>
     <string name="restore_undo">Задача восстановлена</string>
+
+
     <string-array name="categories_array">
         <item>Фокус</item>
         <item>Цель</item>

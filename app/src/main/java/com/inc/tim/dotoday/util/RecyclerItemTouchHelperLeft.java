@@ -36,6 +36,9 @@ public class RecyclerItemTouchHelperLeft extends ItemTouchHelper.SimpleCallback 
 
             ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundComplete.setVisibility(View.GONE);
             ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundComplete.invalidate();
+            ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundRestore.setVisibility(View.GONE);
+            ((RecyclerAdapter.TaskHolder) viewHolder).viewBackgroundRestore.invalidate();
+
         }
     }
 

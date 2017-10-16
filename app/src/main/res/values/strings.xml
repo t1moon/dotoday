@@ -4,18 +4,31 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="sort">Сортировка</string>
+    <string name="sort_date">По дате</string>
+    <string name="sort_importance">По важности</string>
+
+    <string name="filter">Фильтр</string>
+    <string name="filter_active">Активные</string>
+    <string name="filter_completed">Завершённые</string>
+    <string name="filter_deleted">Удалённый</string>
+
     <string name="action_settings">Настройки</string>
 
     <string name="pick_category">Выберите категорию</string>
     <string name="importance">Важность задачи</string>
     <string name="delete">Удалить</string>
+    <string name="delete_completely">Удалить полностью</string>
     <string name="complete">Выполнить</string>
+    <string name="restore">Восстановить</string>
 
     <string name="field_required">Это поле обязательно</string>
 
     <string name="undo">Отменить</string>
     <string name="delete_undo">Задача удалена</string>
+    <string name="delete_completely_undo">Задача удалена полностью</string>
     <string name="complete_undo">Задача выполнена</string>
+    <string name="restore_undo">Задача восстановлена</string>
     <string-array name="categories_array">
         <item>Фокус</item>
         <item>Цель</item>

@@ -55,6 +55,31 @@
             android:textColor="#fff"
             android:textSize="13dp" />
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/view_background_restore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_row_background_restore">
+
+        <ImageView
+            android:id="@+id/restore_icon"
+            android:layout_width="@dimen/ic_delete"
+            android:layout_height="@dimen/ic_delete"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padd_10"
+            android:src="@drawable/ic_restore_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padd_10"
+            android:layout_toRightOf="@id/restore_icon"
+            android:text="@string/complete"
+            android:textColor="#fff"
+            android:textSize="13dp" />
+    </RelativeLayout>
 
 
 

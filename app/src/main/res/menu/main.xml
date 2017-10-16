@@ -2,8 +2,46 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/filter"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_check_box_24dp"
+        android:title="@string/filter"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/filter_active"
+                android:orderInCategory="100"
+                android:title="@string/filter_active"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/filter_completed"
+                android:orderInCategory="100"
+                android:title="@string/filter_completed"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/filter_deleted"
+                android:orderInCategory="100"
+                android:title="@string/filter_deleted"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/action_sort"
+        android:orderInCategory="100"
+        android:title="@string/sort"
+        android:icon="@drawable/ic_sort_24dp"
+        app:showAsAction="ifRoom" >
+        <menu>
+            <item
+                android:id="@+id/sort_date"
+                android:orderInCategory="100"
+                android:title="@string/sort_date"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_importance"
+                android:orderInCategory="100"
+                android:title="@string/sort_importance"
+                app:showAsAction="never" />
+        </menu>
+    </item>
 </menu>

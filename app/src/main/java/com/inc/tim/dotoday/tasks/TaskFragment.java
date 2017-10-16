@@ -10,10 +10,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -25,6 +29,7 @@ import com.inc.tim.dotoday.util.ActivityUtils;
 import com.inc.tim.dotoday.util.DividerItemDecoration;
 import com.inc.tim.dotoday.util.RecyclerItemTouchHelperLeft;
 import com.inc.tim.dotoday.util.RecyclerItemTouchHelperRight;
+import com.inc.tim.dotoday.util.TasksUtils;
 import com.inc.tim.dotoday.util.ToolbarUtils;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -129,6 +134,7 @@ public class TaskFragment extends Fragment implements TasksContract.View,
                 }
             }
         });
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -147,32 +153,57 @@ public class TaskFragment extends Fragment implements TasksContract.View,
             // remove the item from recycler view
             adapter.removeItem(viewHolder.getAdapterPosition());
 
-            Snackbar snackbar;
+            Snackbar snackbar = null;
 
             final long taskId  = deletedItem.getId();
+            final boolean hasAlreadyCompleted = presenter.getIsCompleted(taskId);
+            final boolean hasAlreadyDeleted = presenter.getIsDeleted(taskId);
+
             if (direction == ItemTouchHelper.LEFT){
-                snackbar = Snackbar.make(getView(), getString(R.string.delete_undo), Snackbar.LENGTH_LONG);
-                presenter.setIsDeleted(taskId, true);
+                // DELETE COMPLETELY
+                if (hasAlreadyDeleted || hasAlreadyCompleted) {
+                    presenter.deleteCompletely(taskId);
+                } else {
+                    // DELETE
+                    snackbar = Snackbar.make(getView(), getString(R.string.delete_undo), Snackbar.LENGTH_LONG);
+                    presenter.setIsDeleted(taskId, true);
+                }
             }
             else {
-                snackbar = Snackbar.make(getView(), getString(R.string.complete_undo), Snackbar.LENGTH_LONG);
-                presenter.setIsCompleted(taskId, true);
-            }
-            snackbar.setAction(getString(R.string.undo), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // undo is selected, restore the deleted item
-                    adapter.restoreItem(deletedItem, deletedIndex);
-                    if (direction == ItemTouchHelper.LEFT) {
-                        presenter.setIsDeleted(taskId, false);
-                    }
-                    else {
-                        presenter.setIsCompleted(taskId, false);
-                    }
+                // RESTORE
+                if (hasAlreadyCompleted) {
+                    snackbar = Snackbar.make(getView(), getString(R.string.restore_undo), Snackbar.LENGTH_LONG);
+                    presenter.setIsCompleted(taskId, false);
+                } else {
+                    // COMPLETE
+                    snackbar = Snackbar.make(getView(), getString(R.string.complete_undo), Snackbar.LENGTH_LONG);
+                    presenter.setIsCompleted(taskId, true);
                 }
-            });
-            snackbar.setActionTextColor(Color.parseColor("#FFC107"));
-            snackbar.show();
+            }
+
+            // UNDO
+            if (snackbar != null) {
+                snackbar.setAction(getString(R.string.undo), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // undo is selected, restore the deleted item
+                        adapter.restoreItem(deletedItem, deletedIndex);
+                        if (direction == ItemTouchHelper.LEFT) {
+                            // ONLY FROM ACTIVE
+                            presenter.setIsDeleted(taskId, false);
+                        }
+                        else {
+                            if (hasAlreadyCompleted)
+                                // FROM COMPLETED
+                                presenter.setIsCompleted(taskId, true);
+                            else
+                                presenter.setIsCompleted(taskId, false);
+                        }
+                    }
+                });
+                snackbar.setActionTextColor(Color.parseColor("#FFC107"));
+                snackbar.show();
+            }
         }
     }
 
@@ -200,5 +231,47 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.filter_active:
+                presenter.setFiltering(TasksUtils.Filtering.ACTIVE);
+                break;
+            case R.id.filter_completed:
+                presenter.setFiltering(TasksUtils.Filtering.COMPLETED);
+                break;
+            case R.id.filter_deleted:
+                presenter.setFiltering(TasksUtils.Filtering.DELETED);
+                break;
+            case R.id.sort_date:
+                presenter.setSorting(TasksUtils.Sorting.DATE);
+                break;
+            case R.id.sort_importance:
+                presenter.setSorting(TasksUtils.Sorting.IMPORTANCE);
+                break;
+            default:
+                presenter.setSorting(TasksUtils.Sorting.IMPORTANCE);
+                break;
+        }
+        presenter.loadCategoryTasks(category);
+        return super.onOptionsItemSelected(item);
+    }
+
+    public TasksContract.Presenter getPresenter() {
+        return presenter;
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
+    }
 }

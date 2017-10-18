@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.transition.ChangeBounds;
@@ -15,6 +16,7 @@ import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
 import android.transition.TransitionSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +33,11 @@ import com.inc.tim.dotoday.taskdetail.TaskDetailFragment;
 import com.inc.tim.dotoday.util.ActivityUtils;
 import com.inc.tim.dotoday.util.CommonUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import static android.transition.TransitionSet.ORDERING_TOGETHER;
 
@@ -84,8 +90,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
     public static class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView title;
         private TextView description;
+        private TextView date;
         private ImageView icon;
         private TextView icon_text;
+        Locale ruLocale = new Locale("ru","RU");
         public RelativeLayout viewBackgroundDelete, viewBackgroundComplete, viewBackgroundRestore,
                 viewBackgroundArchive, viewForeground;
 
@@ -93,11 +101,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
             super(v);
             title = (TextView) v.findViewById(R.id.row_title);
             description = (TextView) v.findViewById(R.id.row_description);
+            date = (TextView) v.findViewById(R.id.row_date);
             icon = (ImageView) v.findViewById(R.id.task_icon);
             icon_text = (TextView) v.findViewById(R.id.task_icon_text);
 
             title.setOnClickListener(this);
             description.setOnClickListener(this);
+            date.setOnClickListener(this);
             icon.setOnClickListener(this);
             icon_text.setOnClickListener(this);
 
@@ -117,6 +127,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
                 holder.title.setPaintFlags(holder.title.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
             }
             description.setText(task.getDescription());
+
+            String oldDate = task.getCreated().toString();
+            SimpleDateFormat src = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy", Locale.ENGLISH);
+            SimpleDateFormat dest = new SimpleDateFormat("EEE, d MMM", ruLocale);
+            try {
+                Date newDate = src.parse(oldDate);
+                date.setText(dest.format(newDate));
+                date.setTextColor(CommonUtils.ColorUtil.MATERIAL_COLORS[task.getCategory()]);
+            } catch (ParseException e) {
+                Log.d("Exception",e.getMessage());
+            }
+
             // Set importance background
             GradientDrawable bgShape = (GradientDrawable) icon.getBackground();
             bgShape.setColor(CommonUtils.ColorUtil.getImportanceColor(task.getImportance(), task.getCategory()));

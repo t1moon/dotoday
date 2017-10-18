@@ -34,11 +34,15 @@
     <string name="complete_undo">Задача выполнена</string>
     <string name="restore_undo">Задача восстановлена</string>
 
+    <string name="focus">Делай</string>
+    <string name="goal">Решай</string>
+    <string name="delegate">Поручи</string>
+    <string name="trash">Удали</string>
 
     <string-array name="categories_array">
-        <item>Фокус</item>
-        <item>Цель</item>
-        <item>Делегация</item>
-        <item>Мусор</item>
+        <item>@string/focus</item>
+        <item>@string/goal</item>
+        <item>@string/delegate</item>
+        <item>@string/trash</item>
     </string-array>
 </resources>

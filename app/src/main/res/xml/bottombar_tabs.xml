@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tabs>
     <tab
-        icon="@drawable/ic_focus"
+        icon="@drawable/focus"
         id="@+id/tab_focus"
-        title="Фокус"
+        title="@string/focus"
         barColorWhenSelected="@color/red"/>
     <tab
-        icon="@drawable/ic_goal"
+        icon="@drawable/goal"
         id="@+id/tab_goal"
-        title="Цель"
+        title="@string/goal"
         barColorWhenSelected="@color/indigo"/>
     <tab
-        icon="@drawable/ic_delegate"
+        icon="@drawable/delegate"
         id="@+id/tab_delegate"
-        title="Делегация"
+        title="@string/delegate"
         barColorWhenSelected="@color/amber"/>
     <tab
-        icon="@drawable/ic_throw"
+        icon="@drawable/delete"
         id="@+id/tab_throw"
-        title="Мусор"
+        title="@string/trash"
         barColorWhenSelected="@color/purple"/>
 </tabs>

@@ -23,6 +23,6 @@
     <dimen name="ic_delete">30dp</dimen>
     <dimen name="thumbnail">90dp</dimen>
 
-    <dimen name="griditem_rounded">5dp</dimen>
+    <dimen name="griditem_rounded">0dp</dimen>
 
 </resources>

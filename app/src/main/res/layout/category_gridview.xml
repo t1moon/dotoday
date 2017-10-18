@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:numColumns="2"
-    android:padding="16dp"
-    android:horizontalSpacing="8dp"
-    android:verticalSpacing="8dp"
+    android:padding="20dp"
+    android:horizontalSpacing="2dp"
+    android:verticalSpacing="2dp"
     android:gravity="center"
+    android:drawSelectorOnTop="true"
     />

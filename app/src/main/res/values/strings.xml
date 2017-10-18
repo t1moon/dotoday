@@ -8,7 +8,7 @@
     <string name="task_created">Задача создана</string>
 
     <string name="sort">Сортировка</string>
-    <string name="sort_date">По дате</string>
+    <string name="sort_date">По дате создания</string>
     <string name="sort_importance">По важности</string>
 
     <string name="filter">Фильтр</string>

@@ -50,15 +50,14 @@
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         app:layout_insetEdge="bottom"
         android:layout_gravity="bottom"
         app:bb_tabXmlResource="@xml/bottombar_tabs"
         app:bb_behavior="shy|shifting"
         app:bb_inActiveTabColor="#000000"
-        app:bb_activeTabColor="@android:color/white"
-        app:bb_badgesHideWhenActive="true"/>
+        app:bb_activeTabColor="@android:color/white" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

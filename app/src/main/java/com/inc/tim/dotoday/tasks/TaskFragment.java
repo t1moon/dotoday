@@ -68,15 +68,27 @@ public class TaskFragment extends Fragment implements TasksContract.View,
     public void onResume(){
         super.onResume();
         // SET FILTERING TITLE
-        presenter.setFiltering(TasksUtils.Filtering.ACTIVE);
-
-        ((TextView) (getActivity().findViewById(R.id.toolbar_title))).setText(R.string.filter_active);
-        getActivity().findViewById(R.id.toolbar_title).setVisibility(View.VISIBLE);
-
+        if (!((TasksActivity) getActivity()).isBottomBarSelected())
+            presenter.setFiltering(TasksUtils.Filtering.ACTIVE);
+        setToolbarTitle();
         ((TasksActivity) getActivity()).setBottomBarSelected(true); // access for further selection
         int category = ((TasksActivity) getActivity()).getCurrentCategory();
         bottomBar.selectTabAtPosition(category);// select in right category
         presenter.loadCategoryTasks(category);
+    }
+
+    private void setToolbarTitle() {
+        switch (presenter.getFiltering()) {
+            case ACTIVE:
+                ((TextView) (getActivity().findViewById(R.id.toolbar_title))).setText(R.string.filter_active);
+                break;
+            case COMPLETED:
+                ((TextView) (getActivity().findViewById(R.id.toolbar_title))).setText(R.string.filter_completed);
+                break;
+            case DELETED:
+                ((TextView) (getActivity().findViewById(R.id.toolbar_title))).setText(R.string.filter_deleted);
+                break;
+        }
     }
 
     @Override

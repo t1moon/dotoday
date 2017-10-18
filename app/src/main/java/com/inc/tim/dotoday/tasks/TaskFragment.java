@@ -1,6 +1,7 @@
 package com.inc.tim.dotoday.tasks;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.Explode;
 import android.transition.Fade;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +29,7 @@ import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.addtask.AddTaskFragment;
 import com.inc.tim.dotoday.data.Task;
 import com.inc.tim.dotoday.util.ActivityUtils;
+import com.inc.tim.dotoday.util.CommonUtils;
 import com.inc.tim.dotoday.util.DividerItemDecoration;
 import com.inc.tim.dotoday.util.RecyclerItemTouchHelperLeft;
 import com.inc.tim.dotoday.util.RecyclerItemTouchHelperRight;
@@ -101,7 +104,7 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         new ItemTouchHelper(itemTouchHelperLeftCallback).attachToRecyclerView(recyclerView);
         new ItemTouchHelper(itemTouchHelperRightCallback).attachToRecyclerView(recyclerView);
 
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,6 +124,8 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         fab.setImageResource(R.drawable.ic_add_24dp);
 
         bottomBar = (BottomBar) getActivity().findViewById(R.id.bottomBar);
+        for (int i = 0; i < bottomBar.getTabCount(); i++)
+        { bottomBar.getTabAtPosition(i).setGravity(Gravity.CENTER_HORIZONTAL); }
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
@@ -143,6 +148,7 @@ public class TaskFragment extends Fragment implements TasksContract.View,
                             position = 3;
                             break;
                     }
+                    fab.setBackgroundTintList(ColorStateList.valueOf(CommonUtils.ColorUtil.MATERIAL_COLORS[position]));
                     ToolbarUtils.changeToolbarColor(activity, position, toolbar);
                     ((TasksActivity) getActivity()).setCurrentCategory(position);
                     presenter.loadCategoryTasks(position);

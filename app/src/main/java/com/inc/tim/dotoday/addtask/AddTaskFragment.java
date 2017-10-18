@@ -68,23 +68,13 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
 
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appbar_layout);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar_2);
-
         spinner = (Spinner) getActivity().findViewById(spinner_nav);
-        addItemsToSpinner();
         til_title = (TextInputLayout) view.findViewById(R.id.til_title);
-
         title  = (EditText) view.findViewById(R.id.add_task_title_et);
         description = (EditText) view.findViewById(R.id.add_task_description);
-
-
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ToolbarUtils.changeAddToolbar(activity, activity.getSupportActionBar(), toolbar, appBarLayout);
-
-        DialogFragment pickDialog = new PickCategoryFragment();
-        pickDialog.show(getActivity().getSupportFragmentManager(), "Dialog");
-
         croller = (Croller) view.findViewById(R.id.croller);
-
         croller.setOnProgressChangedListener(new Croller.onProgressChangedListener() {
             @Override
             public void onProgressChanged(int progress) {
@@ -92,6 +82,14 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
                 importance = progress;
             }
         });
+        int category = ((TasksActivity) getActivity()).getCurrentCategory();
+        addItemsToSpinner();
+        spinner.setSelection(category);
+        spinner.setVisibility(Spinner.VISIBLE);
+        croller.setIndicatorColor(CommonUtils.ColorUtil.MATERIAL_COLORS[category]);
+        croller.setProgressPrimaryColor(CommonUtils.ColorUtil.MATERIAL_COLORS[category]);
+        croller.setBackCircleColor(CommonUtils.ColorUtil.MATERIAL_COLORS_LIGHT[category]);
+
         setHasOptionsMenu(true);
         return view;
     }
@@ -150,18 +148,12 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         return true;
     }
 
-    public void setSpinner(int position) {
-        spinner.setSelection(position);
-        spinner.setVisibility(Spinner.VISIBLE);
-    }
-
     private void addItemsToSpinner() {
 
         final String[] categories = getResources().getStringArray(R.array.categories_array);
         SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(getActivity(),
                 R.layout.spinner_dropdown, categories);
         spinner.setAdapter(spinnerAdapter);
-
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

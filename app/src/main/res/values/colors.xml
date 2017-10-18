@@ -24,6 +24,7 @@
     <color name="bg_row_background_delete">#f44336</color>
     <color name="bg_row_background_complete">#4CAF50</color>
     <color name="bg_row_background_restore">#FFC107</color>
+    <color name="bg_row_foreground_completed">#80ffffff</color>#
     <color name="item_name">#535353</color>
     <color name="description">#a9a9a9</color>
 
@@ -31,6 +32,7 @@
     <color name="indigo">#3F51B5</color>
     <color name="amber">#FFC107</color>
     <color name="purple">#9C27B0</color>
+
 
 
 

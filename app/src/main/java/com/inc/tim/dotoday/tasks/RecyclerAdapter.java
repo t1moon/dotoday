@@ -1,5 +1,7 @@
 package com.inc.tim.dotoday.tasks;
 
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -42,7 +44,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
     @Override
     public void onBindViewHolder(RecyclerAdapter.TaskHolder holder, int position) {
         Task itemTask = taskList.get(position);
-        holder.bindTask(itemTask);
+        holder.bindTask(itemTask, holder);
     }
 
     @Override
@@ -92,8 +94,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
             viewForeground.setOnClickListener(this);
         }
 
-        public void bindTask(Task task) {
+        public void bindTask(Task task, RecyclerAdapter.TaskHolder holder) {
             title.setText(task.getTitle());
+            if (task.getIs_completed()) {
+                holder.title.setPaintFlags(holder.title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            } else {
+                holder.title.setPaintFlags(holder.title.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+            }
             description.setText(task.getDescription());
             // Set importance background
             GradientDrawable bgShape = (GradientDrawable)icon.getBackground();

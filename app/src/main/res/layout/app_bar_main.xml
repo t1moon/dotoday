@@ -57,7 +57,8 @@
         app:bb_tabXmlResource="@xml/bottombar_tabs"
         app:bb_behavior="shy|shifting"
         app:bb_inActiveTabColor="#000000"
-        app:bb_activeTabColor="@android:color/white" />
+        app:bb_activeTabColor="@android:color/white"
+        app:bb_titleTextAppearance="@style/bbTitleStyle" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

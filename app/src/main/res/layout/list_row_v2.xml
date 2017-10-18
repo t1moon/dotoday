@@ -139,11 +139,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxEms="30"
+                android:maxEms="10"
                 android:maxLines="1"
                 android:textColor="@color/from"
                 android:textSize="@dimen/msg_text_primary"
-                android:textStyle="normal" />
+                android:fontFamily="sans-serif-light" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -159,6 +159,7 @@
                     android:textColor="@color/secondary_text"
                     android:textSize="@dimen/msg_text_secondary"
                     android:gravity="start"
+                    android:fontFamily="sans-serif-light"
                     android:layout_weight="5"/>
 
                 <TextView
@@ -168,7 +169,8 @@
                     android:textColor="@color/secondary_text"
                     android:textSize="@dimen/msg_text_secondary"
                     android:gravity="end"
-                    android:layout_weight="3"/>
+                    android:layout_weight="3"
+                    android:fontFamily="sans-serif-light"/>
             </LinearLayout>
 
         </LinearLayout>

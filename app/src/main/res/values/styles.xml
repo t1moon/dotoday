@@ -48,6 +48,9 @@
         <item name="android:background">@drawable/background_spinner</item>
     </style>
 
+    <style name="bbTitleStyle" parent="BB_BottomBarItem_TitleStyle">
+        <item name="android:fontFamily">sans-serif-light</item>w
+    </style>
 
 
 </resources>

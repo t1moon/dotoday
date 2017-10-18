@@ -283,9 +283,6 @@ public class TaskFragment extends Fragment implements TasksContract.View,
             case R.id.sort_importance:
                 presenter.setSorting(TasksUtils.Sorting.IMPORTANCE);
                 break;
-            default:
-                presenter.setSorting(TasksUtils.Sorting.IMPORTANCE);
-                break;
         }
         int category = ((TasksActivity) getActivity()).getCurrentCategory();
         presenter.loadCategoryTasks(category);

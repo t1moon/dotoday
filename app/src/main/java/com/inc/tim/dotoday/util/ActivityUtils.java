@@ -22,14 +22,6 @@ public class ActivityUtils {
                 .addToBackStack(null)
                 .commit();
     }
-    public static void addFragmentAnimation(FragmentManager fragmentManager, Fragment fragment, String tag, View view) {
-        fragmentManager
-                .beginTransaction()
-                .replace(R.id.activity_base_content, fragment, tag)
-                .addToBackStack(null)
-                .addSharedElement(view, "Task")
-                .commit();
-    }
 
     public static void replaceFragment(FragmentManager fragmentManager, Fragment fragment, String tag) {
         fragmentManager

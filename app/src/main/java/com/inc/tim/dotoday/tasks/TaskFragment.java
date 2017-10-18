@@ -2,28 +2,25 @@ package com.inc.tim.dotoday.tasks;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.transition.Explode;
+import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.inc.tim.dotoday.R;
@@ -91,7 +88,7 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new RecyclerAdapter(taskList, this);
+        adapter = new RecyclerAdapter(taskList);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -108,7 +105,17 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActivityUtils.addFragment(getActivity().getSupportFragmentManager(), new AddTaskFragment(), "AddTaskFragment");
+                AddTaskFragment fragment = new AddTaskFragment();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Explode explodeTransition = new Explode();
+                    explodeTransition.setDuration(1000);
+                    fragment.setEnterTransition(explodeTransition);
+                    Fade fadeTransition = new Fade();
+                    fadeTransition.setDuration(10);
+                    fragment.setReturnTransition(fadeTransition);
+
+                }
+                ActivityUtils.addFragment(getActivity().getSupportFragmentManager(), fragment, "AddTaskFragment");
             }
         });
         fab.setImageResource(R.drawable.ic_add_24dp);

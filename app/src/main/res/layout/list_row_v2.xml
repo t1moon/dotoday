@@ -121,7 +121,8 @@
         android:paddingLeft="?listPreferredItemPaddingLeft"
         android:paddingRight="?listPreferredItemPaddingRight"
         android:paddingTop="@dimen/padding_list_row"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:transitionName="@string/transition">
 
         <LinearLayout
             android:id="@+id/message_container"

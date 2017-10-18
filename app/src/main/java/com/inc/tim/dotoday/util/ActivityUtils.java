@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.View;
 
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.tasks.TaskFragment;
@@ -19,6 +20,14 @@ public class ActivityUtils {
                 .beginTransaction()
                 .replace(R.id.activity_base_content, fragment, tag)
                 .addToBackStack(null)
+                .commit();
+    }
+    public static void addFragmentAnimation(FragmentManager fragmentManager, Fragment fragment, String tag, View view) {
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.activity_base_content, fragment, tag)
+                .addToBackStack(null)
+                .addSharedElement(view, "Task")
                 .commit();
     }
 

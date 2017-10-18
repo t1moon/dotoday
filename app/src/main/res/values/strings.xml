@@ -26,6 +26,8 @@
 
     <string name="field_required">Это поле обязательно</string>
 
+    <string name="transition">transition</string>
+
     <string name="undo">Отменить</string>
     <string name="delete_undo">Задача удалена</string>
     <string name="delete_completely_undo">Задача удалена полностью</string>

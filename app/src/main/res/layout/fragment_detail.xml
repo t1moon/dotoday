@@ -20,7 +20,8 @@
             app:elevation="0dp"
             app:layout_collapseMode="none"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:transitionName="@string/transition">
 
             <LinearLayout
                 android:layout_width="match_parent"

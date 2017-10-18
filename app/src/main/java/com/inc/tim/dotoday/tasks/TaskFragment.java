@@ -91,7 +91,7 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new RecyclerAdapter(taskList);
+        adapter = new RecyclerAdapter(taskList, this);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());

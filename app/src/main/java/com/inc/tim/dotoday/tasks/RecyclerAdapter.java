@@ -3,8 +3,19 @@ package com.inc.tim.dotoday.tasks;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
+import android.transition.ChangeBounds;
+import android.transition.ChangeImageTransform;
+import android.transition.ChangeTransform;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.TransitionInflater;
+import android.transition.TransitionSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +26,14 @@ import android.widget.Toast;
 
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.data.Task;
+import com.inc.tim.dotoday.taskdetail.DetailsTransition;
 import com.inc.tim.dotoday.taskdetail.TaskDetailFragment;
 import com.inc.tim.dotoday.util.ActivityUtils;
 import com.inc.tim.dotoday.util.CommonUtils;
 
 import java.util.ArrayList;
+
+import static android.transition.TransitionSet.ORDERING_TOGETHER;
 
 /**
  * Created by Timur on 22-Sep-17.
@@ -29,9 +43,11 @@ import java.util.ArrayList;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHolder> {
 
     private static ArrayList<Task> taskList;
+    private static TaskFragment taskFragment;
 
-    public RecyclerAdapter(ArrayList<Task> tasks) {
+    public RecyclerAdapter(ArrayList<Task> tasks, TaskFragment taskFragment) {
         taskList = tasks;
+        this.taskFragment = taskFragment;
     }
 
     @Override
@@ -113,7 +129,71 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
             args.putLong("taskId", taskList.get(getAdapterPosition()).getId());
             TaskDetailFragment fragment = new TaskDetailFragment();
             fragment.setArguments(args);
-            ActivityUtils.addFragment(((TasksActivity)v.getContext()).getSupportFragmentManager(), fragment, "TaskDetailFragment");
+
+ //Get access to or create instances to each fragment
+//            TaskFragment fragmentOne = TaskFragment.newInstance();
+//            TaskDetailFragment fragmentTwo = TaskDetailFragment.newInstance();
+//// Check that the device is running lollipop
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+// Defines enter transition for all fragment views
+                Explode slideTransition = new Explode();
+                slideTransition.setDuration(1000);
+                fragment.setEnterTransition(slideTransition);
+
+// Defines enter transition only for shared element
+                ChangeBounds changeBoundsTransition = new ChangeBounds();
+//                changeBoundsTransition.setDuration(1000);
+//
+                fragment.setSharedElementEnterTransition(changeBoundsTransition);
+                fragment.setEnterTransition(slideTransition);
+                    fragment.setAllowEnterTransitionOverlap(true);
+                    fragment.setAllowReturnTransitionOverlap(true);
+
+
+
+                ((TasksActivity)v.getContext()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.activity_base_content, fragment)
+                        .addSharedElement(viewForeground, "Task")
+                        .commit();
+
+
+//                fragmentTwo.setSharedElementEnterTransition(new DetailsTransition());
+//                fragmentTwo.setEnterTransition(new Explode());
+//                taskFragment.setExitTransition(new Explode());
+//                fragmentTwo.setSharedElementReturnTransition(new DetailsTransition());
+
+//                TransitionSet tasks = new TransitionSet();
+//                tasks.setOrdering(ORDERING_TOGETHER);
+//                tasks.addTransition(new ChangeBounds()).
+//                        addTransition(new ChangeTransform()).
+//                        addTransition(new ChangeImageTransform());
+//                fragmentTwo.setSharedElementEnterTransition(tasks);
+//                fragmentTwo.setEnterTransition(new Fade());
+//                fragmentOne.setExitTransition(new Fade());
+//                fragmentTwo.setSharedElementReturnTransition(tasks);
+                //ActivityUtils.addFragmentAnimation(((TasksActivity) v.getContext()).getSupportFragmentManager(), fragment, "TaskDetailFragment", viewForeground);
+//                // Inflate transitions to apply
+//                android.transition.Transition changeTransform = TransitionInflater.from(v.getContext()).
+//                        inflateTransition(R.transition.change_item_transform);
+//                android.transition.Transition explodeTransform = TransitionInflater.from(v.getContext()).
+//                        inflateTransition(android.R.transition.explode);
+////
+//                // Setup exit transition on first fragment
+//                fragmentOne.setSharedElementReturnTransition(changeTransform);
+//                fragmentOne.setExitTransition(explodeTransform);
+//
+//                // Setup enter transition on second fragment
+//                //fragmentTwo.setSharedElementEnterTransition(changeTransform);
+//                fragmentTwo.setEnterTransition(explodeTransform);
+//
+//                ActivityUtils.addFragmentAnimation(((TasksActivity)v.getContext()).getSupportFragmentManager(), fragment, "TaskDetailFragment", viewForeground);
+//            }
+//            else {
+//                ActivityUtils.addFragment(((TasksActivity)v.getContext()).getSupportFragmentManager(), fragment, "TaskDetailFragment");
+//            }
+            }
+
         }
 
     }

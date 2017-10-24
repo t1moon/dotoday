@@ -32,9 +32,9 @@
     <string name="restore_undo">Задача восстановлена</string>
 
     <string name="focus">Делай</string>
-    <string name="goal">Решай</string>
+    <string name="goal">Планируй</string>
     <string name="delegate">Поручи</string>
-    <string name="trash">Удали</string>
+    <string name="trash">Избавься</string>
 
     <string-array name="categories_array">
         <item>@string/focus</item>

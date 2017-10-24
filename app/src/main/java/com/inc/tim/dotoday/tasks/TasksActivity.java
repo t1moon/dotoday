@@ -1,7 +1,10 @@
 package com.inc.tim.dotoday.tasks;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.inc.tim.dotoday.R;
+import com.inc.tim.dotoday.intro.IntroActivity;
 import com.inc.tim.dotoday.util.ActivityUtils;
 import com.roughike.bottombar.BottomBar;
 
@@ -21,6 +25,9 @@ public class TasksActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        showIntroIfFirstStart();
+
         setContentView(R.layout.activity_main);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -77,6 +84,23 @@ public class TasksActivity extends AppCompatActivity {
         });
 
     }
+
+    private void showIntroIfFirstStart() {
+        //  Initialize SharedPreferences
+        SharedPreferences getPrefs = PreferenceManager
+                .getDefaultSharedPreferences(getBaseContext());
+        //  Create a new boolean and preference and set it to true
+        boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
+        //  If the activity has never started before...
+        if (isFirstStart) {
+            //  Launch app intro
+            final Intent i = new Intent(TasksActivity.this, IntroActivity.class);
+            startActivity(i);
+            //  Make a new preferences editor
+
+        }
+    }
+
     public int getCurrentCategory() {
         return currentCategory;
     }

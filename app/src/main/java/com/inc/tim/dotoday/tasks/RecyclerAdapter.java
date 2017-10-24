@@ -117,7 +117,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
                 date.setText(dest.format(newDate));
                 date.setTextColor(CommonUtils.ColorUtil.MATERIAL_COLORS[task.getCategory()]);
             } catch (ParseException e) {
-                Log.d("Exception",e.getMessage());
+                date.setText(R.string.default_date);
+                date.setTextColor(CommonUtils.ColorUtil.MATERIAL_COLORS[task.getCategory()]);
             }
 
             // Set importance background

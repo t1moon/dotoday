@@ -93,11 +93,6 @@ public class TasksActivity extends AppCompatActivity {
         boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
         //  If the activity has never started before...
         if (isFirstStart) {
-            getPrefs
-                    .edit()
-                    .putBoolean("firstStart", false)
-                    .apply();
-
             //  Launch app intro
             final Intent i = new Intent(TasksActivity.this, IntroActivity.class);
             startActivity(i);

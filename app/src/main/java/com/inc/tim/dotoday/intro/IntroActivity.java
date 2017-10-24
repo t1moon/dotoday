@@ -2,6 +2,7 @@ package com.inc.tim.dotoday.intro;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
@@ -57,18 +58,26 @@ public class IntroActivity extends AppIntro2 {
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
+        markAsPassed();
         goToTaskActivity();
-    }
-
-    private void goToTaskActivity() {
-        Intent intent = new Intent(IntroActivity.this, TasksActivity.class);
-        startActivity(intent);
     }
 
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
+        markAsPassed();
         goToTaskActivity();
+    }
+    private void markAsPassed() {
+        PreferenceManager
+                .getDefaultSharedPreferences(getBaseContext()).edit()
+                .putBoolean("firstStart", false)
+                .apply();
+    }
+
+    private void goToTaskActivity() {
+        Intent intent = new Intent(IntroActivity.this, TasksActivity.class);
+        startActivity(intent);
     }
 
     @Override

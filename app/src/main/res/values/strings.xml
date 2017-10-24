@@ -1,11 +1,61 @@
 <resources>
-    <string name="app_name">DoToDay</string>
+    <string name="app_name">4Today</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="task_edited">Задача отредактирована</string>
+    <string name="task_created">Задача создана</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="sort">Сортировка</string>
+    <string name="sort_date">По дате создания</string>
+    <string name="sort_importance">По важности</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="filter">Фильтр</string>
+    <string name="filter_active">Активные</string>
+    <string name="filter_completed">Выполненные</string>
+    <string name="filter_deleted">Архив</string>
+
+    <string name="action_settings">Настройки</string>
+    <string name="pick_category">Выберите категорию</string>
+    <string name="importance">Важность задачи</string>
+    <string name="archive">В архив</string>
+    <string name="delete_completely">Удалить полностью</string>
+    <string name="complete">Выполнить</string>
+    <string name="restore">Восстановить</string>
+
+    <string name="field_required">Это поле обязательно</string>
+
+    <string name="transition">transition</string>
+
+    <string name="undo">Отменить</string>
+    <string name="delete_undo">Задача удалена</string>
+    <string name="delete_completely_undo">Задача удалена полностью</string>
+    <string name="complete_undo">Задача выполнена</string>
+    <string name="restore_undo">Задача восстановлена</string>
+
+    <string name="focus">Делай</string>
+    <string name="goal">Планируй</string>
+    <string name="delegate">Поручи</string>
+    <string name="trash">Избавься</string>
+
+    <string-array name="categories_array">
+        <item>@string/focus</item>
+        <item>@string/goal</item>
+        <item>@string/delegate</item>
+        <item>@string/trash</item>
+    </string-array>
+
+
+    <string name="intro_title">Матрица Эйзенхауэра</string>
+    <string name="intro_description">Она поможет Вам распределить все Ваши дела по 4 категориям</string>
+
+    <string name="focus_title">@string/focus</string>
+    <string name="focus_description">Срочно и важно.\nЛевый верхний квадрант.\nНужно сделать незамедлительно</string>
+
+    <string name="goal_title">@string/goal</string>
+    <string name="goal_description">Важно, но не срочно.\nПравый верхний квадрант.\nРаспланируй время, чтобы сделать это</string>
+
+    <string name="delegate_title">@string/delegate</string>
+    <string name="delegate_description">Не важно, но срочно.\nЛевый нижний квадрант.\nКто может сделать это за Вас?</string>
+
+    <string name="throw_title">@string/trash</string>
+    <string name="throw_description">Не срочно и не важно.\nПравый нижний квадрант.\nМожет лучше этим не заниматься?</string>
 </resources>

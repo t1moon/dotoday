@@ -2,41 +2,50 @@ package com.inc.tim.dotoday.taskdetail;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import com.inc.tim.dotoday.R;
-import com.inc.tim.dotoday.TasksApplication;
-import com.inc.tim.dotoday.addtask.AddTaskFragment;
 import com.inc.tim.dotoday.data.Task;
-import com.inc.tim.dotoday.tasks.TaskFragment;
-import com.inc.tim.dotoday.tasks.TasksContract;
-import com.inc.tim.dotoday.tasks.TasksPresenter;
+import com.inc.tim.dotoday.tasks.TasksActivity;
 import com.inc.tim.dotoday.util.ActivityUtils;
-import com.inc.tim.dotoday.util.CategoryView;
+import com.inc.tim.dotoday.util.CommonUtils;
+import com.inc.tim.dotoday.util.ToolbarUtils;
+import com.sdsmdg.harjot.crollerTest.Croller;
 
-import java.util.List;
+import static com.inc.tim.dotoday.R.id.spinner_nav;
 
 public class TaskDetailFragment extends Fragment implements DetailContract.View{
-    final static double RESIZE_PARAM = 1.2;
     private long taskId;
     private DetailContract.Presenter presenter;
-    private EditText title_et;
-
-    private CategoryView categoryViewFocus;
-    private CategoryView categoryViewGoal;
-
+    AppBarLayout appBarLayout;
+    Toolbar toolbar;
+    Toolbar toolbar1;
+    Croller croller;
+    Spinner spinner;
+    private int importance;
+    private int category;
+    EditText title;
+    EditText description;
+    TextInputLayout til_title;
 
     public TaskDetailFragment() {
         // Required empty public constructor
-    }
-    public static TaskDetailFragment newInstance() {
-        return new TaskDetailFragment();
     }
 
     @Override
@@ -58,70 +67,68 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
         taskId = getArguments().getLong("taskId");
-        title_et = (EditText) view.findViewById(R.id.detail_title_et);
 
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appbar_layout);
+        croller = (Croller) view.findViewById(R.id.detail_croller);
+        toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar1 = (Toolbar) view. findViewById(R.id.detail_toolbar_2);
+        til_title = (TextInputLayout) view.findViewById(R.id.detail_til_title);
+        title  = (EditText) view.findViewById(R.id.detail_task_title_et);
+        description = (EditText) view.findViewById(R.id.detail_task_description);
+        spinner = (Spinner) getActivity().findViewById(spinner_nav);
+
+        addItemsToSpinner();
+
+        croller.setOnProgressChangedListener(new Croller.onProgressChangedListener() {
             @Override
-            public void onClick(View view) {
-                Task task = new Task();
-                task.setTitle(title_et.getText().toString());
-                presenter.editTask(task, taskId);
+            public void onProgressChanged(int progress) {
+                // use the progress
+                importance = progress;
             }
         });
-
-        categoryViewFocus = (CategoryView) view.findViewById(R.id.categoryViewFocus);
-
-
-        categoryViewFocus.setChosen(true);
-        ViewGroup.LayoutParams params = categoryViewFocus.getLayoutParams();
-        params.height *= RESIZE_PARAM;
-        params.width *= RESIZE_PARAM;
-        categoryViewFocus.setLayoutParams(params);
-
-
-        categoryViewGoal = (CategoryView) view.findViewById(R.id.categoryViewGoal);
-
-        categoryViewFocus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewGroup.LayoutParams params = v.getLayoutParams();
-                if (!((CategoryView) v).isChosen()) {
-                    params.height*=RESIZE_PARAM;
-                    params.width*=RESIZE_PARAM;
-                    ((CategoryView) v).setChosen(true);
-
-                    categoryViewGoal.getLayoutParams().height /=RESIZE_PARAM;
-                    categoryViewGoal.getLayoutParams().width /= RESIZE_PARAM;
-                    categoryViewGoal.setChosen(false);
-                }
-
-                v.setLayoutParams(params);
-            }
-        });
-
-        categoryViewGoal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewGroup.LayoutParams params = v.getLayoutParams();
-                if (!((CategoryView) v).isChosen())
-                {
-                    params.height *= RESIZE_PARAM;
-                    params.width *= RESIZE_PARAM;
-                    ((CategoryView) v).setChosen(true);
-
-                    categoryViewFocus.getLayoutParams().height /= RESIZE_PARAM;
-                    categoryViewFocus.getLayoutParams().width /= RESIZE_PARAM;
-                    categoryViewFocus.setChosen(false);
-                }
-
-                v.setLayoutParams(params);
-            }
-        });
-
+        setHasOptionsMenu(true);
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.done, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean isValid = isValid();
+        if (!isValid)
+            return false;
+
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case R.id.continue_btn:
+                int category =((TasksActivity) getActivity()).getCurrentCategory();
+                ((TasksActivity) getActivity()).setBottomBarSelected(false);
+                presenter.editTask(title.getText().toString(),
+                        description.getText().toString(),
+                        importance,
+                        category,
+                        taskId);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private boolean isValid() {
+        if( title.getText().toString().length() == 0 ) {
+            til_title.setError(getString(R.string.field_required));
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        spinner.setVisibility(Spinner.GONE);
+        ToolbarUtils.returnToolbar(appBarLayout, ((TasksActivity) getActivity()).getSupportActionBar());
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -131,15 +138,54 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
 
     @Override
     public void showTask(Task task) {
-        title_et.setText(task.getTitle());
+        title.setText(task.getTitle());
+        description.setText(task.getDescription());
+        category = task.getCategory();
+
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        ToolbarUtils.changeDetailToolbar(activity, activity.getSupportActionBar(), toolbar,
+                toolbar1, appBarLayout);
+
+        spinner.setSelection(category);
+        spinner.setVisibility(Spinner.VISIBLE);
+
+        croller.setProgress(task.getImportance());
+        croller.setIndicatorColor(CommonUtils.ColorUtil.MATERIAL_COLORS[category]);
+        croller.setProgressPrimaryColor(CommonUtils.ColorUtil.MATERIAL_COLORS[category]);
+        croller.setBackCircleColor(CommonUtils.ColorUtil.MATERIAL_COLORS_LIGHT[category]);
     }
 
     @Override
     public void notifyEdited() {
         if (getView() != null) {
-            Snackbar.make(getView(), "Task edited", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getView(), getString(R.string.task_edited), Snackbar.LENGTH_SHORT).show();
         }
         ActivityUtils.popFragment(getActivity().getSupportFragmentManager());
+    }
+
+    private void addItemsToSpinner() {
+        final String[] categories = getResources().getStringArray(R.array.categories_array);
+        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(getActivity(),
+                R.layout.spinner_dropdown, categories);
+        spinner.setAdapter(spinnerAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (getActivity() != null) {
+                    AppCompatActivity activity = (AppCompatActivity) getActivity();
+                    Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+                    Toolbar toolbar2 = (Toolbar) activity.findViewById(R.id.detail_toolbar_2);
+                    ToolbarUtils.changeAddToolbarColor(activity, position, toolbar, toolbar2, spinner, croller);
+                    ((TasksActivity) getActivity()).setCurrentCategory(position);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
 

@@ -1,13 +1,7 @@
 package com.inc.tim.dotoday.taskdetail;
 
-import com.inc.tim.dotoday.commons.BasePresenter;
 import com.inc.tim.dotoday.data.Task;
 
-import java.util.List;
-
-/**
- * Created by Timur on 21-Sep-17.
- */
 
 public interface DetailContract {
 
@@ -20,12 +14,7 @@ public interface DetailContract {
     /* User actions */
     interface Presenter {
         void loadTask(long id);
-        void editTask(Task editedTask, long id);
-
+        void editTask(String title, String description, int importance, int category, long id);
     }
 
-    /* Work with data */
-    interface Repository {
-        void saveTask(Task task);
-    }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        icon="@drawable/focus"
+        id="@+id/tab_focus"
+        title="@string/focus"
+        barColorWhenSelected="@color/red"/>
+    <tab
+        icon="@drawable/goal"
+        id="@+id/tab_goal"
+        title="@string/goal"
+        barColorWhenSelected="@color/indigo"/>
+    <tab
+        icon="@drawable/delegate"
+        id="@+id/tab_delegate"
+        title="@string/delegate"
+        barColorWhenSelected="@color/amber"/>
+    <tab
+        icon="@drawable/delete"
+        id="@+id/tab_throw"
+        title="@string/trash"
+        barColorWhenSelected="@color/purple"/>
+</tabs>

@@ -4,10 +4,6 @@ import android.content.Context;
 
 import com.inc.tim.dotoday.TasksApplication;
 import com.inc.tim.dotoday.data.Task;
-import com.inc.tim.dotoday.tasks.TasksContract;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DetailPresenter implements DetailContract.Presenter{
     private final DetailContract.View view;
@@ -28,10 +24,14 @@ public class DetailPresenter implements DetailContract.Presenter{
     }
 
     @Override
-    public void editTask(Task editedTask, long id) {
+    public void editTask(String title, String description, int importance, int category, long id) {
         Task dbTask = ((TasksApplication) context.getApplicationContext()).getDaoSession().getTaskDao().load(id);
-        dbTask.setTitle(editedTask.getTitle());
+        dbTask.setTitle(title);
+        dbTask.setDescription(description);
+        dbTask.setImportance(importance);
+        dbTask.setCategory(category);
         ((TasksApplication) context.getApplicationContext()).getDaoSession().getTaskDao().update(dbTask);
         view.notifyEdited();
     }
+
 }

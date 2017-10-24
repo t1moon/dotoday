@@ -34,5 +34,12 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     testCompile 'junit:junit:4.12'
 
+    /* Circular bar for importance */
+    compile 'com.sdsmdg.harjot:croller:1.0.5'
+
     compile 'org.greenrobot:greendao:3.2.2'
+
+    //Bottom bar
+    compile 'com.roughike:bottom-bar:2.3.1'
+    compile 'com.github.apl-devs:appintro:v4.2.2'
 }

@@ -5,11 +5,6 @@ import android.app.Application;
 import com.inc.tim.dotoday.data.DaoMaster;
 import com.inc.tim.dotoday.data.DaoSession;
 import com.inc.tim.dotoday.data.DbOpenHelper;
-import com.inc.tim.dotoday.data.Task;
-
-/**
- * Created by Timur on 22-Sep-17.
- */
 
 public class TasksApplication extends Application {
 
@@ -25,9 +20,7 @@ public class TasksApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        daoSession = new DaoMaster(new DbOpenHelper(this, "task.db").getWritableDb()).newSession();
-        if(daoSession.getTaskDao().loadAll().size() == 0) {
-            daoSession.getTaskDao().insert(new Task(1L, "Test todo"));}
+        daoSession = new DaoMaster(new DbOpenHelper(this, "task_db.db").getWritableDb()).newSession();
         INSTANCE = this;
     }
 

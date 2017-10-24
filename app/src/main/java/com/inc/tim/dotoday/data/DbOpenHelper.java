@@ -5,10 +5,6 @@ import android.util.Log;
 
 import org.greenrobot.greendao.database.Database;
 
-/**
- * Created by Timur on 22-Sep-17.
- */
-
 public class DbOpenHelper extends DaoMaster.OpenHelper {
 
     public DbOpenHelper(Context context, String name) {

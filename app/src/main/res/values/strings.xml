@@ -42,4 +42,20 @@
         <item>@string/delegate</item>
         <item>@string/trash</item>
     </string-array>
+
+
+    <string name="intro_title">Матрица Эйзенхауэра</string>
+    <string name="intro_description">Она поможет Вам распределить все Ваши дела по 4 категориям</string>
+
+    <string name="focus_title">@string/focus</string>
+    <string name="focus_description">Срочно и важно.\nЛевый верхний квадрант.\nНужно сделать незамедлительно</string>
+
+    <string name="goal_title">@string/goal</string>
+    <string name="goal_description">Важно, но не срочно.\nПравый верхний квадрант.\nРаспланируй время, чтобы сделать это</string>
+
+    <string name="delegate_title">@string/delegate</string>
+    <string name="delegate_description">Не важно, но срочно.\nЛевый нижний квадрант.\nКто может сделать это за Вас?</string>
+
+    <string name="throw_title">@string/trash</string>
+    <string name="throw_description">Не срочно и не важно.\nПравый нижний квадрант.\nМожет лучше этим не заниматься?</string>
 </resources>

@@ -1,12 +1,8 @@
 package com.inc.tim.dotoday.taskdetail;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -18,8 +14,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -35,8 +29,6 @@ import com.inc.tim.dotoday.util.ToolbarUtils;
 import com.sdsmdg.harjot.crollerTest.Croller;
 
 import static com.inc.tim.dotoday.R.id.spinner_nav;
-import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.MATERIAL_COLORS;
-import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.STATUSBAR_MATERIAL_COLORS;
 
 public class TaskDetailFragment extends Fragment implements DetailContract.View{
     private long taskId;
@@ -54,9 +46,6 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
 
     public TaskDetailFragment() {
         // Required empty public constructor
-    }
-    public static TaskDetailFragment newInstance() {
-        return new TaskDetailFragment();
     }
 
     @Override
@@ -80,16 +69,15 @@ public class TaskDetailFragment extends Fragment implements DetailContract.View{
         taskId = getArguments().getLong("taskId");
 
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appbar_layout);
+        croller = (Croller) view.findViewById(R.id.detail_croller);
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbar1 = (Toolbar) view. findViewById(R.id.detail_toolbar_2);
         til_title = (TextInputLayout) view.findViewById(R.id.detail_til_title);
         title  = (EditText) view.findViewById(R.id.detail_task_title_et);
         description = (EditText) view.findViewById(R.id.detail_task_description);
-
         spinner = (Spinner) getActivity().findViewById(spinner_nav);
-        addItemsToSpinner();
 
-        croller = (Croller) view.findViewById(R.id.detail_croller);
+        addItemsToSpinner();
 
         croller.setOnProgressChangedListener(new Croller.onProgressChangedListener() {
             @Override

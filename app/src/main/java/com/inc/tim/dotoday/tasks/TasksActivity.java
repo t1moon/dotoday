@@ -28,6 +28,8 @@ public class TasksActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         ActivityUtils.replaceFragment(getSupportFragmentManager(),new TaskFragment(), "TaskFragment");
+
+        // manage fragment backstack
         getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
@@ -36,7 +38,6 @@ public class TasksActivity extends AppCompatActivity {
                     /* when you are at home screen, change icon to default and disable as up*/
                     getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_left_24dp);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
                 }
                 else
                 {
@@ -54,17 +55,16 @@ public class TasksActivity extends AppCompatActivity {
             }
         });
 
+        // init bottom bar
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-
                 if (getCurrentFocus() != null) {
                     //hide keyboard
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                 }
-
                 FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
                 if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                     fab.hide();
@@ -84,7 +84,6 @@ public class TasksActivity extends AppCompatActivity {
     public void setCurrentCategory(int currentCategory) {
         this.currentCategory = currentCategory;
     }
-
 
     public boolean isBottomBarSelected() {
         return bottomBarSelected;

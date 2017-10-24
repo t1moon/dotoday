@@ -54,41 +54,10 @@ public class TaskFragment extends Fragment implements TasksContract.View,
     public TaskFragment() {
         // Required empty public constructor
     }
-    public static TaskFragment newInstance() {
-        return new TaskFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new TasksPresenter(this, getActivity().getApplicationContext());
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        // SET FILTERING TITLE
-        if (!((TasksActivity) getActivity()).isBottomBarSelected())
-            presenter.setFiltering(TasksUtils.Filtering.ACTIVE);
-        setToolbarTitle();
-        ((TasksActivity) getActivity()).setBottomBarSelected(true); // access for further selection
-        int category = ((TasksActivity) getActivity()).getCurrentCategory();
-        bottomBar.selectTabAtPosition(category);// select in right category
-        presenter.loadCategoryTasks(category);
-    }
-
-    private void setToolbarTitle() {
-        switch (presenter.getFiltering()) {
-            case ACTIVE:
-                ((TextView) (getActivity().findViewById(R.id.toolbar_title))).setText(R.string.filter_active);
-                break;
-            case COMPLETED:
-                ((TextView) (getActivity().findViewById(R.id.toolbar_title))).setText(R.string.filter_completed);
-                break;
-            case DELETED:
-                ((TextView) (getActivity().findViewById(R.id.toolbar_title))).setText(R.string.filter_deleted);
-                break;
-        }
     }
 
     @Override
@@ -97,17 +66,17 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_task, container, false);
 
-
         no_task_tv = (TextView) view.findViewById(R.id.no_task_tv);
         recyclerView = (RecyclerView) view.findViewById(R.id.tasks_list);
+
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
-
         adapter = new RecyclerAdapter(taskList);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        // Init swipe
         ItemTouchHelper.SimpleCallback itemTouchHelperLeftCallback = new RecyclerItemTouchHelperLeft(
                 0, ItemTouchHelper.LEFT, this);
         ItemTouchHelper.SimpleCallback itemTouchHelperRightCallback = new RecyclerItemTouchHelperRight(
@@ -120,6 +89,7 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Change fragment with animation
                 AddTaskFragment fragment = new AddTaskFragment();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     Explode explodeTransition = new Explode();
@@ -128,7 +98,6 @@ public class TaskFragment extends Fragment implements TasksContract.View,
                     Fade fadeTransition = new Fade();
                     fadeTransition.setDuration(10);
                     fragment.setReturnTransition(fadeTransition);
-
                 }
                 ActivityUtils.addFragment(getActivity().getSupportFragmentManager(), fragment, "AddTaskFragment");
             }
@@ -136,8 +105,6 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         fab.setImageResource(R.drawable.ic_add_24dp);
 
         bottomBar = (BottomBar) getActivity().findViewById(R.id.bottomBar);
-        for (int i = 0; i < bottomBar.getTabCount(); i++)
-        { bottomBar.getTabAtPosition(i).setGravity(Gravity.CENTER_HORIZONTAL); }
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
@@ -169,6 +136,33 @@ public class TaskFragment extends Fragment implements TasksContract.View,
         });
         setHasOptionsMenu(true);
         return view;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        // SET FILTERING TITLE
+        if (!((TasksActivity) getActivity()).isBottomBarSelected())
+            presenter.setFiltering(TasksUtils.Filtering.ACTIVE);
+        setToolbarTitle();
+        ((TasksActivity) getActivity()).setBottomBarSelected(true); // access for further selection
+        int category = ((TasksActivity) getActivity()).getCurrentCategory();
+        bottomBar.selectTabAtPosition(category);// select in right category
+        presenter.loadCategoryTasks(category);
+    }
+
+    private void setToolbarTitle() {
+        switch (presenter.getFiltering()) {
+            case ACTIVE:
+                ((TextView) (getActivity().findViewById(R.id.toolbar_title))).setText(R.string.filter_active);
+                break;
+            case COMPLETED:
+                ((TextView) (getActivity().findViewById(R.id.toolbar_title))).setText(R.string.filter_completed);
+                break;
+            case DELETED:
+                ((TextView) (getActivity().findViewById(R.id.toolbar_title))).setText(R.string.filter_deleted);
+                break;
+        }
     }
 
     /**
@@ -271,9 +265,6 @@ public class TaskFragment extends Fragment implements TasksContract.View,
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         switch (id) {

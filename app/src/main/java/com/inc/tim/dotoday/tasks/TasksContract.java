@@ -5,9 +5,6 @@ import com.inc.tim.dotoday.util.TasksUtils;
 
 import java.util.List;
 
-/**
- * Created by Timur on 21-Sep-17.
- */
 
 public interface TasksContract {
 

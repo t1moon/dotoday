@@ -2,10 +2,6 @@ package com.inc.tim.dotoday.util;
 
 import android.graphics.Color;
 
-/**
- * Created by Timur on 02-Oct-17.
- */
-
 public class CommonUtils {
 
     public static class ColorUtil {

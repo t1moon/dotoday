@@ -4,10 +4,6 @@ import android.content.Context;
 
 import com.inc.tim.dotoday.TasksApplication;
 import com.inc.tim.dotoday.data.Task;
-import com.inc.tim.dotoday.tasks.TasksContract;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DetailPresenter implements DetailContract.Presenter{
     private final DetailContract.View view;

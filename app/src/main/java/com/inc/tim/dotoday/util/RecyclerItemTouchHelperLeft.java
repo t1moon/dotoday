@@ -11,9 +11,6 @@ import com.inc.tim.dotoday.tasks.TaskFragment;
 
 import java.util.ArrayList;
 
-/**
- * Created by Timur on 04-Oct-17.
- */
 
 public class RecyclerItemTouchHelperLeft extends ItemTouchHelper.SimpleCallback {
     private RecyclerItemTouchHelperListener listener;

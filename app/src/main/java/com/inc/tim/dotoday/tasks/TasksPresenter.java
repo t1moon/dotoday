@@ -9,7 +9,6 @@ import com.inc.tim.dotoday.util.TasksUtils;
 
 import org.greenrobot.greendao.Property;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TasksPresenter implements TasksContract.Presenter {

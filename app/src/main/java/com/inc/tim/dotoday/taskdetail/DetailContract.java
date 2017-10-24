@@ -2,9 +2,6 @@ package com.inc.tim.dotoday.taskdetail;
 
 import com.inc.tim.dotoday.data.Task;
 
-/**
- * Created by Timur on 21-Sep-17.
- */
 
 public interface DetailContract {
 
@@ -20,8 +17,4 @@ public interface DetailContract {
         void editTask(String title, String description, int importance, int category, long id);
     }
 
-    /* Work with data */
-    interface Repository {
-        void saveTask(Task task);
-    }
 }

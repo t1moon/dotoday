@@ -5,14 +5,6 @@ import android.app.Application;
 import com.inc.tim.dotoday.data.DaoMaster;
 import com.inc.tim.dotoday.data.DaoSession;
 import com.inc.tim.dotoday.data.DbOpenHelper;
-import com.inc.tim.dotoday.data.Task;
-import com.inc.tim.dotoday.data.TaskDao;
-
-import java.util.Calendar;
-
-/**
- * Created by Timur on 22-Sep-17.
- */
 
 public class TasksApplication extends Application {
 

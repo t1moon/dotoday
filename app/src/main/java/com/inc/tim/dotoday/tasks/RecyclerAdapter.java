@@ -1,34 +1,22 @@
 package com.inc.tim.dotoday.tasks;
 
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
-import android.transition.ChangeBounds;
-import android.transition.ChangeImageTransform;
-import android.transition.ChangeTransform;
 import android.transition.Explode;
 import android.transition.Fade;
-import android.transition.Slide;
-import android.transition.TransitionInflater;
-import android.transition.TransitionSet;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.data.Task;
-import com.inc.tim.dotoday.taskdetail.DetailsTransition;
 import com.inc.tim.dotoday.taskdetail.TaskDetailFragment;
 import com.inc.tim.dotoday.util.ActivityUtils;
 import com.inc.tim.dotoday.util.CommonUtils;
@@ -38,12 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-
-import static android.transition.TransitionSet.ORDERING_TOGETHER;
-
-/**
- * Created by Timur on 22-Sep-17.
- */
 
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHolder> {
@@ -57,7 +39,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
     @Override
     public RecyclerAdapter.TaskHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_row_v2, parent, false);
+                .inflate(R.layout.list_row, parent, false);
         return new TaskHolder(inflatedView);
     }
 
@@ -153,16 +135,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
             fragment.setArguments(args);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
                 Explode explodeTransition = new Explode();
                 explodeTransition.setDuration(1000);
                 fragment.setEnterTransition(explodeTransition);
                 Fade fadeTransition = new Fade();
                 fadeTransition.setDuration(10);
                 fragment.setReturnTransition(fadeTransition);
-
             }
-
             ActivityUtils.addFragment(((TasksActivity) v.getContext()).getSupportFragmentManager(), fragment, "TaskDetailFragment");
 
         }

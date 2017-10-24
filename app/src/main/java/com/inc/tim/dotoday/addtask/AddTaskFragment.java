@@ -3,9 +3,7 @@ package com.inc.tim.dotoday.addtask;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
-import android.widget.Toast;
 
 import com.inc.tim.dotoday.R;
 import com.inc.tim.dotoday.tasks.TasksActivity;
@@ -47,10 +44,6 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
 
     public AddTaskFragment() {
         // Required empty public constructor
-    }
-
-    public static AddTaskFragment newInstance() {
-        return new AddTaskFragment();
     }
 
     @Override

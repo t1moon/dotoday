@@ -4,14 +4,11 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Spinner;
 
 import com.inc.tim.dotoday.R;
@@ -20,10 +17,6 @@ import com.sdsmdg.harjot.crollerTest.Croller;
 
 import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.MATERIAL_COLORS;
 import static com.inc.tim.dotoday.util.CommonUtils.ColorUtil.STATUSBAR_MATERIAL_COLORS;
-
-/**
- * Created by Timur on 05-Oct-17.
- */
 
 public class ToolbarUtils {
 

@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Explode;
-import android.transition.Fade;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -136,11 +135,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.TaskHo
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Explode explodeTransition = new Explode();
-                explodeTransition.setDuration(1000);
+                Explode explodeTransitionExit = new Explode();
+                explodeTransition.setDuration(600);
+                explodeTransitionExit.setDuration(300);
                 fragment.setEnterTransition(explodeTransition);
-                Fade fadeTransition = new Fade();
-                fadeTransition.setDuration(10);
-                fragment.setReturnTransition(fadeTransition);
+                fragment.setReturnTransition(explodeTransitionExit);
             }
             ActivityUtils.addFragment(((TasksActivity) v.getContext()).getSupportFragmentManager(), fragment, "TaskDetailFragment");
 

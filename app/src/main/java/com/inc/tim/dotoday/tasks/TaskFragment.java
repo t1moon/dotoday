@@ -93,11 +93,11 @@ public class TaskFragment extends Fragment implements TasksContract.View,
                 AddTaskFragment fragment = new AddTaskFragment();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     Explode explodeTransition = new Explode();
-                    explodeTransition.setDuration(1000);
+                    Explode explodeTransitionExit = new Explode();
+                    explodeTransition.setDuration(600);
+                    explodeTransitionExit.setDuration(300);
                     fragment.setEnterTransition(explodeTransition);
-                    Fade fadeTransition = new Fade();
-                    fadeTransition.setDuration(10);
-                    fragment.setReturnTransition(fadeTransition);
+                    fragment.setReturnTransition(explodeTransitionExit);
                 }
                 ActivityUtils.addFragment(getActivity().getSupportFragmentManager(), fragment, "AddTaskFragment");
             }

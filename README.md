@@ -19,4 +19,4 @@
 ![phone screenshot 1](https://user-images.githubusercontent.com/18073072/31987408-6d07eb92-b974-11e7-9514-dcfa4d7a2b23.jpg)
 ![phone screenshot 2](https://user-images.githubusercontent.com/18073072/31987409-6d293568-b974-11e7-8116-da6d0ee6b833.jpg)
 ![phone screenshot 3](https://user-images.githubusercontent.com/18073072/31987410-6d4c1416-b974-11e7-9246-0ad9f7d2bcec.jpg)
-![phone screenshot 4](https://user-images.githubusercontent.com/18073072/31987411-6d71f69a-b974-11e7-918e-1e468f38c266.jpg
+![phone screenshot 4](https://user-images.githubusercontent.com/18073072/31987411-6d71f69a-b974-11e7-918e-1e468f38c266.jpg)
